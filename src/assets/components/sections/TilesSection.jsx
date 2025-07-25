@@ -69,7 +69,12 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
               : 0;
           const weightedValue = avgPlatinum * arcane.weight;
 
-          return { arcaneId: arcane.id, avgPlatinum, weightedValue };
+          return {
+            id: arcane.id,
+            name: arcane.name,
+            avgPlatinum,
+            weightedValue,
+          };
         })
     );
 
@@ -127,20 +132,35 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             <>
               {/* Fetched Arcanes List */}
               <div className="mb-6">
-                <h2 className="text-xl font-bold text-blue-100 mb-2">Fetched Arcanes (Cavia)</h2>
+                <h2 className="text-xl font-bold text-blue-100 mb-2">
+                  Fetched Arcanes (Cavia)
+                </h2>
                 <ul className="space-y-2">
-                  {(fetchedArcanes.current.get("cavia") || []).map((arcane, idx) => (
-                    <li key={arcane.arcaneId || idx} className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center">
-                      <span className="text-blue-200 font-semibold">{arcane.arcaneId}</span>
-                      <span className="text-blue-300">Avg: {arcane.avgPlatinum.toFixed(2)}</span>
-                      <span className="text-blue-400">Weighted: {arcane.weightedValue.toFixed(2)}</span>
-                    </li>
-                  ))}
+                  {(fetchedArcanes.current.get("cavia") || []).map(
+                    (arcane, idx) => (
+                      <li
+                        key={arcane.id || idx}
+                        className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
+                      >
+                        <span className="text-blue-200 font-semibold">
+                          {arcane.name}
+                        </span>
+                        <span className="text-blue-300">
+                          Avg: {arcane.avgPlatinum.toFixed(2)}
+                        </span>
+                        <span className="text-blue-400">
+                          Weighted: {arcane.weightedValue.toFixed(2)}
+                        </span>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
               {/* Avg Weighted Value */}
               <div className="mb-6">
-                <h3 className="text-lg font-bold text-blue-100">Total Weighted Value</h3>
+                <h3 className="text-lg font-bold text-blue-100">
+                  Total Weighted Value
+                </h3>
                 <div className="text-2xl font-bold text-green-400">
                   {avgWeightedValues.current.get("cavia") !== undefined
                     ? avgWeightedValues.current.get("cavia").toFixed(2)
