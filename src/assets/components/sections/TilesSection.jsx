@@ -5,6 +5,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   // Track which tiles have already triggered the API request
   const fetchedTiles = useRef(new Set());
   const fetchedArcanes = useRef(new Map());
+  const avgWeightedValues = useRef(new Map());
 
   const stats = [
     { icon: Users, label: "Active Users", value: "12.4K", change: "+12%" },
@@ -33,6 +34,16 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
     },
   ];
 
+  const calculateAvgWeightedValues = (tileId, weightedArcanes) => {
+    let totalWeigtedValue = 0;
+    weightedArcanes.forEach((arcane) => {
+      totalWeigtedValue += arcane.weightedValue;
+    });
+
+    avgWeightedValues.current.set(tileId, totalWeigtedValue);
+    console.log(avgWeightedValues.current.get(tileId));
+  };
+
   // Function to fetch data for a tile
   const fetchTileData = async (arcanes, tileId) => {
     const type = "sell";
@@ -57,14 +68,15 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                 cheapestFive.length
               : 0;
           const weightedValue = avgPlatinum * arcane.weight;
+
           return { arcaneId: arcane.id, avgPlatinum, weightedValue };
         })
     );
 
-    const results = await Promise.all(request);
+    const arcanesWithWeightedValue = await Promise.all(request);
 
-    fetchedArcanes.current.set(tileId, results);
-    console.log(fetchedArcanes.current.get(tileId));
+    calculateAvgWeightedValues(tileId, arcanesWithWeightedValue);
+    fetchedArcanes.current.set(tileId, arcanesWithWeightedValue);
   };
 
   return (
@@ -113,29 +125,27 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
         <div className="space-y-8">
           {activeTab === "cavia" && (
             <>
-              {/* Stats Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-br from-blue-950 via-blue-900 to-black/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-900 hover:bg-blue-900/60 transition-all duration-300 hover:scale-105"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-blue-200 text-sm">{stat.label}</p>
-                        <p className="text-2xl font-bold text-blue-100 mt-1">
-                          {stat.value}
-                        </p>
-                        <p className="text-green-400 text-sm mt-1">
-                          {stat.change}
-                        </p>
-                      </div>
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-700 to-blue-400 rounded-xl flex items-center justify-center">
-                        <stat.icon className="w-6 h-6 text-blue-100" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {/* Fetched Arcanes List */}
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-blue-100 mb-2">Fetched Arcanes (Cavia)</h2>
+                <ul className="space-y-2">
+                  {(fetchedArcanes.current.get("cavia") || []).map((arcane, idx) => (
+                    <li key={arcane.arcaneId || idx} className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center">
+                      <span className="text-blue-200 font-semibold">{arcane.arcaneId}</span>
+                      <span className="text-blue-300">Avg: {arcane.avgPlatinum.toFixed(2)}</span>
+                      <span className="text-blue-400">Weighted: {arcane.weightedValue.toFixed(2)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Avg Weighted Value */}
+              <div className="mb-6">
+                <h3 className="text-lg font-bold text-blue-100">Total Weighted Value</h3>
+                <div className="text-2xl font-bold text-green-400">
+                  {avgWeightedValues.current.get("cavia") !== undefined
+                    ? avgWeightedValues.current.get("cavia").toFixed(2)
+                    : "-"}
+                </div>
               </div>
             </>
           )}
