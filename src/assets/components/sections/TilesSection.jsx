@@ -76,6 +76,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
 
           return {
             id: arcane.id,
+            rarity: arcane.rarity,
             name: arcane.name,
             avgPlatinum,
             weightedValue,
@@ -184,22 +185,52 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                     </div>
                     <ul className="space-y-2">
                       {(fetchedArcanes.get("cavia") || []).map(
-                        (arcane, idx) => (
-                          <li
-                            key={arcane.id || idx}
-                            className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
-                          >
-                            <span className="w-1/3 text-blue-200 font-semibold truncate">
-                              {arcane.name}
-                            </span>
-                            <span className="w-1/3 text-blue-300 text-center">
-                              {arcane.avgPlatinum.toFixed(2)}
-                            </span>
-                            <span className="w-1/3 text-blue-400 text-right">
-                              {arcane.weightedValue.toFixed(2)}
-                            </span>
-                          </li>
-                        )
+                        (arcane, idx) => {
+                          let rarityBg = "bg-blue-900/40";
+                          let rarityBorder = "border-blue-400";
+                          let rarityText = "text-blue-200";
+                          // Border, background, and text color logic
+                          if (arcane.rarity === "common") {
+                            rarityBorder = "border-[#cd7f32]"; // bronze
+                            rarityBg = "bg-[#3a2c1a]/80"; // dark bronze background
+                            rarityText = "text-[#ffe6b3]"; // light bronze text
+                          } else if (arcane.rarity === "uncommon") {
+                            rarityBorder = "border-[#c0c0c0]"; // silver
+                            rarityBg = "bg-[#23272b]/80"; // dark silver/gray background
+                            rarityText = "text-[#e0e0e0]"; // light silver text
+                          } else if (arcane.rarity === "rare") {
+                            rarityBorder = "border-[#ffd700]"; // gold
+                            rarityBg = "bg-[#3a320a]/80"; // dark gold background
+                            rarityText = "text-[#ffe066]"; // gold text
+                          } else if (arcane.rarity === "legendary") {
+                            rarityBorder = "border-white";
+                            rarityBg =
+                              "bg-gradient-to-r from-[#b6eaff]/80 via-[#e6f7ff]/60 to-[#b6eaff]/80";
+                            rarityText = "text-[#1e3a5c]"; // deep blue text for contrast
+                          }
+                          return (
+                            <li
+                              key={arcane.id || idx}
+                              className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center`}
+                            >
+                              <span
+                                className={`w-1/3 ${rarityText} font-semibold truncate`}
+                              >
+                                {arcane.name}
+                              </span>
+                              <span
+                                className={`w-1/3 ${rarityText} text-center`}
+                              >
+                                {arcane.avgPlatinum.toFixed(2)}
+                              </span>
+                              <span
+                                className={`w-1/3 ${rarityText} text-right`}
+                              >
+                                {arcane.weightedValue.toFixed(2)}
+                              </span>
+                            </li>
+                          );
+                        }
                       )}
                     </ul>
                   </div>
