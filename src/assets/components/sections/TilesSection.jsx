@@ -135,6 +135,11 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                 <h2 className="text-xl font-bold text-blue-100 mb-2">
                   Fetched Arcanes (Cavia)
                 </h2>
+                <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
+                  <span className="w-1/3">Arcane Name</span>
+                  <span className="w-1/3 text-center">Average</span>
+                  <span className="w-1/3 text-right">Weighted</span>
+                </div>
                 <ul className="space-y-2">
                   {(fetchedArcanes.current.get("cavia") || []).map(
                     (arcane, idx) => (
@@ -142,14 +147,14 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                         key={arcane.id || idx}
                         className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
                       >
-                        <span className="text-blue-200 font-semibold">
+                        <span className="w-1/3 text-blue-200 font-semibold truncate">
                           {arcane.name}
                         </span>
-                        <span className="text-blue-300">
-                          Avg: {arcane.avgPlatinum.toFixed(2)}
+                        <span className="w-1/3 text-blue-300 text-center">
+                          {arcane.avgPlatinum.toFixed(2)}
                         </span>
-                        <span className="text-blue-400">
-                          Weighted: {arcane.weightedValue.toFixed(2)}
+                        <span className="w-1/3 text-blue-400 text-right">
+                          {arcane.weightedValue.toFixed(2)}
                         </span>
                       </li>
                     )
