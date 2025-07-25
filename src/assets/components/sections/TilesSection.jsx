@@ -1,36 +1,7 @@
 import React from "react";
-import {
-  Star,
-  TrendingUp,
-  Users,
-  Zap,
-  MessageCircle,
-  Share2,
-  Heart,
-} from "lucide-react";
-
+import { TrendingUp, Users, Zap } from "lucide-react";
+import { tiles } from "../../../data/tilesData.js";
 const TilesSection = ({ setActiveTab, activeTab }) => {
-  const tiles = [
-    {
-      id: "dashboard",
-      label: "Dashboard",
-      icon: TrendingUp,
-      desc: "Overview & Stats",
-    },
-    { id: "projects", label: "Projects", icon: Users, desc: "Active Work" },
-    { id: "analytics", label: "Analytics", icon: Zap, desc: "Performance" },
-    { id: "reports", label: "Reports", icon: Star, desc: "Data Reports" },
-    {
-      id: "messages",
-      label: "Messages",
-      icon: MessageCircle,
-      desc: "Team Chat",
-    },
-    { id: "settings", label: "Settings", icon: Share2, desc: "App Config" },
-    { id: "calendar", label: "Calendar", icon: Heart, desc: "Schedule" },
-    { id: "files", label: "Files", icon: Users, desc: "Documents" },
-  ];
-
   const stats = [
     { icon: Users, label: "Active Users", value: "12.4K", change: "+12%" },
     { icon: TrendingUp, label: "Revenue", value: "$84.2K", change: "+18%" },
@@ -61,12 +32,12 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-        {tiles.map((tab) => (
+        {tiles.map((tile) => (
           <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            key={tile.id}
+            onClick={() => setActiveTab(tile.id)}
             className={`p-4 rounded-xl border transition-all duration-300 text-left hover:scale-105 ${
-              activeTab === tab.id
+              activeTab === tile.id
                 ? "bg-white text-slate-900 border-white shadow-2xl"
                 : "bg-white/10 backdrop-blur-lg border-white/20 text-white hover:bg-white/15 hover:border-white/30"
             }`}
@@ -74,21 +45,21 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             <div className="flex items-center space-x-2 mb-1">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                  activeTab === tab.id
+                  activeTab === tile.id
                     ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
                     : "bg-white/20 text-white/80"
                 }`}
               >
-                <tab.icon className="w-4 h-4" />
+                <tile.icon className="w-4 h-4" />
               </div>
-              <h3 className="text-base font-semibold">{tab.label}</h3>
+              <h3 className="text-base font-semibold">{tile.label}</h3>
             </div>
             <p
               className={`text-xs ${
-                activeTab === tab.id ? "text-slate-600" : "text-white/60"
+                activeTab === tile.id ? "text-slate-600" : "text-white/60"
               }`}
             >
-              {tab.desc}
+              {tile.desc}
             </p>
           </button>
         ))}
@@ -96,7 +67,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
 
       {tiles.map((tile) => tile.id).includes(activeTab) && (
         <div className="space-y-8">
-          {activeTab === "dashboard" && (
+          {activeTab === "cavia" && (
             <>
               {/* Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -125,7 +96,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             </>
           )}
 
-          {activeTab === "projects" && (
+          {activeTab === "duviri" && (
             <>
               <h2 className="text-2xl font-bold text-white">Active Projects</h2>
               <div className="grid gap-6">
@@ -160,7 +131,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             </>
           )}
 
-          {activeTab === "analytics" && (
+          {activeTab === "eidolon" && (
             <>
               <h2 className="text-2xl font-bold text-white">
                 Analytics Overview
