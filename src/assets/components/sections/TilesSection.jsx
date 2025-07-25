@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { TrendingUp, Users, Zap } from "lucide-react";
 import { tiles } from "../../../data/tilesData.js";
 const TilesSection = ({ setActiveTab, activeTab }) => {
   // Track which tiles have already triggered the API request
   const fetchedTiles = useRef(new Set());
-  const fetchedArcanes = useRef(new Map());
-  const avgWeightedValues = useRef(new Map());
+  const [fetchedArcanes, setFetchedArcanes] = useState(new Map());
+  const [avgWeightedValues, setAvgWeightedValues] = useState(new Map());
 
   const stats = [
     { icon: Users, label: "Active Users", value: "12.4K", change: "+12%" },
@@ -35,13 +35,15 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   ];
 
   const calculateAvgWeightedValues = (tileId, weightedArcanes) => {
-    let totalWeigtedValue = 0;
+    let totalWeightedValue = 0;
     weightedArcanes.forEach((arcane) => {
-      totalWeigtedValue += arcane.weightedValue;
+      totalWeightedValue += arcane.weightedValue;
     });
-
-    avgWeightedValues.current.set(tileId, totalWeigtedValue);
-    console.log(avgWeightedValues.current.get(tileId));
+    setAvgWeightedValues((prev) => {
+      const newMap = new Map(prev);
+      newMap.set(tileId, totalWeightedValue);
+      return newMap;
+    });
   };
 
   // Function to fetch data for a tile
@@ -81,7 +83,11 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
     const arcanesWithWeightedValue = await Promise.all(request);
 
     calculateAvgWeightedValues(tileId, arcanesWithWeightedValue);
-    fetchedArcanes.current.set(tileId, arcanesWithWeightedValue);
+    setFetchedArcanes((prev) => {
+      const newMap = new Map(prev);
+      newMap.set(tileId, arcanesWithWeightedValue);
+      return newMap;
+    });
   };
 
   return (
@@ -141,24 +147,22 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                   <span className="w-1/3 text-right">Weighted</span>
                 </div>
                 <ul className="space-y-2">
-                  {(fetchedArcanes.current.get("cavia") || []).map(
-                    (arcane, idx) => (
-                      <li
-                        key={arcane.id || idx}
-                        className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
-                      >
-                        <span className="w-1/3 text-blue-200 font-semibold truncate">
-                          {arcane.name}
-                        </span>
-                        <span className="w-1/3 text-blue-300 text-center">
-                          {arcane.avgPlatinum.toFixed(2)}
-                        </span>
-                        <span className="w-1/3 text-blue-400 text-right">
-                          {arcane.weightedValue.toFixed(2)}
-                        </span>
-                      </li>
-                    )
-                  )}
+                  {(fetchedArcanes.get("cavia") || []).map((arcane, idx) => (
+                    <li
+                      key={arcane.id || idx}
+                      className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
+                    >
+                      <span className="w-1/3 text-blue-200 font-semibold truncate">
+                        {arcane.name}
+                      </span>
+                      <span className="w-1/3 text-blue-300 text-center">
+                        {arcane.avgPlatinum.toFixed(2)}
+                      </span>
+                      <span className="w-1/3 text-blue-400 text-right">
+                        {arcane.weightedValue.toFixed(2)}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               {/* Avg Weighted Value */}
@@ -167,8 +171,8 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                   Total Weighted Value
                 </h3>
                 <div className="text-2xl font-bold text-green-400">
-                  {avgWeightedValues.current.get("cavia") !== undefined
-                    ? avgWeightedValues.current.get("cavia").toFixed(2)
+                  {avgWeightedValues.get("cavia") !== undefined
+                    ? avgWeightedValues.get("cavia").toFixed(2)
                     : "-"}
                 </div>
               </div>
