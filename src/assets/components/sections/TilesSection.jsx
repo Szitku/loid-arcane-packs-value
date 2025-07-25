@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { TrendingUp, Users, Zap } from "lucide-react";
 import { tiles } from "../../../data/tilesData.js";
 const TilesSection = ({ setActiveTab, activeTab }) => {
+  // Track which tiles have already triggered the API request
+  const fetchedTiles = useRef(new Set());
   const stats = [
     { icon: Users, label: "Active Users", value: "12.4K", change: "+12%" },
     { icon: TrendingUp, label: "Revenue", value: "$84.2K", change: "+18%" },
@@ -29,13 +31,53 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
     },
   ];
 
+  // Function to fetch data for a tile
+  const fetchTileData = async (arcanes) => {
+    console.log("Fetching data for arcanes:", arcanes);
+    const type = "sell";
+    const request = arcanes.map((arcane) =>
+      fetch(
+        `https://corsproxy.io/?https://api.warframe.market/v2/orders/item/${arcane.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          const orders = data?.data || [];
+          const filtered = orders.filter(
+            (order) =>
+              order.type === type &&
+              order.rank === arcane.maxRank &&
+              order.user.status === "ingame"
+          );
+          const sorted = filtered.sort((a, b) => a.platinum - b.platinum);
+          const cheapestFive = sorted.slice(0, 5);
+          const avgPlatinum =
+            cheapestFive.length > 0
+              ? cheapestFive.reduce((sum, o) => sum + o.platinum, 0) /
+                cheapestFive.length
+              : 0;
+          const weightedValue = avgPlatinum * arcane.weight;
+          return { arcane, avgPlatinum, weightedValue };
+        })
+    );
+
+    const results = await Promise.all(request);
+    console.log(results);
+  };
+
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
         {tiles.map((tile) => (
           <button
             key={tile.id}
-            onClick={() => setActiveTab(tile.id)}
+            onClick={() => {
+              setActiveTab(tile.id);
+              if (!fetchedTiles.current.has(tile.id)) {
+                fetchTileData(tile.arcanes);
+                fetchedTiles.current.add(tile.id);
+              }
+            }}
             className={`p-4 rounded-xl border transition-all duration-300 text-left hover:scale-105 ${
               activeTab === tile.id
                 ? "bg-gradient-to-br from-blue-900 via-blue-700 to-black text-blue-100 border-blue-400 shadow-2xl"
