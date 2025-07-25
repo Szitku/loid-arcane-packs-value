@@ -47,7 +47,10 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   };
 
   // Function to fetch data for a tile
+  const [loadingTiles, setLoadingTiles] = useState(new Set());
+
   const fetchTileData = async (arcanes, tileId) => {
+    setLoadingTiles((prev) => new Set(prev).add(tileId));
     const type = "sell";
     const request = arcanes.map((arcane) =>
       fetch(
@@ -87,6 +90,11 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
       const newMap = new Map(prev);
       newMap.set(tileId, arcanesWithWeightedValue);
       return newMap;
+    });
+    setLoadingTiles((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(tileId);
+      return newSet;
     });
   };
 
@@ -136,46 +144,78 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
         <div className="space-y-8">
           {activeTab === "cavia" && (
             <>
-              {/* Fetched Arcanes List */}
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-blue-100 mb-2">
-                  Fetched Arcanes (Cavia)
-                </h2>
-                <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
-                  <span className="w-1/3">Arcane Name</span>
-                  <span className="w-1/3 text-center">Average</span>
-                  <span className="w-1/3 text-right">Weighted</span>
+              {/* Fetched Arcanes List or Loading */}
+              {loadingTiles.has("cavia") ? (
+                <div className="flex flex-col items-center justify-center py-12">
+                  <svg
+                    className="animate-spin h-8 w-8 text-blue-400 mb-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    ></path>
+                  </svg>
+                  <span className="text-blue-300 text-lg">
+                    Loading arcanes...
+                  </span>
                 </div>
-                <ul className="space-y-2">
-                  {(fetchedArcanes.get("cavia") || []).map((arcane, idx) => (
-                    <li
-                      key={arcane.id || idx}
-                      className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
-                    >
-                      <span className="w-1/3 text-blue-200 font-semibold truncate">
-                        {arcane.name}
-                      </span>
-                      <span className="w-1/3 text-blue-300 text-center">
-                        {arcane.avgPlatinum.toFixed(2)}
-                      </span>
-                      <span className="w-1/3 text-blue-400 text-right">
-                        {arcane.weightedValue.toFixed(2)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* Avg Weighted Value */}
-              <div className="mb-6">
-                <h3 className="text-lg font-bold text-blue-100">
-                  Total Weighted Value
-                </h3>
-                <div className="text-2xl font-bold text-green-400">
-                  {avgWeightedValues.get("cavia") !== undefined
-                    ? avgWeightedValues.get("cavia").toFixed(2)
-                    : "-"}
-                </div>
-              </div>
+              ) : (
+                <>
+                  <div className="mb-6">
+                    <h2 className="text-xl font-bold text-blue-100 mb-2">
+                      Fetched Arcanes (Cavia)
+                    </h2>
+                    <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
+                      <span className="w-1/3">Arcane Name</span>
+                      <span className="w-1/3 text-center">Average</span>
+                      <span className="w-1/3 text-right">Weighted</span>
+                    </div>
+                    <ul className="space-y-2">
+                      {(fetchedArcanes.get("cavia") || []).map(
+                        (arcane, idx) => (
+                          <li
+                            key={arcane.id || idx}
+                            className="bg-blue-900/40 rounded-lg p-3 flex justify-between items-center"
+                          >
+                            <span className="w-1/3 text-blue-200 font-semibold truncate">
+                              {arcane.name}
+                            </span>
+                            <span className="w-1/3 text-blue-300 text-center">
+                              {arcane.avgPlatinum.toFixed(2)}
+                            </span>
+                            <span className="w-1/3 text-blue-400 text-right">
+                              {arcane.weightedValue.toFixed(2)}
+                            </span>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                  {/* Avg Weighted Value */}
+                  <div className="mb-6">
+                    <h3 className="text-lg font-bold text-blue-100">
+                      Total Weighted Value
+                    </h3>
+                    <div className="text-2xl font-bold text-green-400">
+                      {avgWeightedValues.get("cavia") !== undefined
+                        ? avgWeightedValues.get("cavia").toFixed(2)
+                        : "-"}
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
 
