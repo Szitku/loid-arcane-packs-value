@@ -4,6 +4,8 @@ import { tiles } from "../../../data/tilesData.js";
 const TilesSection = ({ setActiveTab, activeTab }) => {
   // Track which tiles have already triggered the API request
   const fetchedTiles = useRef(new Set());
+  const fetchedArcanes = useRef(new Map());
+
   const stats = [
     { icon: Users, label: "Active Users", value: "12.4K", change: "+12%" },
     { icon: TrendingUp, label: "Revenue", value: "$84.2K", change: "+18%" },
@@ -32,8 +34,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   ];
 
   // Function to fetch data for a tile
-  const fetchTileData = async (arcanes) => {
-    console.log("Fetching data for arcanes:", arcanes);
+  const fetchTileData = async (arcanes, tileId) => {
     const type = "sell";
     const request = arcanes.map((arcane) =>
       fetch(
@@ -41,7 +42,6 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const orders = data?.data || [];
           const filtered = orders.filter(
             (order) =>
@@ -57,12 +57,14 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                 cheapestFive.length
               : 0;
           const weightedValue = avgPlatinum * arcane.weight;
-          return { arcane, avgPlatinum, weightedValue };
+          return { arcaneId: arcane.id, avgPlatinum, weightedValue };
         })
     );
 
     const results = await Promise.all(request);
-    console.log(results);
+
+    fetchedArcanes.current.set(tileId, results);
+    console.log(fetchedArcanes.current.get(tileId));
   };
 
   return (
@@ -74,7 +76,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             onClick={() => {
               setActiveTab(tile.id);
               if (!fetchedTiles.current.has(tile.id)) {
-                fetchTileData(tile.arcanes);
+                fetchTileData(tile.arcanes, tile.id);
                 fetchedTiles.current.add(tile.id);
               }
             }}
