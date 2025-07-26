@@ -37,7 +37,8 @@ const ArcaneValuesSections = ({
         <>
           <div className="mb-6">
             <h2 className="text-xl font-bold text-blue-100 mb-2">
-              Fetched Arcanes (Cavia)
+              Fetched Arcanes (
+              {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)})
             </h2>
             <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
               <span className="w-1/3">Arcane Name</span>

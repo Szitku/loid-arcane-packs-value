@@ -2,6 +2,11 @@ import { ArrowDown } from "lucide-react";
 import { caviaArcaneData } from "./arcanes/caviaArcaneData";
 import { duviriArcaneData } from "./arcanes/duviriArcaneData";
 import { eidolonArcaneData } from "./arcanes/eidolonArcaneData";
+import { holdfastsArcaneData } from "./arcanes/holdfastsArcaneData";
+import { necraliskArcaneData } from "./arcanes/necraliskArcaneData";
+import { ostronArcaneData } from "./arcanes/ostronArcaneData";
+import { solarisArcaneData } from "./arcanes/solarisArcaneData";
+import { steelArcaneData } from "./arcanes/steelArcaneData";
 
 const arcaneCollection = "Arcane Collection";
 
@@ -24,9 +29,34 @@ export const tiles = [
     icon: ArrowDown,
     arcanes: eidolonArcaneData,
   },
-  { id: "holdfasts", label: `Holdfasts ${arcaneCollection}`, icon: ArrowDown },
-  { id: "necralisk", label: `Necralisk ${arcaneCollection}`, icon: ArrowDown },
-  { id: "ostron", label: `Ostron ${arcaneCollection}`, icon: ArrowDown },
-  { id: "solaris", label: `Solaris ${arcaneCollection}`, icon: ArrowDown },
-  { id: "steel", label: `Steel ${arcaneCollection}`, icon: ArrowDown },
+  {
+    id: "holdfasts",
+    label: `Holdfasts ${arcaneCollection}`,
+    icon: ArrowDown,
+    arcanes: holdfastsArcaneData,
+  },
+  {
+    id: "necralisk",
+    label: `Necralisk ${arcaneCollection}`,
+    icon: ArrowDown,
+    arcanes: necraliskArcaneData,
+  },
+  {
+    id: "ostron",
+    label: `Ostron ${arcaneCollection}`,
+    icon: ArrowDown,
+    arcanes: ostronArcaneData,
+  },
+  {
+    id: "solaris",
+    label: `Solaris ${arcaneCollection}`,
+    icon: ArrowDown,
+    arcanes: solarisArcaneData,
+  },
+  {
+    id: "steel",
+    label: `Steel ${arcaneCollection}`,
+    icon: ArrowDown,
+    arcanes: steelArcaneData,
+  },
 ];

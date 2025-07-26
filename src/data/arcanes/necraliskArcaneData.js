@@ -1,0 +1,88 @@
+import { Rarity } from "./enum/Rarity";
+
+export const necraliskArcaneData = [
+  {
+    id: "arcane_double_back",
+    name: "Arcane Double Back",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_steadfast",
+    name: "Arcane Steadfast",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "theorem_contagion",
+    name: "Theorem Contagion",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "theorem_demulcent",
+    name: "Theorem Demulcent",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "theorem_infection",
+    name: "Theorem Infection",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "primary_plated_round",
+    name: "Primary Plated Round",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_encumber",
+    name: "Secondary Encumber",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_kinship",
+    name: "Secondary Kinship",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 5,
+  },
+  {
+    id: "residual_boils",
+    name: "Residual Boils",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 3,
+  },
+  {
+    id: "residual_malodor",
+    name: "Residual Malodor",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 3,
+  },
+  {
+    id: "residual_shock",
+    name: "Residual Shock",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 3,
+  },
+  {
+    id: "residual_viremia",
+    name: "Residual Viremia",
+    rarity: Rarity.RARE,
+    weight: 0.0833,
+    maxRank: 3,
+  },
+];

@@ -1,0 +1,81 @@
+import { Rarity } from "./enum/Rarity";
+
+export const steelArcaneData = [
+  {
+    id: "arcane_blade_charger",
+    name: "Arcane Blade Charger",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_bodyguard",
+    name: "Arcane Bodyguard",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_pistoleer",
+    name: "Arcane Pistoleer",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_primary_charger",
+    name: "Arcane Primary Charger",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_tanker",
+    name: "Arcane Tanker",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "primary_deadhead",
+    name: "Primary Deadhead",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "primary_dexterity",
+    name: "Primary Dexterity",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "primary_merciless",
+    name: "Primary Merciless",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_deadhead",
+    name: "Secondary Deadhead",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_dexterity",
+    name: "Secondary Dexterity",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_merciless",
+    name: "Secondary Merciless",
+    rarity: Rarity.RARE,
+    weight: 0.09091,
+    maxRank: 5,
+  },
+];
