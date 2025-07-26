@@ -216,7 +216,14 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                               <span
                                 className={`w-1/3 ${rarityText} font-semibold truncate`}
                               >
-                                {arcane.name}
+                                <a
+                                  href={`https://warframe.market/items/${arcane.id}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="underline hover:text-blue-400 transition-colors"
+                                >
+                                  {arcane.name}
+                                </a>
                               </span>
                               <span
                                 className={`w-1/3 ${rarityText} text-center`}
