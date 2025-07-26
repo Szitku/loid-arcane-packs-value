@@ -113,21 +113,14 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
 
       {tiles.map((tile) => tile.id).includes(activeTab) && (
         <div className="space-y-8">
-          {activeTab === "cavia" && (
+          {
             <ArcaneValuesSections
               fetchedArcanes={fetchedArcanes}
               loadingTiles={loadingTiles}
               weightedArcaneCollections={weightedArcaneCollections}
+              activeTab={activeTab}
             />
-          )}
-
-          {activeTab === "duviri" && (
-            <ArcaneValuesSections
-              fetchedArcanes={fetchedArcanes}
-              loadingTiles={loadingTiles}
-              weightedArcaneCollections={weightedArcaneCollections}
-            />
-          )}
+          }
         </div>
       )}
     </>

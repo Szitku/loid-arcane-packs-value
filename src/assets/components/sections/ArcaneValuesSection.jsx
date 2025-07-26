@@ -4,11 +4,12 @@ const ArcaneValuesSections = ({
   fetchedArcanes,
   loadingTiles,
   weightedArcaneCollections,
+  activeTab,
 }) => {
   return (
     <>
       {/* Fetched Arcanes List or Loading */}
-      {loadingTiles.has("cavia") ? (
+      {loadingTiles.has(activeTab) ? (
         <div className="flex flex-col items-center justify-center py-12">
           <svg
             className="animate-spin h-8 w-8 text-blue-400 mb-4"
@@ -44,7 +45,7 @@ const ArcaneValuesSections = ({
               <span className="w-1/3 text-right">Weighted</span>
             </div>
             <ul className="space-y-2">
-              {(fetchedArcanes.get("cavia") || []).map((arcane, idx) => {
+              {(fetchedArcanes.get(activeTab) || []).map((arcane, idx) => {
                 let rarityBg = "bg-blue-900/40";
                 let rarityBorder = "border-blue-400";
                 let rarityText = "text-blue-200";
@@ -101,8 +102,8 @@ const ArcaneValuesSections = ({
               Total Weighted Value
             </h3>
             <div className="text-2xl font-bold text-green-400">
-              {weightedArcaneCollections.current.get("cavia") !== undefined
-                ? weightedArcaneCollections.current.get("cavia").toFixed(2)
+              {weightedArcaneCollections.current.get(activeTab) !== undefined
+                ? weightedArcaneCollections.current.get(activeTab).toFixed(2)
                 : "-"}
             </div>
           </div>
