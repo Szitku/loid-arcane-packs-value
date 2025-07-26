@@ -153,40 +153,12 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
           )}
 
           {activeTab === "duviri" && (
-            <>
-              <h2 className="text-2xl font-bold text-blue-100">
-                Active Projects
-              </h2>
-              <div className="grid gap-6">
-                {projects.map((project, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-br from-blue-950 via-blue-900 to-black/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-900 hover:bg-blue-900/60 transition-all duration-300"
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-semibold text-blue-100">
-                        {project.name}
-                      </h3>
-                      <span className="px-3 py-1 bg-blue-900/60 rounded-full text-sm text-blue-200">
-                        {project.status}
-                      </span>
-                    </div>
-                    <div className="mb-2">
-                      <div className="flex justify-between text-sm text-blue-300 mb-1">
-                        <span>Progress</span>
-                        <span>{project.progress}%</span>
-                      </div>
-                      <div className="w-full bg-blue-900/40 rounded-full h-2">
-                        <div
-                          className={`h-2 rounded-full transition-all duration-500 ${project.color}`}
-                          style={{ width: `${project.progress}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
+            <ArcaneValuesSections
+              fetchedArcanes={fetchedArcanes}
+              loadingTiles={loadingTiles}
+              avgWeightedValues={avgWeightedValues}
+              activeTab={activeTab}
+            />
           )}
 
           {activeTab === "eidolon" && (

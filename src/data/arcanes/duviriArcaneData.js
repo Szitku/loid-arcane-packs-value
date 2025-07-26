@@ -1,0 +1,88 @@
+import { Rarity } from "./enum/Rarity";
+
+export const duviriArcaneData = [
+  {
+    id: "arcane_intention",
+    name: "Arcane Intention",
+    rarity: Rarity.UNCOMMON,
+    weight: 0.225,
+    maxRank: 5,
+  },
+  {
+    id: "magus_aggress",
+    name: "Magus Aggress",
+    rarity: Rarity.UNCOMMON,
+    weight: 0.225,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_power_ramp",
+    name: "Arcane Power Ramp",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "primary_blight",
+    name: "Primary Blight",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "primary_exhilarate",
+    name: "Primary Exhilarate",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "primary_obstruct",
+    name: "Primary Obstruct",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "shotgun_vendetta",
+    name: "Shotgun Vendetta",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "akimbo_slip_shot",
+    name: "Akimbo Slip Shot",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_outburst",
+    name: "Secondary Outburst",
+    rarity: Rarity.RARE,
+    weight: 0.0713,
+    maxRank: 5,
+  },
+  {
+    id: "arcane_reaper",
+    name: "Arcane Reaper",
+    rarity: Rarity.LEGENDARY,
+    weight: 0.0167,
+    maxRank: 5,
+  },
+  {
+    id: "longbow_sharpshot",
+    name: "Longbow Sharpshot",
+    rarity: Rarity.LEGENDARY,
+    weight: 0.0167,
+    maxRank: 5,
+  },
+  {
+    id: "secondary_shiver",
+    name: "Secondary Shiver",
+    rarity: Rarity.LEGENDARY,
+    weight: 0.0167,
+    maxRank: 5,
+  },
+];
