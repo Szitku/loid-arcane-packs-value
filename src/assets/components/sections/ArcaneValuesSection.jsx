@@ -40,6 +40,17 @@ const ArcaneValuesSections = ({
               Fetched Arcanes (
               {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)})
             </h2>
+            {/* Avg Weighted Value */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-blue-100">
+                Total Weighted Value
+              </h3>
+              <div className="text-2xl font-bold text-green-400">
+                {weightedArcaneCollections.current.get(activeTab) !== undefined
+                  ? weightedArcaneCollections.current.get(activeTab).toFixed(2)
+                  : "-"}
+              </div>
+            </div>
             <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
               <span className="w-1/3">Arcane Name</span>
               <span className="w-1/3 text-center">Average</span>
@@ -96,17 +107,6 @@ const ArcaneValuesSections = ({
                 );
               })}
             </ul>
-          </div>
-          {/* Avg Weighted Value */}
-          <div className="mb-6">
-            <h3 className="text-lg font-bold text-blue-100">
-              Total Weighted Value
-            </h3>
-            <div className="text-2xl font-bold text-green-400">
-              {weightedArcaneCollections.current.get(activeTab) !== undefined
-                ? weightedArcaneCollections.current.get(activeTab).toFixed(2)
-                : "-"}
-            </div>
           </div>
         </>
       )}

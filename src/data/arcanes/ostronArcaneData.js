@@ -32,7 +32,7 @@ export const ostronArcaneData = [
   },
   // Uncommons
   {
-    id: "expodia_triumph",
+    id: "exodia_triumph",
     name: "Exodia Triumph",
     rarity: Rarity.UNCOMMON,
     weight: 0.0486,
