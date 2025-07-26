@@ -1,5 +1,5 @@
 import { ArrowDown } from "lucide-react";
-import { caviaArcanesData } from "./arcanes/caviaArcanesData";
+import { caviaArcaneData } from "./arcanes/caviaArcaneData";
 import { duviriArcaneData } from "./arcanes/duviriArcaneData";
 import { eidolonArcaneData } from "./arcanes/eidolonArcaneData";
 
@@ -10,7 +10,7 @@ export const tiles = [
     id: "cavia",
     label: `Cavia ${arcaneCollection}`,
     icon: ArrowDown,
-    arcanes: caviaArcanesData,
+    arcanes: caviaArcaneData,
   },
   {
     id: "duviri",

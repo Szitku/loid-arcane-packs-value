@@ -1,6 +1,6 @@
 import { Rarity } from "./enum/Rarity";
 
-export const caviaArcanesData = [
+export const caviaArcaneData = [
   {
     id: "melee_fortification",
     name: "Melee Fortification",
