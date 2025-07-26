@@ -3,7 +3,7 @@ import React from "react";
 const ArcaneValuesSections = ({
   fetchedArcanes,
   loadingTiles,
-  avgWeightedValues,
+  weightedArcaneCollections,
 }) => {
   return (
     <>
@@ -101,8 +101,8 @@ const ArcaneValuesSections = ({
               Total Weighted Value
             </h3>
             <div className="text-2xl font-bold text-green-400">
-              {avgWeightedValues.get("cavia") !== undefined
-                ? avgWeightedValues.get("cavia").toFixed(2)
+              {weightedArcaneCollections.current.get("cavia") !== undefined
+                ? weightedArcaneCollections.current.get("cavia").toFixed(2)
                 : "-"}
             </div>
           </div>

@@ -5,18 +5,15 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   // Track which tiles have already triggered the API request
   const fetchedTiles = useRef(new Set());
   const [fetchedArcanes, setFetchedArcanes] = useState(new Map());
-  const [avgWeightedValues, setAvgWeightedValues] = useState(new Map());
+  const weightedArcaneCollections = useRef(new Map());
 
   const calculateAvgWeightedValues = (tileId, weightedArcanes) => {
     let totalWeightedValue = 0;
     weightedArcanes.forEach((arcane) => {
       totalWeightedValue += arcane.weightedValue;
     });
-    setAvgWeightedValues((prev) => {
-      const newMap = new Map(prev);
-      newMap.set(tileId, totalWeightedValue);
-      return newMap;
-    });
+
+    weightedArcaneCollections.current.set(tileId, totalWeightedValue);
   };
 
   // Function to fetch data for a tile
@@ -120,7 +117,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             <ArcaneValuesSections
               fetchedArcanes={fetchedArcanes}
               loadingTiles={loadingTiles}
-              avgWeightedValues={avgWeightedValues}
+              weightedArcaneCollections={weightedArcaneCollections}
             />
           )}
 
@@ -128,7 +125,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             <ArcaneValuesSections
               fetchedArcanes={fetchedArcanes}
               loadingTiles={loadingTiles}
-              avgWeightedValues={avgWeightedValues}
+              weightedArcaneCollections={weightedArcaneCollections}
             />
           )}
         </div>
