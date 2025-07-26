@@ -13,7 +13,15 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
       totalWeightedValue += arcane.weightedValue;
     });
 
-    weightedArcaneCollections.current.set(tileId, totalWeightedValue);
+    let totalWeightedValueWithCheapest = 0;
+    weightedArcanes.forEach((arcane) => {
+      totalWeightedValueWithCheapest += arcane.cheapestWeightedValue;
+    });
+
+    weightedArcaneCollections.current.set(tileId, {
+      totalWeightedValue,
+      totalWeightedValueWithCheapest,
+    });
   };
 
   // Function to fetch data for a tile
@@ -43,13 +51,18 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                 cheapestFive.length
               : 0;
           const weightedValue = avgPlatinum * arcane.weight;
+          const cheapestPlatinum = cheapestFive[0]?.platinum || 0;
+
+          const cheapestWeightedValue = cheapestPlatinum * arcane.weight;
 
           return {
             id: arcane.id,
             rarity: arcane.rarity,
             name: arcane.name,
             avgPlatinum,
+            cheapestPlatinum,
             weightedValue,
+            cheapestWeightedValue,
           };
         })
     );
@@ -57,6 +70,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
     const arcanesWithWeightedValue = await Promise.all(request);
 
     calculateAvgWeightedValues(tileId, arcanesWithWeightedValue);
+
     setFetchedArcanes((prev) => {
       const newMap = new Map(prev);
       newMap.set(tileId, arcanesWithWeightedValue);

@@ -46,9 +46,20 @@ const ArcaneValuesSections = ({
                 Total Weighted Value
               </h3>
               <div className="text-2xl font-bold text-green-400">
-                {weightedArcaneCollections.current.get(activeTab) !== undefined
-                  ? weightedArcaneCollections.current.get(activeTab).toFixed(2)
+                {weightedArcaneCollections.current.get(activeTab)
+                  .totalWeightedValue !== undefined
+                  ? weightedArcaneCollections.current
+                      .get(activeTab)
+                      .totalWeightedValue.toFixed(2)
                   : "-"}
+                (
+                {weightedArcaneCollections.current.get(activeTab)
+                  .totalWeightedValueWithCheapest !== undefined
+                  ? weightedArcaneCollections.current
+                      .get(activeTab)
+                      .totalWeightedValueWithCheapest.toFixed(2)
+                  : "-"}
+                )
               </div>
             </div>
             <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
@@ -98,10 +109,11 @@ const ArcaneValuesSections = ({
                       </a>
                     </span>
                     <span className={`w-1/3 ${rarityText} text-center`}>
-                      {arcane.avgPlatinum.toFixed(2)}
+                      {arcane.avgPlatinum.toFixed(2)}({arcane.cheapestPlatinum})
                     </span>
                     <span className={`w-1/3 ${rarityText} text-right`}>
-                      {arcane.weightedValue.toFixed(2)}
+                      {arcane.weightedValue.toFixed(2)}(
+                      {arcane.cheapestWeightedValue.toFixed(2)})
                     </span>
                   </li>
                 );
