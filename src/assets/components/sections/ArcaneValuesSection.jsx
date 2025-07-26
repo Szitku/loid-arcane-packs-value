@@ -8,7 +8,7 @@ const ArcaneValuesSections = ({
 }) => {
   // Sorting state
   const [sortBy, setSortBy] = useState("none"); // "none", "average", "weighted"
-  const [sortDir, setSortDir] = useState("desc"); // "asc" or "desc"
+  const [sortDir, setSortDir] = useState(""); // "asc" or "desc"
 
   // Sorting logic
   const getSortedArcanes = () => {
@@ -36,7 +36,7 @@ const ArcaneValuesSections = ({
         setSortDir("asc");
       } else if (sortDir === "asc") {
         setSortBy("none");
-        setSortDir("desc");
+        setSortDir("");
       }
     } else {
       setSortBy(column);
