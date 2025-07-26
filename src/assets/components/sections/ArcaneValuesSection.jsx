@@ -42,10 +42,7 @@ const ArcaneValuesSections = ({
             </h2>
             {/* Avg Weighted Value */}
             <div className="mb-6">
-              <h3
-                className="text-lg font-bold text-blue-100 cursor-help inline-block relative group"
-                title="Sum of all arcanes' weighted values (average price × drop weight). Value in parentheses uses the single cheapest price for each arcane."
-              >
+              <h3 className="text-lg font-bold text-blue-100 cursor-help inline-block relative group">
                 Total Weighted Value:
                 <span className="absolute left-0 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
                   Sum of all arcanes' weighted values (average price × drop
@@ -53,10 +50,7 @@ const ArcaneValuesSections = ({
                   arcane on average.
                 </span>
               </h3>
-              <div
-                className="text-2xl font-bold text-green-400 cursor-help relative group inline-block ml-2"
-                title="First value: sum of weighted averages. Value in parentheses: sum using the cheapest price for each arcane."
-              >
+              <div className="text-2xl font-bold text-green-400 cursor-help relative group inline-block ml-2">
                 {weightedArcaneCollections.current.get(activeTab)
                   .totalWeightedValue !== undefined
                   ? weightedArcaneCollections.current
@@ -78,29 +72,20 @@ const ArcaneValuesSections = ({
               </div>
             </div>
             <div className="mb-2 flex justify-between px-3 font-semibold text-blue-400">
-              <span
-                className="w-1/3 cursor-help relative group"
-                title="The name of the arcane. Click to view on Warframe Market."
-              >
+              <span className="w-1/3 cursor-help relative group">
                 Arcane Name
                 <span className="absolute left-0 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
                   The name of the arcane. Click to view on Warframe Market.
                 </span>
               </span>
-              <span
-                className="w-1/3 text-center cursor-help relative group"
-                title="Average price of the 5 cheapest ingame orders. Value in parentheses is the single cheapest."
-              >
+              <span className="w-1/3 text-center cursor-help relative group">
                 Average
                 <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
                   Average price of the 5 cheapest ingame orders. Value in
                   parentheses is the single cheapest.
                 </span>
               </span>
-              <span
-                className="w-1/3 text-right cursor-help relative group"
-                title="Weighted value = average price × arcane drop weight. Value in parentheses is the cheapest weighted."
-              >
+              <span className="w-1/3 text-right cursor-help relative group">
                 Weighted
                 <span className="absolute right-0 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
                   Weighted value = average price × arcane drop weight. Value in
