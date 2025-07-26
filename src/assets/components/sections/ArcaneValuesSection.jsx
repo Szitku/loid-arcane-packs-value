@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ArcaneValuesSections = ({
   fetchedArcanes,
@@ -6,6 +6,44 @@ const ArcaneValuesSections = ({
   weightedArcaneCollections,
   activeTab,
 }) => {
+  // Sorting state
+  const [sortBy, setSortBy] = useState("none"); // "none", "average", "weighted"
+  const [sortDir, setSortDir] = useState("desc"); // "asc" or "desc"
+
+  // Sorting logic
+  const getSortedArcanes = () => {
+    const arcanes = fetchedArcanes.get(activeTab) || [];
+    if (sortBy === "none") return arcanes;
+    const sorted = [...arcanes].sort((a, b) => {
+      let valA, valB;
+      if (sortBy === "average") {
+        valA = a.avgPlatinum;
+        valB = b.avgPlatinum;
+      } else if (sortBy === "weighted") {
+        valA = a.weightedValue;
+        valB = b.weightedValue;
+      }
+      if (sortDir === "asc") return valA - valB;
+      else return valB - valA;
+    });
+    return sorted;
+  };
+
+  // Click handlers for sorting (cycle: desc → asc → none)
+  const handleSort = (column) => {
+    if (sortBy === column) {
+      if (sortDir === "desc") {
+        setSortDir("asc");
+      } else if (sortDir === "asc") {
+        setSortBy("none");
+        setSortDir("desc");
+      }
+    } else {
+      setSortBy(column);
+      setSortDir("desc");
+    }
+  };
+
   return (
     <>
       {/* Fetched Arcanes List or Loading */}
@@ -78,15 +116,27 @@ const ArcaneValuesSections = ({
                   The name of the arcane. Click to view on Warframe Market.
                 </span>
               </span>
-              <span className="w-1/3 text-center cursor-help relative group">
+              <span
+                className="w-1/3 text-center cursor-pointer cursor-help relative group select-none"
+                onClick={() => handleSort("average")}
+              >
                 Average
+                <span className="ml-1 text-xs">
+                  {sortBy === "average" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                </span>
                 <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
                   Average price of the 5 cheapest ingame orders. Value in
                   parentheses is the single cheapest.
                 </span>
               </span>
-              <span className="w-1/3 text-right cursor-help relative group">
+              <span
+                className="w-1/3 text-right cursor-pointer cursor-help relative group select-none"
+                onClick={() => handleSort("weighted")}
+              >
                 Weighted
+                <span className="ml-1 text-xs">
+                  {sortBy === "weighted" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                </span>
                 <span className="absolute right-0 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
                   Weighted value = average price × arcane drop weight. Value in
                   parentheses is the cheapest weighted.
@@ -94,7 +144,7 @@ const ArcaneValuesSections = ({
               </span>
             </div>
             <ul className="space-y-2">
-              {(fetchedArcanes.get(activeTab) || []).map((arcane, idx) => {
+              {getSortedArcanes().map((arcane, idx) => {
                 let rarityBg = "bg-blue-900/40";
                 let rarityBorder = "border-blue-400";
                 let rarityText = "text-blue-200";
