@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ArcaneDetailModal from "./ArcaneDetailModal";
+import processArcaneStatisticsData from "../../../util/processArcaneStatisticsData";
 
 const ArcaneValuesSections = ({
   fetchedArcanes,
@@ -13,7 +14,9 @@ const ArcaneValuesSections = ({
 
   // Modal state
   const [selectedArcane, setSelectedArcane] = useState(null);
+  const [arcaneStatistics, setArcaneStatistics] = useState(new Map());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loadingArcaneDetails, setLoadingArcaneDetails] = useState(false);
 
   // Sorting logic
   const getSortedArcanes = () => {
@@ -49,13 +52,49 @@ const ArcaneValuesSections = ({
     }
   };
 
-  // Handle arcane item click
-  const handleArcaneClick = (arcane, event) => {
+  // Handle arcane item click with loading state
+  const handleArcaneClick = async (arcane, event) => {
     // Prevent opening modal if clicking on the market link
     if (event.target.tagName === "A") return;
 
+    // Prevent multiple clicks while loading
+    if (loadingArcaneDetails) return;
+
+    setLoadingArcaneDetails(true);
     setSelectedArcane(arcane);
-    setIsModalOpen(true);
+
+    try {
+      // Check if we already have statistics for this arcane
+      if (!arcaneStatistics.has(arcane.id)) {
+        const response = await fetch(
+          `https://corsproxy.io/?https://api.warframe.market/v1/items/${arcane.id}/statistics`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const arcaneStatisticsData = await response.json();
+        const processedData = processArcaneStatisticsData(arcaneStatisticsData);
+
+        // Update the statistics map
+        setArcaneStatistics((prevStats) => {
+          const newStats = new Map(prevStats);
+          newStats.set(arcane.id, processedData);
+          return newStats;
+        });
+      }
+
+      // Only open modal after data is loaded
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Failed to fetch arcane statistics:", error);
+      // You might want to show an error state or notification here
+      // For now, we'll still open the modal but without the statistics
+      setIsModalOpen(true);
+    } finally {
+      setLoadingArcaneDetails(false);
+    }
   };
 
   const closeModal = () => {
@@ -187,24 +226,52 @@ const ArcaneValuesSections = ({
                     "bg-gradient-to-r from-[#b6eaff]/80 via-[#e6f7ff]/60 to-[#b6eaff]/80";
                   rarityText = "text-[#1e3a5c]"; // deep blue text for contrast
                 }
+
+                // Show loading state for the currently loading arcane
+                const isCurrentlyLoading =
+                  loadingArcaneDetails && selectedArcane?.id === arcane.id;
+
                 return (
                   <li
                     key={arcane.id || idx}
-                    className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center cursor-pointer hover:brightness-110 transition-all`}
+                    className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center cursor-pointer hover:brightness-110 transition-all ${
+                      isCurrentlyLoading ? "opacity-75" : ""
+                    }`}
                     onClick={(e) => handleArcaneClick(arcane, e)}
                   >
                     <span
-                      className={`w-1/3 ${rarityText} font-semibold truncate`}
+                      className={`w-1/3 ${rarityText} font-semibold truncate flex items-center`}
                     >
                       <a
                         href={`https://warframe.market/items/${arcane.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline hover:text-blue-400 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
                       >
                         {arcane.name}
                       </a>
+                      {isCurrentlyLoading && (
+                        <svg
+                          className="animate-spin h-4 w-4 ml-2 text-blue-400"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                          ></path>
+                        </svg>
+                      )}
                     </span>
                     <span className={`w-1/3 ${rarityText} text-center`}>
                       {arcane.avgPlatinum.toFixed(2)}({arcane.cheapestPlatinum})
@@ -226,6 +293,7 @@ const ArcaneValuesSections = ({
         arcane={selectedArcane}
         isOpen={isModalOpen}
         onClose={closeModal}
+        arcaneStatistics={arcaneStatistics}
       />
     </>
   );

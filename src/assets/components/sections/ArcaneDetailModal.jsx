@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Detailed information component/modal
-const ArcaneDetailModal = ({ arcane, isOpen, onClose }) => {
+const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
   if (!isOpen || !arcane) return null;
 
   return (
@@ -72,39 +72,40 @@ const ArcaneDetailModal = ({ arcane, isOpen, onClose }) => {
 
             <div className="bg-gray-800/50 rounded-lg p-4">
               <h3 className="text-lg font-semibold text-blue-100 mb-3">
-                Drop Information
+                Statistics (48hr)
               </h3>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-gray-300">Drop Weight:</span>
+                  <span className="text-gray-300">Rank 0 Sold:</span>
                   <span className="text-purple-400 font-semibold">
-                    {arcane.dropWeight || "N/A"}
+                    {arcaneStatistics.get(arcane.id)?.volumeOfLvlZero || 0}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-300">Drop Chance:</span>
+                  <span className="text-gray-300">Avg Price:</span>
                   <span className="text-purple-400 font-semibold">
-                    {arcane.dropWeight
-                      ? `${(arcane.dropWeight * 100).toFixed(2)}%`
-                      : "N/A"}
+                    {arcaneStatistics
+                      .get(arcane.id)
+                      ?.avgMedianOf48HourslvlZero.toFixed(2) || 0}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-300">Maxed Rank Sold:</span>
+                  <span className="text-purple-400 font-semibold">
+                    {arcaneStatistics.get(arcane.id)?.volumeOfMaxed || 0}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-300">Avg Price:</span>
+                  <span className="text-purple-400 font-semibold">
+                    {arcaneStatistics
+                      .get(arcane.id)
+                      ?.avgMedianOf48HoursMaxed.toFixed(2) || 0}
                   </span>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Additional Stats (if available) */}
-          {arcane.stats && (
-            <div className="bg-gray-800/50 rounded-lg p-4">
-              <h3 className="text-lg font-semibold text-blue-100 mb-3">
-                Arcane Effects
-              </h3>
-              <div className="text-gray-300">
-                {/* Add arcane effect descriptions here if available in your data */}
-                <p>Arcane effect details would go here...</p>
-              </div>
-            </div>
-          )}
 
           {/* Market Link */}
           <div className="flex justify-center">
