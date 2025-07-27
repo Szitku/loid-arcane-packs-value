@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ArcaneDetailModal from "./ArcaneDetailModal";
 
 const ArcaneValuesSections = ({
   fetchedArcanes,
@@ -9,6 +10,10 @@ const ArcaneValuesSections = ({
   // Sorting state
   const [sortBy, setSortBy] = useState("none"); // "none", "average", "weighted"
   const [sortDir, setSortDir] = useState(""); // "asc" or "desc"
+
+  // Modal state
+  const [selectedArcane, setSelectedArcane] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Sorting logic
   const getSortedArcanes = () => {
@@ -42,6 +47,20 @@ const ArcaneValuesSections = ({
       setSortBy(column);
       setSortDir("desc");
     }
+  };
+
+  // Handle arcane item click
+  const handleArcaneClick = (arcane, event) => {
+    // Prevent opening modal if clicking on the market link
+    if (event.target.tagName === "A") return;
+
+    setSelectedArcane(arcane);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedArcane(null);
   };
 
   return (
@@ -113,7 +132,8 @@ const ArcaneValuesSections = ({
               <span className="w-1/3 cursor-help relative group">
                 Arcane Name
                 <span className="absolute left-0 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
-                  The name of the arcane. Click to view on Warframe Market.
+                  The name of the arcane. Click item for details or name link
+                  for Warframe Market.
                 </span>
               </span>
               <span
@@ -170,7 +190,8 @@ const ArcaneValuesSections = ({
                 return (
                   <li
                     key={arcane.id || idx}
-                    className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center`}
+                    className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center cursor-pointer hover:brightness-110 transition-all`}
+                    onClick={(e) => handleArcaneClick(arcane, e)}
                   >
                     <span
                       className={`w-1/3 ${rarityText} font-semibold truncate`}
@@ -180,6 +201,7 @@ const ArcaneValuesSections = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline hover:text-blue-400 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         {arcane.name}
                       </a>
@@ -198,6 +220,13 @@ const ArcaneValuesSections = ({
           </div>
         </>
       )}
+
+      {/* Detail Modal */}
+      <ArcaneDetailModal
+        arcane={selectedArcane}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </>
   );
 };
