@@ -171,8 +171,8 @@ const ArcaneValuesSections = ({
               <span className="w-1/3 cursor-help relative group">
                 Arcane Name
                 <span className="absolute left-0 bottom-full mb-1 hidden group-hover:block bg-black/90 text-xs text-white rounded px-2 py-1 z-10 whitespace-nowrap pointer-events-none">
-                  The name of the arcane. Click item for details or name link
-                  for Warframe Market.
+                  Click on any arcane item to view detailed statistics and
+                  market data
                 </span>
               </span>
               <span
@@ -234,9 +234,9 @@ const ArcaneValuesSections = ({
                 return (
                   <li
                     key={arcane.id || idx}
-                    className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center cursor-pointer hover:brightness-110 transition-all ${
+                    className={`${rarityBg} border ${rarityBorder} border-[1.5px] rounded-lg p-3 flex justify-between items-center cursor-pointer hover:brightness-110 hover:scale-[1.02] hover:shadow-lg transition-all duration-200 ${
                       isCurrentlyLoading ? "opacity-75" : ""
-                    }`}
+                    } relative group`}
                     onClick={(e) => handleArcaneClick(arcane, e)}
                   >
                     <span
@@ -276,9 +276,31 @@ const ArcaneValuesSections = ({
                     <span className={`w-1/3 ${rarityText} text-center`}>
                       {arcane.avgPlatinum.toFixed(2)}({arcane.cheapestPlatinum})
                     </span>
-                    <span className={`w-1/3 ${rarityText} text-right`}>
+                    <span
+                      className={`w-1/3 ${rarityText} text-right flex items-center justify-end`}
+                    >
                       {arcane.weightedValue.toFixed(2)}(
                       {arcane.cheapestWeightedValue.toFixed(2)})
+                      {/* Click indicator */}
+                      <svg
+                        className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
                     </span>
                   </li>
                 );
