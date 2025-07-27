@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { tiles } from "../../../data/tilesData.js";
 import ArcaneValuesSections from "./ArcaneValuesSection.jsx";
+import processArcaneOrderData from "../../../util/processArcaneOrderData.js";
+
 const TilesSection = ({ setActiveTab, activeTab }) => {
   // Track which tiles have already triggered the API request
   const fetchedTiles = useRef(new Set());
@@ -29,45 +31,18 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
 
   const fetchTileData = async (arcanes, tileId) => {
     setLoadingTiles((prev) => new Set(prev).add(tileId));
-    const type = "sell";
-    const request = arcanes.map((arcane) =>
+
+    const requests = arcanes.map((arcane) =>
       fetch(
-        `https://corsproxy.io/?https://api.warframe.market/v2/orders/item/${arcane.id}`
+        `https://corsproxy.io/?https://api.warframe.market/v2/orders/item/${arcane.id}/top?rank=${arcane.maxRank}`
       )
         .then((res) => res.json())
-        .then((data) => {
-          const orders = data?.data || [];
-          const filtered = orders.filter(
-            (order) =>
-              order.type === type &&
-              order.rank === arcane.maxRank &&
-              order.user.status === "ingame"
-          );
-          const sorted = filtered.sort((a, b) => a.platinum - b.platinum);
-          const cheapestFive = sorted.slice(0, 5);
-          const avgPlatinum =
-            cheapestFive.length > 0
-              ? cheapestFive.reduce((sum, o) => sum + o.platinum, 0) /
-                cheapestFive.length
-              : 0;
-          const weightedValue = avgPlatinum * arcane.weight;
-          const cheapestPlatinum = cheapestFive[0]?.platinum || 0;
-
-          const cheapestWeightedValue = cheapestPlatinum * arcane.weight;
-
-          return {
-            id: arcane.id,
-            rarity: arcane.rarity,
-            name: arcane.name,
-            avgPlatinum,
-            cheapestPlatinum,
-            weightedValue,
-            cheapestWeightedValue,
-          };
+        .then((arcaneOrdersData) => {
+          return processArcaneOrderData(arcaneOrdersData, arcane);
         })
     );
 
-    const arcanesWithWeightedValue = await Promise.all(request);
+    const arcanesWithWeightedValue = await Promise.all(requests);
 
     calculateAvgWeightedValues(tileId, arcanesWithWeightedValue);
 
