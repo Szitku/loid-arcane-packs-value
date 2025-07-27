@@ -26,8 +26,12 @@ const processArcaneStatisticsData = (arcaneStatisticsData) => {
   );
 
   const avgMedianOf48HoursMaxed = medianPriceOfMaxedSummed / numberOfMaxed;
+
   const avgMedianOf48HourslvlZero =
     medianPriceOflvlZeroSummed / numberOfLvlZero;
+
+  if (numberOfLvlZero === 0) avgMedianOf48HourslvlZero = 0;
+  if (numberOfMaxed === 0) avgMedianOf48HoursMaxed = 0;
 
   return {
     volumeOfMaxed,
