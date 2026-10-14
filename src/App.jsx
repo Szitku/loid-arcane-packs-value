@@ -15,7 +15,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050811] text-slate-200 relative selection:bg-cyan-500/30 selection:text-cyan-200 font-hud">
+    <div className="flex-1 flex flex-col min-h-screen min-h-dvh bg-[#050811] text-slate-200 relative selection:bg-cyan-500/30 selection:text-cyan-200 font-hud">
       {/* Sci-Fi Void Grid & Ambient Lighting Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.15),rgba(255,255,255,0))]" />
@@ -114,12 +114,12 @@ export default function App() {
       </header>
 
       {/* Main Content Area */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 w-full relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-12 sm:pb-16">
         <TilesSection setActiveTab={setActiveTab} activeTab={activeTab} />
       </main>
 
       {/* Warframe Themed Footer */}
-      <footer className="relative z-10 border-t border-slate-900 bg-[#04060d]/90 py-6 mt-16 text-center text-xs text-slate-500">
+      <footer className="relative z-10 border-t border-slate-900 bg-[#04060d]/90 py-6 mt-auto text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center space-x-2 text-slate-400">
             <LotusIcon className="w-4 h-4 text-cyan-500" />
