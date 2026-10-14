@@ -9,9 +9,12 @@ const processArcaneOrderData = (arcaneOrderData, arcane) => {
   const cheapestWeightedValue = cheapestPlatinum * arcane.weight;
 
   return {
+    ...arcane,
     id: arcane.id,
     rarity: arcane.rarity,
     name: arcane.name,
+    weight: arcane.weight,
+    maxRank: arcane.maxRank,
     avgPlatinum,
     cheapestPlatinum,
     weightedValue,

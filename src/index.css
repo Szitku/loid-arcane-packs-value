@@ -1,23 +1,111 @@
 @import "tailwindcss";
 
-/* Optional: Custom theme configuration */
-@theme {
-  --color-primary: #3b82f6;
-  --color-secondary: #8b5cf6;
-}
-
-/* Custom base styles */
 @layer base {
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #0a1437 0%, #0f172a 50%, #000 100%) !important;
-    color: #c7d2fe;
+    font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #050811;
+    color: #e2e8f0;
     min-height: 100vh;
+    letter-spacing: 0.025em;
+    overflow-x: hidden;
   }
+
+  /* Custom Warframe Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #080c16;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 2px;
+    border: 1px solid #0284c7;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0369a1;
+  }
+}
+
+/* Warframe Tech & Orokin Utilities */
+.font-orokin {
+  font-family: 'Cinzel', serif;
+}
+
+.font-hud {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Subtle Sci-Fi Scanline overlay */
+.wf-scanlines {
+  background-image: linear-gradient(
+    rgba(18, 24, 38, 0) 50%,
+    rgba(0, 0, 0, 0.35) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Angled Tech Chamfered Corners */
+.wf-chamfer {
+  clip-path: polygon(
+    0 10px,
+    10px 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+}
+
+.wf-chamfer-sm {
+  clip-path: polygon(
+    0 6px,
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px)
+  );
+}
+
+/* Orokin Gold Glow */
+.glow-orokin {
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.25), inset 0 0 15px rgba(234, 179, 8, 0.1);
+}
+
+/* Tenno Cyan Glow */
+.glow-tenno {
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25), inset 0 0 15px rgba(56, 189, 248, 0.1);
+}
+
+/* Subtle Shimmer Animation for Legendary Rarity */
+@keyframes wf-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: wf-shimmer 3.5s infinite linear;
 }
