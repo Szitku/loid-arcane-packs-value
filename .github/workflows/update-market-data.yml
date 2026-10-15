@@ -1,0 +1,35 @@
+name: Update Market Data
+
+on:
+  schedule:
+    # Update market data every 4 hours without rebuilding or redeploying the website
+    - cron: "0 */4 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    name: Fetch and Push Market Data
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch fresh Warframe Market statistics
+        run: node scripts/fetch-market-data.mjs --force
+
+      - name: Push market data to data branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: data
+          publish_dir: ./public/data
+          keep_files: false
+          commit_message: "chore(data): update market statistics [skip ci]"

@@ -3,7 +3,10 @@ import { tiles } from "../../../data/tilesData.js";
 import ArcaneValuesSections from "./ArcaneValuesSection.jsx";
 import processArcaneSalesData from "../../../util/processArcaneSalesData.js";
 import calculatePackValues from "../../../util/calculatePackValues.js";
-import { fetchArcaneStatistics } from "../../../util/apiClient.js";
+import {
+  fetchArcaneStatistics,
+  preloadMarketData,
+} from "../../../util/apiClient.js";
 import {
   PlatinumIcon,
   VosforIcon,
@@ -69,6 +72,15 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   // Vosfor Calculator Modal / Drawer state
   const [showCalculator, setShowCalculator] = useState(false);
   const [userVosfor, setUserVosfor] = useState(600);
+  const [marketUpdated, setMarketUpdated] = useState(null);
+
+  useEffect(() => {
+    preloadMarketData().then((data) => {
+      if (data?.lastUpdated) {
+        setMarketUpdated(data.lastUpdated);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     try {
@@ -256,6 +268,20 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
           <div className="hero-note">
             <span className="status-dot" /> Real market sales{" "}
             <span className="note-divider">/</span> 48-hour weighted averages
+            {marketUpdated && (
+              <>
+                <span className="note-divider">/</span>
+                <span>
+                  Updated{" "}
+                  {new Date(marketUpdated).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+              </>
+            )}
           </div>
         </div>
         <div className="hero-art" aria-hidden="true">

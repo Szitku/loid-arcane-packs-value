@@ -3,10 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Triggers on push to the main branch
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
+    name: Build & Deploy Website
     runs-on: ubuntu-latest
     permissions:
       contents: write
