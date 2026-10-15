@@ -503,8 +503,9 @@ input {
   border-color: #bda76a35;
 }
 .relic-symbol {
-  width: 62px;
-  height: 76px;
+  width: 52px;
+  height: auto;
+  max-height: 50px;
   color: #d8c18b;
   filter: drop-shadow(0 0 10px #cfb46d60);
 }

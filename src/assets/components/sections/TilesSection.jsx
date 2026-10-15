@@ -402,7 +402,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                   onChange={(e) =>
                     setUserVosfor(Math.max(0, parseInt(e.target.value) || 0))
                   }
-                  className="bg-black/60 border border-slate-700 rounded px-2.5 py-1 text-emerald-400 font-bold font-mono text-lg w-full focus:outline-none focus:border-amber-400"
+                  className="bg-black/60 border border-slate-700 rounded px-2.5 py-1 text-cyan-400 font-bold font-mono text-lg w-full focus:outline-none focus:border-amber-400"
                 />
               </div>
               <p className="text-[11px] text-slate-500 mt-1">

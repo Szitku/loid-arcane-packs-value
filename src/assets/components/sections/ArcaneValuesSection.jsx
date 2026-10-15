@@ -171,11 +171,11 @@ const ArcaneValuesSections = ({
 
             {/* Vosfor Efficiency */}
             <div className="analysis-stat p-4 rounded-lg border">
-              <div className="text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-1">
+              <div className="text-[11px] uppercase tracking-wider text-cyan-400 font-semibold mb-1">
                 Vosfor Efficiency Yield
               </div>
               <div className="flex items-baseline space-x-1.5">
-                <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono flex items-center gap-1.5">
+                <span className="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
                   <VosforIcon className="w-5 h-5" />
                   {packValue !== null ? (packValue / 2).toFixed(1) : "-"}
                 </span>
