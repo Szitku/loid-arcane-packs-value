@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://github.com/Szitku/loid-arcane-packs-value",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "fetch-data": "node scripts/fetch-market-data.mjs",
