@@ -3,7 +3,7 @@ import { PlatinumIcon, LotusIcon } from "../icons/WarframeIcons";
 import { playUiClick } from "../../../util/soundEffects";
 import { ExternalLink, X, TrendingUp, BarChart2, Shield, Sparkles } from "lucide-react";
 
-const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
+const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics, strategy = "unranked" }) => {
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -20,8 +20,8 @@ const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
   const stats = arcaneStatistics.get(arcane.id) || {
     volumeOfLvlZero: 0,
     volumeOfMaxed: 0,
-    avgMedianOf48HourslvlZero: 0,
-    avgMedianOf48HoursMaxed: 0,
+    avgPriceLvlZero: null,
+    avgPriceMaxed: null,
   };
 
   // Warframe Rarity styling
@@ -73,7 +73,7 @@ const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
                 {arcane.rarity} Arcane
               </span>
               <span className="text-xs text-amber-400 font-mono">
-                ◆◆◆◆◆ Rank 5
+                Rank {strategy === "maxed" ? arcane.maxRank : 0}
               </span>
               {arcane.weight && (
                 <span className="text-xs text-slate-400 font-mono">
@@ -102,41 +102,27 @@ const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
             <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-4 space-y-3">
               <div className="flex items-center space-x-2 text-sm font-bold uppercase tracking-wider text-cyan-300">
                 <TrendingUp className="w-4 h-4 text-cyan-400" />
-                <span>Live Sell Orders (Top 5)</span>
+                <span>Reported Sales (48 hours)</span>
               </div>
 
               <div className="space-y-2 text-sm font-mono">
                 <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                  <span className="text-slate-400">Average Price:</span>
+                  <span className="text-slate-400">Volume-weighted Avg:</span>
                   <span className="text-slate-100 font-bold flex items-center gap-1">
                     <PlatinumIcon className="w-4 h-4" />
-                    {arcane.avgPlatinum?.toFixed(2)} p
+                    {arcane.avgPlatinum?.toFixed(2) ?? "N/A"} p
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                  <span className="text-slate-400">Cheapest Order:</span>
-                  <span className="text-emerald-400 font-bold flex items-center gap-1">
-                    <PlatinumIcon className="w-4 h-4" />
-                    {arcane.cheapestPlatinum} p
-                  </span>
-                </div>
 
                 <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                   <span className="text-slate-400">Weighted Contribution:</span>
                   <span className="text-cyan-300 font-bold flex items-center gap-1">
                     <PlatinumIcon className="w-4 h-4" />
-                    {arcane.weightedValue?.toFixed(2)} p
+                    {arcane.weightedValue?.toFixed(2) ?? "N/A"} p
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center py-1">
-                  <span className="text-slate-400">Floor Contribution:</span>
-                  <span className="text-cyan-400 font-bold flex items-center gap-1">
-                    <PlatinumIcon className="w-4 h-4" />
-                    {arcane.cheapestWeightedValue?.toFixed(2)} p
-                  </span>
-                </div>
               </div>
             </div>
 
@@ -159,22 +145,22 @@ const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
                   <span className="text-slate-400">Rank 0 Avg Price:</span>
                   <span className="text-purple-300 font-semibold flex items-center gap-1">
                     <PlatinumIcon className="w-3.5 h-3.5" />
-                    {stats.avgMedianOf48HourslvlZero?.toFixed(1) || 0} p
+                    {stats.avgPriceLvlZero?.toFixed(1) ?? "N/A"} p
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                  <span className="text-slate-400">Rank 5 Max Sold:</span>
+                  <span className="text-slate-400">Rank {arcane.maxRank} Sold:</span>
                   <span className="text-amber-300 font-semibold">
                     {stats.volumeOfMaxed} units
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center py-1">
-                  <span className="text-slate-400">Rank 5 Avg Price:</span>
+                  <span className="text-slate-400">Rank {arcane.maxRank} Avg Price:</span>
                   <span className="text-amber-300 font-semibold flex items-center gap-1">
                     <PlatinumIcon className="w-3.5 h-3.5" />
-                    {stats.avgMedianOf48HoursMaxed?.toFixed(1) || 0} p
+                    {stats.avgPriceMaxed?.toFixed(1) ?? "N/A"} p
                   </span>
                 </div>
               </div>
@@ -188,7 +174,7 @@ const ArcaneDetailModal = ({ arcane, isOpen, onClose, arcaneStatistics }) => {
               <span>Warframe Arcane Dissolution Note</span>
             </div>
             <p>
-              When opening Loid's Arcane Packs, each pack drops 3 unranked (Rank 0) arcanes. Players commonly combine 21 copies into a Rank 5 arcane to maximize trading value on Warframe.Market.
+              Each pack drops 3 Rank 0 arcanes. This arcane needs {arcane.copiesToMax} matching copies to reach Rank {arcane.maxRank}. The maxed strategy divides the max-rank price by that copy count before weighting it by drop probability. This is long-term value, not immediate sale proceeds.
             </p>
           </div>
 

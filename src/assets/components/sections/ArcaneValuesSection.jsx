@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import ArcaneDetailModal from "./ArcaneDetailModal";
-import processArcaneStatisticsData from "../../../util/processArcaneStatisticsData";
-import { fetchArcaneStatistics } from "../../../util/apiClient";
 import { PlatinumIcon, VosforIcon, LotusIcon } from "../icons/WarframeIcons";
 import { playUiClick } from "../../../util/soundEffects";
 import {
   ExternalLink,
   ChevronDown,
   ChevronUp,
-  SlidersHorizontal,
-  HelpCircle,
-  Eye,
-  Sparkles,
 } from "lucide-react";
 
 const ArcaneValuesSections = ({
@@ -21,20 +14,20 @@ const ArcaneValuesSections = ({
   activeTab,
   searchQuery = "",
   rarityFilter = "all",
+  strategy = "unranked",
+  error,
 }) => {
   // Sorting state
   const [sortBy, setSortBy] = useState("weighted"); // default to weighted
   const [sortDir, setSortDir] = useState("desc"); // default desc
 
-  // Modal state
-  const [selectedArcane, setSelectedArcane] = useState(null);
-  const [arcaneStatistics, setArcaneStatistics] = useState(new Map());
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loadingArcaneDetails, setLoadingArcaneDetails] = useState(false);
-
   // Sorting and filtering logic
   const getProcessedArcanes = () => {
-    let arcanes = fetchedArcanes.get(activeTab) || [];
+    let arcanes = (fetchedArcanes.get(activeTab) || []).map((arcane) => ({
+      ...arcane,
+      avgPlatinum: arcane.valuations[strategy].average,
+      weightedValue: arcane.valuations[strategy].weightedValue,
+    }));
 
     // Filter by search query
     if (searchQuery.trim()) {
@@ -90,48 +83,18 @@ const ArcaneValuesSections = ({
     }
   };
 
-  // Handle arcane item click with loading state
-  const handleArcaneClick = async (arcane, event) => {
-    if (event.target.closest("a")) return;
-    if (loadingArcaneDetails) return;
-
-    playUiClick();
-    setLoadingArcaneDetails(true);
-    setSelectedArcane(arcane);
-
-    try {
-      if (!arcaneStatistics.has(arcane.id)) {
-        const arcaneStatisticsData = await fetchArcaneStatistics(arcane.id);
-        const processedData = processArcaneStatisticsData(arcaneStatisticsData);
-
-        setArcaneStatistics((prevStats) => {
-          const newStats = new Map(prevStats);
-          newStats.set(arcane.id, processedData);
-          return newStats;
-        });
-      }
-      setIsModalOpen(true);
-    } catch (error) {
-      console.error("Failed to fetch arcane statistics:", error);
-      setIsModalOpen(true);
-    } finally {
-      setLoadingArcaneDetails(false);
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedArcane(null);
-  };
-
-  const collectionData = weightedArcaneCollections.current.get(activeTab) || {};
+  const allValues = weightedArcaneCollections.current.get(activeTab) || {};
+  const collectionData = allValues[strategy] || {};
   const totalWeighted = collectionData.totalWeightedValue;
-  const totalWeightedCheapest = collectionData.totalWeightedValueWithCheapest;
-  const packValue = totalWeighted !== undefined ? totalWeighted * 3 : null;
-  const packValueCheapest = totalWeightedCheapest !== undefined ? totalWeightedCheapest * 3 : null;
+  const packValue = totalWeighted != null ? totalWeighted * 3 : null;
+  const weightTotal = (fetchedArcanes.get(activeTab) || []).reduce((sum, arcane) => sum + arcane.weight, 0);
 
   return (
     <div className="space-y-4">
+      {error && <p role="alert" className="text-amber-300">{error}</p>}
+      {weightTotal > 0 && Math.abs(weightTotal - 1) > 0.001 && (
+        <p role="alert" className="text-amber-300 text-sm">Warning: configured drop probabilities total {(weightTotal * 100).toFixed(2)}%, not 100%. These estimates are provisional until the drop table is corrected.</p>
+      )}
       {/* Loading State */}
       {loadingTiles.has(activeTab) ? (
         <div className="flex flex-col items-center justify-center py-16 px-4 rounded-xl border border-cyan-900/40 bg-[#080d1a]/80">
@@ -140,7 +103,7 @@ const ArcaneValuesSections = ({
             <LotusIcon className="w-6 h-6 text-cyan-400 absolute inset-0 m-auto" />
           </div>
           <span className="text-cyan-300 font-semibold tracking-wider text-base">
-            Querying Warframe.Market Orderbook...
+            Fetching Warframe.Market sales history...
           </span>
           <span className="text-slate-500 text-xs mt-1 font-mono">
             Transmuting live market valuations for {activeTab.toUpperCase()}
@@ -163,9 +126,6 @@ const ArcaneValuesSections = ({
                   <PlatinumIcon className="w-6 h-6" />
                   {packValue !== null ? packValue.toFixed(1) : "-"}
                 </span>
-                <span className="text-xs text-slate-400 font-mono">
-                  (floor: {packValueCheapest !== null ? packValueCheapest.toFixed(1) : "-"} p)
-                </span>
               </div>
               <p className="text-[11px] text-slate-400 mt-1">
                 Expected value of 3 random Arcanes from Loid's 200 Vosfor pack.
@@ -180,14 +140,11 @@ const ArcaneValuesSections = ({
               <div className="flex items-baseline space-x-2">
                 <span className="text-2xl sm:text-3xl font-extrabold text-cyan-300 font-mono flex items-center gap-1.5">
                   <PlatinumIcon className="w-6 h-6" />
-                  {totalWeighted !== undefined ? totalWeighted.toFixed(2) : "-"}
-                </span>
-                <span className="text-xs text-slate-400 font-mono">
-                  (min: {totalWeightedCheapest !== undefined ? totalWeightedCheapest.toFixed(2) : "-"} p)
+                  {totalWeighted != null ? totalWeighted.toFixed(2) : "-"}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 mt-1">
-                Mathematical expectation: Sum of (Drop Weight × Sell Price).
+                Sum of (drop probability × {strategy === "maxed" ? "maxed price ÷ copies needed" : "Rank 0 price"}).
               </p>
             </div>
 
@@ -204,7 +161,7 @@ const ArcaneValuesSections = ({
                 <span className="text-xs text-slate-400 font-mono">plat / 100 Vosfor</span>
               </div>
               <p className="text-[11px] text-slate-400 mt-1">
-                Platinum generated for every 100 Vosfor dissolved.
+                Expected platinum equivalent per 100 Vosfor spent.
               </p>
             </div>
           </div>
@@ -236,7 +193,7 @@ const ArcaneValuesSections = ({
                 className="col-span-4 sm:col-span-3 text-center cursor-pointer hover:text-cyan-300 transition-colors flex items-center justify-center gap-1"
                 onClick={() => handleSort("average")}
               >
-                <span>Avg Price (Rank 5)</span>
+                <span>Avg Sold ({strategy === "maxed" ? "Max Rank" : "Rank 0"}, 48h)</span>
                 {sortBy === "average" && (
                   sortDir === "asc" ? <ChevronUp className="w-3.5 h-3.5 text-cyan-400" /> : <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
                 )}
@@ -256,13 +213,9 @@ const ArcaneValuesSections = ({
             {/* Arcanes List */}
             <div className="divide-y divide-slate-800/60">
               {getProcessedArcanes().map((arcane) => {
-                const isCurrentlyLoading =
-                  loadingArcaneDetails && selectedArcane?.id === arcane.id;
-
                 // Authentic Warframe Rarity Colors & Stylings
                 let rarityColor = "text-slate-300";
                 let rarityBadge = "bg-slate-800/80 text-slate-300 border-slate-700";
-                let rowBg = "hover:bg-slate-800/40";
                 let leftBorder = "border-l-4 border-slate-600";
 
                 if (arcane.rarity === "common") {
@@ -277,34 +230,28 @@ const ArcaneValuesSections = ({
                   rarityColor = "text-amber-300";
                   rarityBadge = "bg-amber-950/40 text-amber-300 border-amber-500";
                   leftBorder = "border-l-4 border-amber-400";
-                  rowBg = "hover:bg-amber-950/15";
                 } else if (arcane.rarity === "legendary") {
                   rarityColor = "text-cyan-200";
                   rarityBadge = "bg-cyan-950/50 text-cyan-200 border-cyan-400 shadow-[0_0_8px_rgba(56,189,248,0.4)]";
                   leftBorder = "border-l-4 border-cyan-300";
-                  rowBg = "hover:bg-cyan-950/20";
                 }
 
                 return (
                   <div
                     key={arcane.id}
-                    onClick={(e) => handleArcaneClick(arcane, e)}
-                    className={`grid grid-cols-12 gap-2 px-4 py-3 items-center cursor-pointer transition-all ${leftBorder} ${rowBg} ${
-                      isCurrentlyLoading ? "opacity-60 bg-cyan-950/30" : ""
-                    } group`}
+                    className={`grid grid-cols-12 gap-2 px-4 py-3 items-center ${leftBorder}`}
                   >
                     {/* Arcane Name & Rarity */}
                     <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
                       <div className="min-w-0">
                         <div className="flex items-center space-x-2">
-                          <span className={`font-bold tracking-wide truncate ${rarityColor} group-hover:text-cyan-300 transition-colors`}>
+                          <span className={`font-bold tracking-wide truncate ${rarityColor}`}>
                             {arcane.name}
                           </span>
                           <a
                             href={`https://warframe.market/items/${arcane.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
                             title="Open on Warframe.Market"
                             className="text-slate-500 hover:text-cyan-400 transition-colors"
                           >
@@ -315,9 +262,9 @@ const ArcaneValuesSections = ({
                         {/* Warframe Rank Indicator: 5 pips */}
                         <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400 font-mono mt-0.5">
                           <span className="text-amber-400/90 font-mono tracking-tighter">
-                            ◆◆◆◆◆
+                            {"◆".repeat(strategy === "maxed" ? arcane.maxRank : 0)}
                           </span>
-                          <span className="text-slate-500">Rank 5</span>
+                          <span className="text-slate-500">Rank {strategy === "maxed" ? arcane.maxRank : 0}{strategy === "maxed" ? ` / ${arcane.copiesToMax} copies` : ""}</span>
                           <span className={`px-1.5 py-0.2 rounded text-[10px] uppercase font-semibold border ${rarityBadge}`}>
                             {arcane.rarity}
                           </span>
@@ -343,11 +290,11 @@ const ArcaneValuesSections = ({
                     <div className="col-span-4 sm:col-span-3 text-center font-mono">
                       <div className="text-slate-100 font-bold flex items-center justify-center gap-1">
                         <PlatinumIcon className="w-3.5 h-3.5" />
-                        <span>{arcane.avgPlatinum ? arcane.avgPlatinum.toFixed(1) : "0"}</span>
+                        <span>{arcane.avgPlatinum != null ? arcane.avgPlatinum.toFixed(1) : "N/A"}</span>
                         <span className="text-slate-500 text-xs font-normal">p</span>
                       </div>
                       <div className="text-[11px] text-slate-400">
-                        floor: <span className="text-emerald-400 font-semibold">{arcane.cheapestPlatinum || 0}</span> p
+                        {arcane.valuations[strategy].volume} reported sales
                       </div>
                     </div>
 
@@ -356,17 +303,10 @@ const ArcaneValuesSections = ({
                       <div>
                         <div className="text-emerald-400 font-bold flex items-center justify-end gap-1">
                           <PlatinumIcon className="w-3.5 h-3.5" />
-                          <span>{arcane.weightedValue ? arcane.weightedValue.toFixed(2) : "0.00"}</span>
-                        </div>
-                        <div className="text-[11px] text-slate-500">
-                          min: {arcane.cheapestWeightedValue ? arcane.cheapestWeightedValue.toFixed(2) : "0.00"}
+                          <span>{arcane.weightedValue != null ? arcane.weightedValue.toFixed(2) : "N/A"}</span>
                         </div>
                       </div>
 
-                      {/* View icon indicator on hover */}
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity text-cyan-400">
-                        <Eye className="w-4 h-4" />
-                      </div>
                     </div>
                   </div>
                 );
@@ -376,13 +316,6 @@ const ArcaneValuesSections = ({
         </>
       )}
 
-      {/* Warframe Themed Arcane Detail Modal */}
-      <ArcaneDetailModal
-        arcane={selectedArcane}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        arcaneStatistics={arcaneStatistics}
-      />
     </div>
   );
 };

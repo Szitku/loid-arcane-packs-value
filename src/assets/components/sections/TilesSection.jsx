@@ -1,8 +1,9 @@
 import React, { useRef, useState, useMemo } from "react";
 import { tiles } from "../../../data/tilesData.js";
 import ArcaneValuesSections from "./ArcaneValuesSection.jsx";
-import processArcaneOrderData from "../../../util/processArcaneOrderData.js";
-import { fetchArcaneOrders } from "../../../util/apiClient.js";
+import processArcaneSalesData from "../../../util/processArcaneSalesData.js";
+import calculatePackValues from "../../../util/calculatePackValues.js";
+import { fetchArcaneStatistics } from "../../../util/apiClient.js";
 import {
   PlatinumIcon,
   VosforIcon,
@@ -26,6 +27,8 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   const [weightedCollections, setWeightedCollections] = useState(new Map());
   const [loadingTiles, setLoadingTiles] = useState(new Set());
   const [isScanningAll, setIsScanningAll] = useState(false);
+  const [strategy, setStrategy] = useState("unranked");
+  const [fetchErrors, setFetchErrors] = useState(new Map());
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,24 +42,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   const weightedArcaneCollections = useRef(new Map());
 
   const calculateAvgWeightedValues = (tileId, weightedArcanes) => {
-    let totalWeightedValue = 0;
-    weightedArcanes.forEach((arcane) => {
-      totalWeightedValue += arcane.weightedValue || 0;
-    });
-
-    let totalWeightedValueWithCheapest = 0;
-    weightedArcanes.forEach((arcane) => {
-      totalWeightedValueWithCheapest += arcane.cheapestWeightedValue || 0;
-    });
-
-    const values = {
-      totalWeightedValue,
-      totalWeightedValueWithCheapest,
-      // In Warframe, each Loid pack grants 3 arcanes for 200 Vosfor
-      packValue: totalWeightedValue * 3,
-      packValueCheapest: totalWeightedValueWithCheapest * 3,
-      platPer100Vosfor: (totalWeightedValue * 3) / 2,
-    };
+    const values = calculatePackValues(weightedArcanes);
 
     weightedArcaneCollections.current.set(tileId, values);
     setWeightedCollections((prev) => new Map(prev).set(tileId, values));
@@ -64,11 +50,12 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
 
   const fetchTileData = async (arcanes, tileId) => {
     setLoadingTiles((prev) => new Set(prev).add(tileId));
+    setFetchErrors((prev) => { const next = new Map(prev); next.delete(tileId); return next; });
 
     try {
       const requests = arcanes.map((arcane) =>
-        fetchArcaneOrders(arcane).then((arcaneOrdersData) =>
-          processArcaneOrderData(arcaneOrdersData, arcane)
+        fetchArcaneStatistics(arcane.id).then((statistics) =>
+          processArcaneSalesData(statistics, arcane)
         )
       );
 
@@ -82,6 +69,8 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
       });
     } catch (err) {
       console.error(`Failed to fetch arcanes for ${tileId}:`, err);
+      fetchedTiles.current.delete(tileId);
+      setFetchErrors((prev) => new Map(prev).set(tileId, "Market data unavailable. Click the collection to retry."));
     } finally {
       setLoadingTiles((prev) => {
         const newSet = new Set(prev);
@@ -111,17 +100,39 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
     let best = null;
     let maxVal = -1;
     for (const tile of tiles) {
-      const data = weightedCollections.get(tile.id);
-      if (data && data.packValue > maxVal) {
+      const data = weightedCollections.get(tile.id)?.[strategy];
+      if (data && data.packValue !== null && data.packValue > maxVal) {
         maxVal = data.packValue;
         best = { ...tile, packValue: data.packValue, platPer100Vosfor: data.platPer100Vosfor };
       }
     }
     return best;
-  }, [weightedCollections]);
+  }, [weightedCollections, strategy]);
+
+  const rankedTiles = useMemo(() => [...tiles].sort((a, b) => {
+    const aValue = weightedCollections.get(a.id)?.[strategy]?.packValue ?? -1;
+    const bValue = weightedCollections.get(b.id)?.[strategy]?.packValue ?? -1;
+    return bValue - aValue;
+  }), [weightedCollections, strategy]);
 
   return (
     <div className="space-y-6">
+      <div className="rounded-xl border border-cyan-900/60 bg-slate-950 p-4 space-y-3">
+        <div className="flex flex-wrap gap-2">
+          {[["unranked", "Sell unranked"], ["maxed", "Collect, max & sell"]].map(([value, label]) => (
+            <button key={value} onClick={() => setStrategy(value)} aria-pressed={strategy === value}
+              className={`px-4 py-2 rounded border ${strategy === value ? "border-cyan-400 text-cyan-300 bg-cyan-950" : "border-slate-700 text-slate-400"}`}>
+              {label}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-slate-400">
+          Compare all packs, then buy the one with the highest expected platinum value.
+          {" "}{strategy === "maxed" ? "Maxed values assume you collect enough matching copies to sell at max rank." : "Unranked values assume you sell each drop separately."}
+          {" "}Prices use volume-weighted reported sales from the last 48 hours.
+          {" "}No reported sales means a 0p value in this comparison.
+        </p>
+      </div>
       {/* Sanctum Anatomica Lore Dispatch & Quick Tools Banner */}
       <div className="relative overflow-hidden rounded-xl border border-cyan-900/60 bg-gradient-to-r from-[#091122]/95 via-[#0c162d]/90 to-[#070b16]/95 p-4 sm:p-5 shadow-xl">
         <div className="absolute top-0 right-0 w-96 h-full bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.1),transparent_70%)] pointer-events-none" />
@@ -146,7 +157,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
               className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold uppercase tracking-wider bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 text-white shadow-[0_0_15px_rgba(6,182,212,0.35)] transition-all"
             >
               <RotateCw className={`w-4 h-4 ${isScanningAll ? "animate-spin text-amber-300" : ""}`} />
-              <span>{isScanningAll ? "Scanning The Void..." : "Scan All Packs"}</span>
+              <span>{isScanningAll ? "Comparing packs..." : "Compare All Packs"}</span>
             </button>
 
             {/* Vosfor Calculator Toggle */}
@@ -173,7 +184,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             <div className="flex items-center space-x-2">
               <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40 uppercase tracking-wider flex items-center gap-1">
                 <Award className="w-3.5 h-3.5 inline text-amber-400" />
-                Top Yield Pack
+                {weightedCollections.size === tiles.length ? "Best Value Pack" : "Best So Far"}
               </span>
               <span className="text-slate-200 font-semibold">{topPack.label}</span>
               <span className="text-slate-400">({topPack.faction})</span>
@@ -264,7 +275,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                   : "Scan packs to calculate"}
               </div>
               <p className="text-[11px] text-slate-500 mt-1">
-                Based on current market sell orders
+                {strategy === "maxed" ? "Long-term maxed-sale equivalent" : "Based on Rank 0 reported sales (48h)"}
               </p>
             </div>
           </div>
@@ -273,10 +284,10 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
 
       {/* Grid of Arcane Collection Tiles */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-        {tiles.map((tile) => {
+        {rankedTiles.map((tile) => {
           const isSelected = activeTab === tile.id;
           const isLoading = loadingTiles.has(tile.id);
-          const cachedValues = weightedCollections.get(tile.id);
+          const cachedValues = weightedCollections.get(tile.id)?.[strategy];
           const Icon = tile.icon;
 
           return (
@@ -322,6 +333,7 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                     <h3 className="text-base font-bold text-slate-100 tracking-wide group-hover:text-cyan-200 transition-colors">
                       {tile.label}
                     </h3>
+                    {topPack?.id === tile.id && <span className="text-[10px] font-bold uppercase text-amber-300">★ Best value {weightedCollections.size < tiles.length ? "so far" : ""}</span>}
                     <span className="text-[11px] font-medium text-slate-400 block -mt-0.5">
                       {tile.faction}
                     </span>
@@ -347,10 +359,10 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
                 ) : cachedValues ? (
                   <span className="flex items-center space-x-1 text-emerald-400 font-bold" title="Expected yield for 3 Arcanes in this pack">
                     <PlatinumIcon className="w-3.5 h-3.5" />
-                    <span>~{cachedValues.packValue.toFixed(1)} p</span>
+                    <span>{cachedValues.packValue === null ? "Incomplete prices" : `~${cachedValues.packValue.toFixed(1)} p`}</span>
                   </span>
                 ) : (
-                  <span className="text-slate-500 text-[11px]">Click to analyze</span>
+                  <span className="text-slate-500 text-[11px]">{fetchErrors.has(tile.id) ? "Failed — click to retry" : "Click to analyze"}</span>
                 )}
               </div>
             </button>
@@ -403,6 +415,8 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
             activeTab={activeTab}
             searchQuery={searchQuery}
             rarityFilter={selectedRarityFilter}
+            strategy={strategy}
+            error={fetchErrors.get(activeTab)}
           />
         </div>
       )}

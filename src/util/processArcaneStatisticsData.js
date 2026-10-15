@@ -1,41 +1,25 @@
-const processArcaneStatisticsData = (arcaneStatisticsData) => {
-  // Number of maxed and lvl0
-  let numberOfMaxed = 0;
-  let numberOfLvlZero = 0;
+export const summarizeRankSales = (data, rank) => {
+  const intervals = data?.payload?.statistics_closed?.["48hours"] || [];
+  let volume = 0;
+  let totalValue = 0;
+  for (const interval of intervals) {
+    if (interval.mod_rank !== rank) continue;
+    const price = interval.wa_price;
+    if (!Number.isFinite(price) || price <= 0 || !Number.isFinite(interval.volume) || interval.volume <= 0) continue;
+    volume += interval.volume;
+    totalValue += price * interval.volume;
+  }
+  return { average: volume > 0 ? totalValue / volume : null, volume };
+};
 
-  // Volume sold
-  let volumeOfMaxed = 0;
-  let volumeOfLvlZero = 0;
-
-  // Summed amount
-  let medianPriceOfMaxedSummed = 0;
-  let medianPriceOflvlZeroSummed = 0;
-
-  const stats = arcaneStatisticsData?.payload?.statistics_closed?.["48hours"] || [];
-
-  stats.forEach((statistics) => {
-    if (statistics.mod_rank > 0) {
-      numberOfMaxed++;
-      volumeOfMaxed += statistics.volume || 0;
-      medianPriceOfMaxedSummed += statistics.median || 0;
-    } else {
-      numberOfLvlZero++;
-      volumeOfLvlZero += statistics.volume || 0;
-      medianPriceOflvlZeroSummed += statistics.median || 0;
-    }
-  });
-
-  const avgMedianOf48HoursMaxed =
-    numberOfMaxed > 0 ? medianPriceOfMaxedSummed / numberOfMaxed : 0;
-
-  const avgMedianOf48HourslvlZero =
-    numberOfLvlZero > 0 ? medianPriceOflvlZeroSummed / numberOfLvlZero : 0;
-
+const processArcaneStatisticsData = (data, maxRank) => {
+  const unranked = summarizeRankSales(data, 0);
+  const maxed = summarizeRankSales(data, maxRank);
   return {
-    volumeOfMaxed,
-    volumeOfLvlZero,
-    avgMedianOf48HoursMaxed,
-    avgMedianOf48HourslvlZero,
+    volumeOfMaxed: maxed.volume,
+    volumeOfLvlZero: unranked.volume,
+    avgPriceMaxed: maxed.average,
+    avgPriceLvlZero: unranked.average,
   };
 };
 

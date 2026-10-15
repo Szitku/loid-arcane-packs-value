@@ -20,13 +20,13 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
   }
 }
 
-export async function fetchArcaneOrders(arcane) {
-  const cacheKey = `orders_${arcane.id}_${arcane.maxRank}`;
+export async function fetchArcaneOrders(arcane, rank = arcane.maxRank) {
+  const cacheKey = `orders_${arcane.id}_${rank}`;
   if (cache.has(cacheKey)) {
     return cache.get(cacheKey);
   }
 
-  const endpointPath = `/v2/orders/item/${arcane.id}/top?rank=${arcane.maxRank}`;
+  const endpointPath = `/v2/orders/item/${arcane.id}/top?rank=${rank}`;
   const fullTarget = `https://api.warframe.market${endpointPath}`;
 
   // Strategy 1: In local development, use Vite proxy
@@ -68,7 +68,7 @@ export async function fetchArcaneOrders(arcane) {
     // Return empty placeholder structure so UI doesn't crash
   }
 
-  return { data: { sell: [] } };
+  throw new Error(`Unable to fetch orders for ${arcane.id} at rank ${rank}`);
 }
 
 export async function fetchArcaneStatistics(arcaneId) {
@@ -116,5 +116,5 @@ export async function fetchArcaneStatistics(arcaneId) {
     // Fallback
   }
 
-  return { payload: { statistics_closed: { "48hours": [] } } };
+  throw new Error(`Unable to fetch sales statistics for ${arcaneId}`);
 }
