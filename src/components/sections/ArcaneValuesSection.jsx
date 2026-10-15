@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { PlatinumIcon, VosforIcon, LotusIcon } from "../icons/WarframeIcons";
-import { playUiClick } from "../../../util/soundEffects";
-import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import ArcaneDetailModal from "../modals/ArcaneDetailModal";
+import { playUiClick } from "../../util/soundEffects";
+import { getRarityStyle } from "../../util/rarityStyles";
+import {
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Info,
+} from "lucide-react";
 
-const ArcaneValuesSections = ({
+export default function ArcaneValuesSection({
   fetchedArcanes,
   loadingTiles,
   weightedCollections,
@@ -15,61 +22,16 @@ const ArcaneValuesSections = ({
   rarityFilter = "all",
   strategy = "unranked",
   error,
-}) => {
-  // Sorting state
-  const [sortBy, setSortBy] = useState("weighted"); // default to weighted
-  const [sortDir, setSortDir] = useState("desc"); // default desc
+}) {
+  const [sortBy, setSortBy] = useState("weighted");
+  const [sortDir, setSortDir] = useState("desc");
+  const [selectedArcane, setSelectedArcane] = useState(null);
 
-  // Sorting and filtering logic
-  const getProcessedArcanes = () => {
-    let arcanes = (fetchedArcanes.get(activeTab) || []).map((arcane) => ({
-      ...arcane,
-      avgPlatinum: arcane.valuations[strategy].average,
-      weightedValue: excludedArcaneIds.has(arcane.id)
-        ? 0
-        : arcane.valuations[strategy].weightedValue,
-    }));
+  const rawCollectionArcanes = useMemo(
+    () => fetchedArcanes.get(activeTab) || [],
+    [fetchedArcanes, activeTab],
+  );
 
-    // Filter by search query
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      arcanes = arcanes.filter((arcane) =>
-        arcane.name.toLowerCase().includes(q),
-      );
-    }
-
-    // Filter by rarity
-    if (rarityFilter && rarityFilter !== "all") {
-      arcanes = arcanes.filter(
-        (arcane) =>
-          (arcane.rarity || "").toLowerCase() === rarityFilter.toLowerCase(),
-      );
-    }
-
-    // Sort
-    if (sortBy === "none") return arcanes;
-    return [...arcanes].sort((a, b) => {
-      let valA, valB;
-      if (sortBy === "average") {
-        valA = a.avgPlatinum || 0;
-        valB = b.avgPlatinum || 0;
-      } else if (sortBy === "weighted") {
-        valA = a.weightedValue || 0;
-        valB = b.weightedValue || 0;
-      } else if (sortBy === "name") {
-        return sortDir === "asc"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      } else if (sortBy === "weight") {
-        valA = a.weight || 0;
-        valB = b.weight || 0;
-      }
-      if (sortDir === "asc") return valA - valB;
-      return valB - valA;
-    });
-  };
-
-  // Click handlers for sorting
   const handleSort = (column) => {
     playUiClick();
     if (sortBy === column) {
@@ -85,18 +47,78 @@ const ArcaneValuesSections = ({
     }
   };
 
+  const processedArcanes = useMemo(() => {
+    let arcanes = rawCollectionArcanes.map((arcane) => ({
+      ...arcane,
+      avgPlatinum: arcane.valuations?.[strategy]?.average ?? 0,
+      weightedValue: excludedArcaneIds.has(arcane.id)
+        ? 0
+        : (arcane.valuations?.[strategy]?.weightedValue ?? 0),
+    }));
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      arcanes = arcanes.filter((arcane) =>
+        arcane.name.toLowerCase().includes(q),
+      );
+    }
+
+    if (rarityFilter && rarityFilter !== "all") {
+      const filterLower = rarityFilter.toLowerCase();
+      arcanes = arcanes.filter(
+        (arcane) => (arcane.rarity || "").toLowerCase() === filterLower,
+      );
+    }
+
+    if (sortBy === "none") return arcanes;
+
+    return [...arcanes].sort((a, b) => {
+      let valA = 0;
+      let valB = 0;
+
+      if (sortBy === "average") {
+        valA = a.avgPlatinum || 0;
+        valB = b.avgPlatinum || 0;
+      } else if (sortBy === "weighted") {
+        valA = a.weightedValue || 0;
+        valB = b.weightedValue || 0;
+      } else if (sortBy === "name") {
+        return sortDir === "asc"
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      } else if (sortBy === "weight") {
+        valA = a.weight || 0;
+        valB = b.weight || 0;
+      }
+
+      return sortDir === "asc" ? valA - valB : valB - valA;
+    });
+  }, [
+    rawCollectionArcanes,
+    strategy,
+    excludedArcaneIds,
+    searchQuery,
+    rarityFilter,
+    sortBy,
+    sortDir,
+  ]);
+
   const allValues = weightedCollections.get(activeTab) || {};
   const collectionData = allValues[strategy] || {};
   const totalWeighted = collectionData.totalWeightedValue;
   const packValue = totalWeighted != null ? totalWeighted * 3 : null;
-  const weightTotal = (fetchedArcanes.get(activeTab) || []).reduce(
-    (sum, arcane) => sum + arcane.weight,
+  const weightTotal = rawCollectionArcanes.reduce(
+    (sum, arcane) => sum + (arcane.weight || 0),
     0,
   );
-  const collectionArcanes = fetchedArcanes.get(activeTab) || [];
-  const excludedCount = collectionArcanes.filter((arcane) =>
+  const excludedCount = rawCollectionArcanes.filter((arcane) =>
     excludedArcaneIds.has(arcane.id),
   ).length;
+
+  const getSortAria = (column) => {
+    if (sortBy !== column) return "none";
+    return sortDir === "asc" ? "ascending" : "descending";
+  };
 
   return (
     <div className="arcane-analysis space-y-4">
@@ -105,6 +127,7 @@ const ArcaneValuesSections = ({
           {error}
         </p>
       )}
+
       {weightTotal > 0 && Math.abs(weightTotal - 1) > 0.001 && (
         <p role="alert" className="text-amber-300 text-sm">
           Warning: configured drop probabilities total{" "}
@@ -112,7 +135,7 @@ const ArcaneValuesSections = ({
           provisional until the drop table is corrected.
         </p>
       )}
-      {/* Loading State */}
+
       {loadingTiles.has(activeTab) ? (
         <div className="analysis-loading flex flex-col items-center justify-center py-16 px-4 rounded-xl border">
           <div className="relative mb-4">
@@ -128,9 +151,8 @@ const ArcaneValuesSections = ({
         </div>
       ) : (
         <>
-          {/* Pack Value Analysis Card */}
+          {/* Pack Value Analysis Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {/* Full Pack Expected Value (3 Arcanes for 200 Vosfor) */}
             <div className="analysis-stat analysis-stat-primary p-4 rounded-lg border relative overflow-hidden">
               <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold flex items-center justify-between mb-1">
                 <span>Pack Expected Return (3x Drops)</span>
@@ -149,7 +171,6 @@ const ArcaneValuesSections = ({
               </p>
             </div>
 
-            {/* Single Arcane Weighted Value */}
             <div className="analysis-stat p-4 rounded-lg border">
               <div className="text-[11px] uppercase tracking-wider text-cyan-400 font-semibold mb-1">
                 Single Arcane Avg Value (1x Drop)
@@ -169,7 +190,6 @@ const ArcaneValuesSections = ({
               </p>
             </div>
 
-            {/* Vosfor Efficiency */}
             <div className="analysis-stat p-4 rounded-lg border">
               <div className="text-[11px] uppercase tracking-wider text-cyan-400 font-semibold mb-1">
                 Vosfor Efficiency Yield
@@ -189,13 +209,13 @@ const ArcaneValuesSections = ({
             </div>
           </div>
 
-          {/* Arcanes Table Header */}
+          {/* Arcanes Table */}
           <div className="arcane-table rounded-lg border overflow-hidden">
             <div className="arcane-inclusion-toolbar">
               <div>
                 <p role="status">
-                  {collectionArcanes.length - excludedCount} of{" "}
-                  {collectionArcanes.length} Arcanes included
+                  {rawCollectionArcanes.length - excludedCount} of{" "}
+                  {rawCollectionArcanes.length} Arcanes included
                 </p>
                 <p id="arcane-inclusion-help">
                   Untick Arcanes to exclude their value from all estimates. Drop
@@ -211,6 +231,7 @@ const ArcaneValuesSections = ({
                 Include all
               </button>
             </div>
+
             <div className="arcane-table-grid arcane-table-heading grid gap-2 px-4 py-3 border-b text-xs font-semibold uppercase tracking-wider text-slate-400 select-none">
               <span
                 className="arcane-include-heading"
@@ -220,6 +241,7 @@ const ArcaneValuesSections = ({
               </span>
               <button
                 type="button"
+                aria-sort={getSortAria("name")}
                 aria-label={`Sort by arcane name${sortBy === "name" ? `, currently ${sortDir === "asc" ? "ascending" : "descending"}` : ""}`}
                 className="col-span-5 sm:col-span-4 cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-1"
                 onClick={() => handleSort("name")}
@@ -235,6 +257,7 @@ const ArcaneValuesSections = ({
 
               <button
                 type="button"
+                aria-sort={getSortAria("weight")}
                 aria-label="Sort by drop rate"
                 className="col-span-2 hidden sm:flex items-center justify-center cursor-pointer hover:text-cyan-300 transition-colors gap-1"
                 onClick={() => handleSort("weight")}
@@ -250,6 +273,7 @@ const ArcaneValuesSections = ({
 
               <button
                 type="button"
+                aria-sort={getSortAria("average")}
                 aria-label="Sort by average sale price"
                 className="col-span-4 sm:col-span-3 text-center cursor-pointer hover:text-cyan-300 transition-colors flex items-center justify-center gap-1"
                 onClick={() => handleSort("average")}
@@ -267,6 +291,7 @@ const ArcaneValuesSections = ({
 
               <button
                 type="button"
+                aria-sort={getSortAria("weighted")}
                 aria-label="Sort by weighted platinum value"
                 className="col-span-3 text-right cursor-pointer hover:text-cyan-300 transition-colors flex items-center justify-end gap-1"
                 onClick={() => handleSort("weighted")}
@@ -283,44 +308,21 @@ const ArcaneValuesSections = ({
 
             {/* Arcanes List */}
             <div className="divide-y divide-slate-800/60">
-              {getProcessedArcanes().map((arcane) => {
-                // Authentic Warframe Rarity Colors & Stylings
-                let rarityColor = "text-slate-300";
-                let rarityBadge =
-                  "bg-slate-800/80 text-slate-300 border-slate-700";
-                let leftBorder = "border-l-4 border-slate-600";
-
-                if (arcane.rarity === "common") {
-                  rarityColor = "text-[#d97706]";
-                  rarityBadge =
-                    "bg-[#78350f]/30 text-[#fcd34d] border-[#b45309]";
-                  leftBorder = "border-l-4 border-[#b45309]";
-                } else if (arcane.rarity === "uncommon") {
-                  rarityColor = "text-slate-200";
-                  rarityBadge =
-                    "bg-slate-700/30 text-slate-200 border-slate-400";
-                  leftBorder = "border-l-4 border-slate-400";
-                } else if (arcane.rarity === "rare") {
-                  rarityColor = "text-amber-300";
-                  rarityBadge =
-                    "bg-amber-950/40 text-amber-300 border-amber-500";
-                  leftBorder = "border-l-4 border-amber-400";
-                } else if (arcane.rarity === "legendary") {
-                  rarityColor = "text-cyan-200";
-                  rarityBadge =
-                    "bg-cyan-950/50 text-cyan-200 border-cyan-400 shadow-[0_0_8px_rgba(56,189,248,0.4)]";
-                  leftBorder = "border-l-4 border-cyan-300";
-                }
+              {processedArcanes.map((arcane) => {
+                const style = getRarityStyle(arcane.rarity);
+                const isExcluded = excludedArcaneIds.has(arcane.id);
+                const rankCount =
+                  strategy === "maxed" ? Math.max(0, arcane.maxRank || 0) : 0;
 
                 return (
                   <div
                     key={arcane.id}
-                    className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center ${leftBorder} ${excludedArcaneIds.has(arcane.id) ? "arcane-excluded" : ""}`}
+                    className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center ${style.leftBorder} ${isExcluded ? "arcane-excluded" : ""}`}
                   >
                     <label className="arcane-inclusion-checkbox">
                       <input
                         type="checkbox"
-                        checked={!excludedArcaneIds.has(arcane.id)}
+                        checked={!isExcluded}
                         onChange={(event) =>
                           onArcaneInclusionChange(
                             arcane.id,
@@ -331,46 +333,65 @@ const ArcaneValuesSections = ({
                         aria-describedby="arcane-inclusion-help"
                       />
                     </label>
+
                     {/* Arcane Name & Rarity */}
                     <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
                       <div className="min-w-0">
                         <div className="flex items-center space-x-2">
-                          <span
-                            className={`font-bold tracking-wide truncate ${rarityColor}`}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              playUiClick();
+                              setSelectedArcane(arcane);
+                            }}
+                            className={`font-bold tracking-wide truncate text-left hover:underline cursor-pointer ${style.color}`}
+                            title="Click to view detailed statistics"
                           >
                             {arcane.name}
-                          </span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              playUiClick();
+                              setSelectedArcane(arcane);
+                            }}
+                            aria-label={`View statistics for ${arcane.name}`}
+                            className="text-slate-500 hover:text-cyan-400 transition-colors"
+                          >
+                            <Info className="w-3 h-3" />
+                          </button>
                           <a
                             href={`https://warframe.market/items/${arcane.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Open on Warframe.Market"
                             className="text-slate-500 hover:text-cyan-400 transition-colors"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <ExternalLink className="w-3 h-3" />
                           </a>
                         </div>
 
-                        {/* Warframe Rank Indicator: 5 pips */}
+                        {/* Rank Indicator */}
                         <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400 font-mono mt-0.5">
-                          <span className="text-amber-400/90 font-mono tracking-tighter">
-                            {"◆".repeat(
-                              strategy === "maxed" ? arcane.maxRank : 0,
-                            )}
-                          </span>
+                          {rankCount > 0 && (
+                            <span className="text-amber-400/90 font-mono tracking-tighter">
+                              {"◆".repeat(rankCount)}
+                            </span>
+                          )}
                           <span className="text-slate-500">
-                            Rank {strategy === "maxed" ? arcane.maxRank : 0}
+                            Rank {rankCount}
                             {strategy === "maxed"
                               ? ` / ${arcane.copiesToMax} copies`
                               : ""}
                           </span>
-                          {excludedArcaneIds.has(arcane.id) && (
+                          {isExcluded && (
                             <span className="arcane-excluded-label">
                               Excluded
                             </span>
                           )}
                           <span
-                            className={`px-1.5 py-0.2 rounded text-[10px] uppercase font-semibold border ${rarityBadge}`}
+                            className={`px-1.5 py-0.2 rounded text-[10px] uppercase font-semibold border ${style.badge}`}
                           >
                             {arcane.rarity}
                           </span>
@@ -392,7 +413,7 @@ const ArcaneValuesSections = ({
                       </span>
                     </div>
 
-                    {/* Average Platinum & Cheapest in parenthesis */}
+                    {/* Average Platinum */}
                     <div className="col-span-4 sm:col-span-3 text-center font-mono">
                       <div className="text-slate-100 font-bold flex items-center justify-center gap-1">
                         <PlatinumIcon className="w-3.5 h-3.5" />
@@ -406,7 +427,7 @@ const ArcaneValuesSections = ({
                         </span>
                       </div>
                       <div className="text-[11px] text-slate-400">
-                        {arcane.valuations[strategy].volume} reported sales
+                        {arcane.valuations?.[strategy]?.volume ?? 0} reported sales
                       </div>
                     </div>
 
@@ -430,8 +451,14 @@ const ArcaneValuesSections = ({
           </div>
         </>
       )}
+
+      {/* Interactive Detail Modal */}
+      <ArcaneDetailModal
+        arcane={selectedArcane}
+        isOpen={Boolean(selectedArcane)}
+        onClose={() => setSelectedArcane(null)}
+        strategy={strategy}
+      />
     </div>
   );
-};
-
-export default ArcaneValuesSections;
+}

@@ -8,7 +8,7 @@ import {
   OstronIcon,
   SolarisIcon,
   SteelIcon,
-} from "../assets/components/icons/WarframeIcons";
+} from "../components/icons/WarframeIcons";
 
 import { caviaArcaneData } from "./arcanes/caviaArcaneData";
 import { duviriArcaneData } from "./arcanes/duviriArcaneData";

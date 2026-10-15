@@ -1,0 +1,39 @@
+export const RARITY_STYLES = {
+  common: {
+    color: "text-[#d97706]",
+    badge: "bg-[#78350f]/30 text-[#fcd34d] border-[#b45309]",
+    leftBorder: "border-l-4 border-[#b45309]",
+    glow: "border-[#b45309]/80 shadow-[0_0_25px_rgba(217,119,6,0.25)]",
+  },
+  uncommon: {
+    color: "text-slate-200",
+    badge: "bg-slate-700/30 text-slate-200 border-slate-400",
+    leftBorder: "border-l-4 border-slate-400",
+    glow: "border-slate-400/80 shadow-[0_0_25px_rgba(148,163,184,0.25)]",
+  },
+  rare: {
+    color: "text-amber-300",
+    badge: "bg-amber-950/40 text-amber-300 border-amber-500",
+    leftBorder: "border-l-4 border-amber-400",
+    glow: "border-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,0.3)]",
+  },
+  legendary: {
+    color: "text-cyan-200",
+    badge:
+      "bg-cyan-950/50 text-cyan-200 border-cyan-400 shadow-[0_0_8px_rgba(56,189,248,0.4)]",
+    leftBorder: "border-l-4 border-cyan-300",
+    glow: "border-cyan-400 shadow-[0_0_30px_rgba(56,189,248,0.4)]",
+  },
+};
+
+const DEFAULT_STYLE = {
+  color: "text-slate-300",
+  badge: "bg-slate-800/80 text-slate-300 border-slate-700",
+  leftBorder: "border-l-4 border-slate-600",
+  glow: "border-cyan-500/50 shadow-[0_0_25px_rgba(6,182,212,0.25)]",
+};
+
+export function getRarityStyle(rarity) {
+  if (!rarity) return DEFAULT_STYLE;
+  return RARITY_STYLES[rarity.toLowerCase()] || DEFAULT_STYLE;
+}

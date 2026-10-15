@@ -1,6 +1,6 @@
 import { useState } from "react";
-import TilesSection from "./assets/components/sections/TilesSection";
-import { LotusIcon } from "./assets/components/icons/WarframeIcons";
+import TilesSection from "./components/sections/TilesSection";
+import { LotusIcon } from "./components/icons/WarframeIcons";
 import { toggleSound, isSoundEnabled, playUiClick } from "./util/soundEffects";
 import { Volume2, VolumeX, ArrowUpRight } from "lucide-react";
 
