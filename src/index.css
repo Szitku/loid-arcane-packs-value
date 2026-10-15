@@ -736,6 +736,9 @@ input {
 .collection-steel {
   --accent: #b08f94;
 }
+.collection-hollvania {
+  --accent: #ba7eb2;
+}
 .card-art {
   height: 115px;
   position: relative;

@@ -434,3 +434,75 @@ export const SteelIcon = ({ className = "w-6 h-6", ...props }) => (
     </g>
   </svg>
 );
+
+// Höllvania Arcane Collection Emblem (Warframe: 1999 The Hex Pixel Sigil)
+export const HollvaniaIcon = ({ className = "w-6 h-6", ...props }) => (
+  <svg
+    viewBox="0 0 100 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    {...props}
+  >
+    <ArcanePackFrame />
+    {/* The Hex 1999 Digital Pixel Emblem */}
+    <g fill="currentColor">
+      {/* Top Stepped Antenna & Transceiver Spire */}
+      <rect x="48" y="17" width="4" height="6" />
+      <rect x="46" y="21" width="8" height="3" />
+      <rect x="43" y="24" width="14" height="3" />
+      <rect x="40" y="27" width="20" height="3" />
+
+      {/* Upper Side Brackets / Transceivers */}
+      <path
+        d="M30 22 H36 V35 H32 V25 H30 Z"
+      />
+      <path
+        d="M70 22 H64 V35 H68 V25 H70 Z"
+      />
+
+      {/* Diagonal Pixelated Crossed Bands (1999 Digital Lattice) */}
+      <rect x="36" y="30" width="3" height="3" />
+      <rect x="39" y="33" width="3" height="3" />
+      <rect x="42" y="36" width="3" height="3" />
+      <rect x="55" y="45" width="3" height="3" />
+      <rect x="58" y="48" width="3" height="3" />
+      <rect x="61" y="51" width="3" height="3" />
+
+      <rect x="61" y="30" width="3" height="3" />
+      <rect x="58" y="33" width="3" height="3" />
+      <rect x="55" y="36" width="3" height="3" />
+      <rect x="42" y="45" width="3" height="3" />
+      <rect x="39" y="48" width="3" height="3" />
+      <rect x="36" y="51" width="3" height="3" />
+
+      {/* Stepped Pixel Diamond Contour */}
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M48 29 H52 V32 H56 V35 H61 V38 H65 V41 H69 V45 H65 V48 H61 V51 H56 V54 H52 V57 H48 V54 H44 V51 H39 V48 H35 V45 H31 V41 H35 V38 H39 V35 H44 V32 H48 V29 Z M48 35 H52 V38 H55 V41 H57 V44 H55 V47 H52 V50 H48 V50 H45 V47 H43 V44 H45 V41 H48 V38 Z"
+      />
+
+      {/* Central Hex Core / Visor with Pupil */}
+      <rect x="46" y="39.5" width="8" height="5" rx="1.5" />
+      <rect x="49" y="41" width="2" height="2" fill="#000000" />
+
+      {/* Lower Central Digital Spine */}
+      <rect x="48" y="57" width="4" height="12" />
+      <rect x="45" y="62" width="10" height="3" />
+
+      {/* Lower Fangs with Cutout Slots */}
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M29 57 H40 L38 64 L34 74 L31 74 L29 64 Z M33 62 V68 H35 V62 Z"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M60 57 H71 L69 64 L66 74 L63 74 L61 64 Z M65 62 V68 H67 V62 Z"
+      />
+    </g>
+  </svg>
+);
+

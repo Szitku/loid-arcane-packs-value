@@ -3,6 +3,7 @@ import {
   DuviriIcon,
   EidolonIcon,
   HoldfastsIcon,
+  HollvaniaIcon,
   NecraliskIcon,
   OstronIcon,
   SolarisIcon,
@@ -13,6 +14,7 @@ import { caviaArcaneData } from "./arcanes/caviaArcaneData";
 import { duviriArcaneData } from "./arcanes/duviriArcaneData";
 import { eidolonArcaneData } from "./arcanes/eidolonArcaneData";
 import { holdfastsArcaneData } from "./arcanes/holdfastsArcaneData";
+import { hollvaniaArcaneData } from "./arcanes/hollvaniaArcaneData";
 import { necraliskArcaneData } from "./arcanes/necraliskArcaneData";
 import { ostronArcaneData } from "./arcanes/ostronArcaneData";
 import { solarisArcaneData } from "./arcanes/solarisArcaneData";
@@ -130,5 +132,19 @@ export const tiles = [
     glowColor: "shadow-[0_0_20px_rgba(225,29,72,0.3)]",
     vosforCost: 200,
     arcanes: steelArcaneData,
+  },
+  {
+    id: "hollvania",
+    label: "Höllvania Collection",
+    faction: "The Hex",
+    desc: "Höllvania 1999 & Techrot Arcanes",
+    icon: HollvaniaIcon,
+    accentColor: "violet",
+    borderColor: "border-violet-500/50",
+    activeBg: "from-violet-950/80 via-slate-900 to-black",
+    tagColor: "bg-violet-950/80 text-violet-300 border-violet-500/40",
+    glowColor: "shadow-[0_0_20px_rgba(139,92,246,0.3)]",
+    vosforCost: 200,
+    arcanes: hollvaniaArcaneData,
   },
 ];

@@ -1,6 +1,6 @@
 {
   "lastUpdated": "2026-10-15T18:34:19.916Z",
-  "itemCount": 130,
+  "itemCount": 141,
   "arcanes": {
     "melee_fortification": {
       "payload": {
@@ -15539,6 +15539,3304 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 10
+            }
+          ]
+        }
+      }
+    },
+    "arcane_bellicose": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24.571
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.4
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 1.907
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.833
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 47,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 148,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 27
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 1.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 1.953
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 16,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 35,
+              "wa_price": 1.714
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 22,
+              "wa_price": 1.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 26
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 2.733
+            }
+          ]
+        }
+      }
+    },
+    "arcane_camisado": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25.833
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 26.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 26.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 27.857
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 27.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 26.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 1.703
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 28.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 27
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25.167
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 21.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 25.429
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 23.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 26.833
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 1.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 26.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 23.125
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24.571
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 23.2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 28.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 29.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 27.6
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 26.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 23.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 23.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 22.125
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24.714
+            },
+            {
+              "mod_rank": 0,
+              "volume": 23,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 28.833
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 1.67
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 3
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 28.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 27.25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 2
+            }
+          ]
+        }
+      }
+    },
+    "arcane_crepuscular": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 23.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 28.143
+            },
+            {
+              "mod_rank": 0,
+              "volume": 32,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 28.889
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 26.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 22.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 1.859
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 24.875
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 26.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 25.143
+            },
+            {
+              "mod_rank": 0,
+              "volume": 29,
+              "wa_price": 1.69
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
+              "wa_price": 1.94
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.167
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 33,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 10,
+              "wa_price": 23.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 28
+            },
+            {
+              "mod_rank": 0,
+              "volume": 24,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 28
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 27.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 27.6
+            },
+            {
+              "mod_rank": 0,
+              "volume": 67,
+              "wa_price": 1.687
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 23.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 1.67
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 23.429
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 1.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 22.143
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 27.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 10,
+              "wa_price": 27.6
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 2
+            }
+          ]
+        }
+      }
+    },
+    "arcane_impetus": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 26
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 26.2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 1.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 23.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.4
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 27.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 20.833
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.833
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 16,
+              "wa_price": 24.312
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 10,
+              "wa_price": 22.2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 26.167
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 28.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 28.2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 26
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 28.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 2.071
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 22,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 24.875
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 1.67
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 1.929
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 26
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 27
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 29.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 29.889
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.8
+            }
+          ]
+        }
+      }
+    },
+    "arcane_truculence": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 17
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 17.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 16
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 19.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 14
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 16.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 16
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 18.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 17.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 1.67
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 17
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 16.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 15.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 17
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 17.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 24,
+              "wa_price": 1.872
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 18
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            }
+          ]
+        }
+      }
+    },
+    "primary_crux": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 23.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 33,
+              "wa_price": 1.697
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 0.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 1.835
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 31,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 29,
+              "wa_price": 2.897
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 20,
+              "wa_price": 1.703
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 23.6
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 23.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.833
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.667
+            }
+          ]
+        }
+      }
+    },
+    "secondary_enervate": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 24.778
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24.857
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24.714
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 24,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 19.857
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 22,
+              "wa_price": 1.861
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 23.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.4
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 23.625
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 23.833
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 12,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 27,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24.571
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 1.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 16,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 24.167
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 23.143
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 23.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 1.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 23.375
+            },
+            {
+              "mod_rank": 0,
+              "volume": 27,
+              "wa_price": 1.927
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 24.25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 23.4
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 12,
+              "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 24.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 23.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 24.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 20,
+              "wa_price": 1.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 24
+            }
+          ]
+        }
+      }
+    },
+    "melee_doughty": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 14
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 12
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 14
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 12
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 10
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 12.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 9
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 10
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 13
+            }
+          ]
+        }
+      }
+    },
+    "arcane_escapist": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 3
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 35
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 3
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 22
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 23
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            }
+          ]
+        }
+      }
+    },
+    "arcane_hot_shot": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 297.571
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 12.1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 295
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 13.455
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 300
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 12.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 299.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 297.143
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 296.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 13.19
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 296.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 24,
+              "wa_price": 12.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 295
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 11.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 280
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 11.571
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 285.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 22,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 292.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 12.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 285
+            },
+            {
+              "mod_rank": 0,
+              "volume": 31,
+              "wa_price": 12.806
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 282
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 11.733
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 280
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 11.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 300
+            },
+            {
+              "mod_rank": 0,
+              "volume": 40,
+              "wa_price": 12.05
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 282.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 16,
+              "wa_price": 11.625
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 288.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 25,
+              "wa_price": 12.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 280
+            },
+            {
+              "mod_rank": 0,
+              "volume": 20,
+              "wa_price": 12.55
+            },
+            {
+              "mod_rank": 5,
+              "volume": 13,
+              "wa_price": 287.615
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 11.769
+            },
+            {
+              "mod_rank": 5,
+              "volume": 10,
+              "wa_price": 297.7
+            },
+            {
+              "mod_rank": 0,
+              "volume": 14,
+              "wa_price": 13.714
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 292.833
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 12.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 292.25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 12.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 298.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 37,
+              "wa_price": 13.432
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 297.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 14.143
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 301
+            },
+            {
+              "mod_rank": 0,
+              "volume": 16,
+              "wa_price": 12.625
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 300
+            },
+            {
+              "mod_rank": 0,
+              "volume": 23,
+              "wa_price": 12.652
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 303
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 14.429
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 299.2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 292
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
+              "wa_price": 14.647
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 290
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 12
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 295
+            },
+            {
+              "mod_rank": 0,
+              "volume": 36,
+              "wa_price": 12.278
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 297.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 12.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 13.583
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 290
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 13.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 291.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 19,
+              "wa_price": 12.421
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 299
+            },
+            {
+              "mod_rank": 0,
+              "volume": 20,
+              "wa_price": 12.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 296.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 20,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 290
+            },
+            {
+              "mod_rank": 0,
+              "volume": 22,
+              "wa_price": 11.955
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 285.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 285
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 12
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 275.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 12,
+              "wa_price": 12
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 290
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 11
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 289.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 299.167
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 14.111
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 294.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 296.8
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 12.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 294.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 50,
+              "wa_price": 13.76
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 290
+            },
+            {
+              "mod_rank": 0,
+              "volume": 35,
+              "wa_price": 12.829
+            }
+          ]
+        }
+      }
+    },
+    "arcane_universal_fallout": {
+      "payload": {
+        "statistics_closed": {
+          "48hours": [
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 87.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 5.3
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 95
+            },
+            {
+              "mod_rank": 0,
+              "volume": 19,
+              "wa_price": 5.211
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 90
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 88.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 4.727
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 90
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 95
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 80
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 85
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 87
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 84.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 85.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 90
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 4.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 88.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 16,
+              "wa_price": 6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 93.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 88.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 82.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
+              "wa_price": 4.941
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 88.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 15,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 90
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 80
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 4.222
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 83.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 88.75
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 90
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 91.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 93.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 88.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 85
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 88
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 89.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 89
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 84
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 87.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 36,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 89.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 80
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 90
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 88.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 89
+            },
+            {
+              "mod_rank": 0,
+              "volume": 25,
+              "wa_price": 7.04
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 82
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 98.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 13,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 5.143
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 97
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 100
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 103
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 93.333
             }
           ]
         }

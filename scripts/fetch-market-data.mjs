@@ -10,6 +10,7 @@ import { necraliskArcaneData } from "../src/data/arcanes/necraliskArcaneData.js"
 import { ostronArcaneData } from "../src/data/arcanes/ostronArcaneData.js";
 import { solarisArcaneData } from "../src/data/arcanes/solarisArcaneData.js";
 import { steelArcaneData } from "../src/data/arcanes/steelArcaneData.js";
+import { hollvaniaArcaneData } from "../src/data/arcanes/hollvaniaArcaneData.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ const allArcanes = [
   ...ostronArcaneData,
   ...solarisArcaneData,
   ...steelArcaneData,
+  ...hollvaniaArcaneData,
 ];
 
 // Deduplicate IDs
