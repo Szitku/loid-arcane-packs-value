@@ -615,9 +615,21 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
       {tiles.map((tile) => tile.id).includes(activeTab) && (
         <section id="collection-detail" className="collection-detail space-y-4">
           <div className="detail-heading">
-            <div>
-              <div className="eyebrow">A CLOSER LOOK</div>
-              <h2>{selectedTile.label}</h2>
+            <div className="flex items-center gap-3.5">
+              {(() => {
+                const SelectedIcon = selectedTile.icon;
+                return (
+                  <div
+                    className={`detail-emblem-badge collection-${selectedTile.id}`}
+                  >
+                    <SelectedIcon className="collection-emblem" />
+                  </div>
+                );
+              })()}
+              <div>
+                <div className="eyebrow">A CLOSER LOOK</div>
+                <h2>{selectedTile.label}</h2>
+              </div>
             </div>
             <button
               className="icon-button"

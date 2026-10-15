@@ -711,6 +711,9 @@ input {
   border-color: var(--gold);
   box-shadow: 0 0 0 1px #d9bc7e25;
 }
+.collection-cavia {
+  --accent: #83aaa1;
+}
 .collection-duviri {
   --accent: #b4a1c6;
 }
@@ -771,11 +774,11 @@ input {
   border: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
 }
 .collection-emblem {
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 54px;
   color: var(--accent);
   filter: drop-shadow(
-    0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)
+    0 2px 10px color-mix(in srgb, var(--accent) 25%, transparent)
   );
   transition: transform 0.25s;
 }
@@ -1016,6 +1019,20 @@ input {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+.detail-emblem-badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 12%, #121617);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, #2d322d);
+  flex-shrink: 0;
+}
+.detail-emblem-badge .collection-emblem {
+  width: 28px;
+  height: 28px;
 }
 .empty-search {
   text-align: center;
@@ -1411,8 +1428,8 @@ input {
     height: 100px;
   }
   .collection-emblem {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
   .card-body {
     padding: 13px 11px;
