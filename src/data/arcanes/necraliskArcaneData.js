@@ -1,4 +1,4 @@
-import { Rarity } from "./enum/Rarity";
+import { Rarity } from "./enum/Rarity.js";
 
 export const necraliskArcaneData = [
   {
