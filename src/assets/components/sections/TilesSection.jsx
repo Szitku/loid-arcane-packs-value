@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { tiles } from "../../../data/tilesData.js";
 import ArcaneValuesSections from "./ArcaneValuesSection.jsx";
 import processArcaneSalesData from "../../../util/processArcaneSalesData.js";
@@ -24,10 +24,38 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 
+const ARCANE_SELECTIONS_STORAGE_KEY = "loid-exchange:excluded-arcanes:v1";
+
+function loadExcludedArcanes() {
+  const excludedByCollection = new Map();
+  if (typeof window === "undefined") return excludedByCollection;
+
+  try {
+    const saved = JSON.parse(
+      window.localStorage.getItem(ARCANE_SELECTIONS_STORAGE_KEY),
+    );
+    if (!saved || typeof saved !== "object" || Array.isArray(saved)) {
+      return excludedByCollection;
+    }
+
+    for (const tile of tiles) {
+      if (!Array.isArray(saved[tile.id])) continue;
+      const validIds = new Set(tile.arcanes.map((arcane) => arcane.id));
+      const excluded = new Set(saved[tile.id].filter((id) => validIds.has(id)));
+      if (excluded.size > 0) excludedByCollection.set(tile.id, excluded);
+    }
+  } catch {
+    // Invalid saved data or blocked storage should not prevent using the app.
+  }
+
+  return excludedByCollection;
+}
+
 const TilesSection = ({ setActiveTab, activeTab }) => {
   const fetchedTiles = useRef(new Set());
   const [fetchedArcanes, setFetchedArcanes] = useState(new Map());
-  const [weightedCollections, setWeightedCollections] = useState(new Map());
+  const [excludedArcanesByCollection, setExcludedArcanesByCollection] =
+    useState(loadExcludedArcanes);
   const [loadingTiles, setLoadingTiles] = useState(new Set());
   const [isScanningAll, setIsScanningAll] = useState(false);
   const [strategy, setStrategy] = useState("unranked");
@@ -42,14 +70,51 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
   const [showCalculator, setShowCalculator] = useState(false);
   const [userVosfor, setUserVosfor] = useState(600);
 
-  // Sync ref for backward compatibility with ArcaneValuesSection props
-  const weightedArcaneCollections = useRef(new Map());
+  useEffect(() => {
+    try {
+      const saved = Object.fromEntries(
+        [...excludedArcanesByCollection].map(([tileId, excludedIds]) => [
+          tileId,
+          [...excludedIds],
+        ]),
+      );
+      window.localStorage.setItem(
+        ARCANE_SELECTIONS_STORAGE_KEY,
+        JSON.stringify(saved),
+      );
+    } catch {
+      // Keep selections usable in memory if local storage is unavailable.
+    }
+  }, [excludedArcanesByCollection]);
 
-  const calculateAvgWeightedValues = (tileId, weightedArcanes) => {
-    const values = calculatePackValues(weightedArcanes);
+  const weightedCollections = useMemo(
+    () =>
+      new Map(
+        [...fetchedArcanes].map(([tileId, arcanes]) => [
+          tileId,
+          calculatePackValues(arcanes, excludedArcanesByCollection.get(tileId)),
+        ]),
+      ),
+    [fetchedArcanes, excludedArcanesByCollection],
+  );
 
-    weightedArcaneCollections.current.set(tileId, values);
-    setWeightedCollections((prev) => new Map(prev).set(tileId, values));
+  const handleArcaneInclusionChange = (arcaneId, included) => {
+    playUiClick();
+    setExcludedArcanesByCollection((prev) => {
+      const excluded = new Set(prev.get(activeTab));
+      if (included) excluded.delete(arcaneId);
+      else excluded.add(arcaneId);
+      return new Map(prev).set(activeTab, excluded);
+    });
+  };
+
+  const handleIncludeAllArcanes = () => {
+    playUiClick();
+    setExcludedArcanesByCollection((prev) => {
+      const next = new Map(prev);
+      next.delete(activeTab);
+      return next;
+    });
   };
 
   const fetchTileData = async (arcanes, tileId) => {
@@ -68,7 +133,6 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
       );
 
       const arcanesWithWeightedValue = await Promise.all(requests);
-      calculateAvgWeightedValues(tileId, arcanesWithWeightedValue);
 
       setFetchedArcanes((prev) => {
         const newMap = new Map(prev);
@@ -579,7 +643,10 @@ const TilesSection = ({ setActiveTab, activeTab }) => {
           <ArcaneValuesSections
             fetchedArcanes={fetchedArcanes}
             loadingTiles={loadingTiles}
-            weightedArcaneCollections={weightedArcaneCollections}
+            weightedCollections={weightedCollections}
+            excludedArcaneIds={excludedArcanesByCollection.get(activeTab)}
+            onArcaneInclusionChange={handleArcaneInclusionChange}
+            onIncludeAllArcanes={handleIncludeAllArcanes}
             activeTab={activeTab}
             searchQuery={searchQuery}
             rarityFilter={selectedRarityFilter}

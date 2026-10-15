@@ -6,7 +6,10 @@ import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 const ArcaneValuesSections = ({
   fetchedArcanes,
   loadingTiles,
-  weightedArcaneCollections,
+  weightedCollections,
+  excludedArcaneIds = new Set(),
+  onArcaneInclusionChange,
+  onIncludeAllArcanes,
   activeTab,
   searchQuery = "",
   rarityFilter = "all",
@@ -22,7 +25,9 @@ const ArcaneValuesSections = ({
     let arcanes = (fetchedArcanes.get(activeTab) || []).map((arcane) => ({
       ...arcane,
       avgPlatinum: arcane.valuations[strategy].average,
-      weightedValue: arcane.valuations[strategy].weightedValue,
+      weightedValue: excludedArcaneIds.has(arcane.id)
+        ? 0
+        : arcane.valuations[strategy].weightedValue,
     }));
 
     // Filter by search query
@@ -80,7 +85,7 @@ const ArcaneValuesSections = ({
     }
   };
 
-  const allValues = weightedArcaneCollections.current.get(activeTab) || {};
+  const allValues = weightedCollections.get(activeTab) || {};
   const collectionData = allValues[strategy] || {};
   const totalWeighted = collectionData.totalWeightedValue;
   const packValue = totalWeighted != null ? totalWeighted * 3 : null;
@@ -88,6 +93,10 @@ const ArcaneValuesSections = ({
     (sum, arcane) => sum + arcane.weight,
     0,
   );
+  const collectionArcanes = fetchedArcanes.get(activeTab) || [];
+  const excludedCount = collectionArcanes.filter((arcane) =>
+    excludedArcaneIds.has(arcane.id),
+  ).length;
 
   return (
     <div className="arcane-analysis space-y-4">
@@ -182,7 +191,33 @@ const ArcaneValuesSections = ({
 
           {/* Arcanes Table Header */}
           <div className="arcane-table rounded-lg border overflow-hidden">
-            <div className="arcane-table-heading grid grid-cols-12 gap-2 px-4 py-3 border-b text-xs font-semibold uppercase tracking-wider text-slate-400 select-none">
+            <div className="arcane-inclusion-toolbar">
+              <div>
+                <p role="status">
+                  {collectionArcanes.length - excludedCount} of{" "}
+                  {collectionArcanes.length} Arcanes included
+                </p>
+                <p id="arcane-inclusion-help">
+                  Untick Arcanes to exclude their value from all estimates. Drop
+                  rates stay unchanged.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="text-button"
+                onClick={onIncludeAllArcanes}
+                disabled={excludedCount === 0}
+              >
+                Include all
+              </button>
+            </div>
+            <div className="arcane-table-grid arcane-table-heading grid gap-2 px-4 py-3 border-b text-xs font-semibold uppercase tracking-wider text-slate-400 select-none">
+              <span
+                className="arcane-include-heading"
+                title="Include in calculation"
+              >
+                Incl.
+              </span>
               <button
                 type="button"
                 aria-label={`Sort by arcane name${sortBy === "name" ? `, currently ${sortDir === "asc" ? "ascending" : "descending"}` : ""}`}
@@ -280,8 +315,22 @@ const ArcaneValuesSections = ({
                 return (
                   <div
                     key={arcane.id}
-                    className={`grid grid-cols-12 gap-2 px-4 py-3 items-center ${leftBorder}`}
+                    className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center ${leftBorder} ${excludedArcaneIds.has(arcane.id) ? "arcane-excluded" : ""}`}
                   >
+                    <label className="arcane-inclusion-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={!excludedArcaneIds.has(arcane.id)}
+                        onChange={(event) =>
+                          onArcaneInclusionChange(
+                            arcane.id,
+                            event.target.checked,
+                          )
+                        }
+                        aria-label={`Include ${arcane.name} in calculations`}
+                        aria-describedby="arcane-inclusion-help"
+                      />
+                    </label>
                     {/* Arcane Name & Rarity */}
                     <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
                       <div className="min-w-0">
@@ -315,6 +364,11 @@ const ArcaneValuesSections = ({
                               ? ` / ${arcane.copiesToMax} copies`
                               : ""}
                           </span>
+                          {excludedArcaneIds.has(arcane.id) && (
+                            <span className="arcane-excluded-label">
+                              Excluded
+                            </span>
+                          )}
                           <span
                             className={`px-1.5 py-0.2 rounded text-[10px] uppercase font-semibold border ${rarityBadge}`}
                           >
