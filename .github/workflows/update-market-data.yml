@@ -3,7 +3,7 @@ name: Update Market Data
 on:
   schedule:
     # Update market data every 4 hours without rebuilding or redeploying the website
-    - cron: "0 */4 * * *"
+    - cron: "17 */4 * * *"
   workflow_dispatch:
 
 jobs:
