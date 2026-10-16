@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-16T20:20:52.363Z",
+  "lastUpdated": "2026-10-16T22:50:03.608Z",
   "itemCount": 141,
   "arcanes": {
     "melee_fortification": {
@@ -59,16 +59,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 17.5
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 20
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -183,6 +173,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 14
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 18
             }
           ]
         }
@@ -192,11 +187,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 55
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -276,6 +266,11 @@
               "mod_rank": 0,
               "volume": 10,
               "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 57
             }
           ]
         }
@@ -285,11 +280,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 55
-            },
             {
               "mod_rank": 0,
               "volume": 1,
@@ -484,6 +474,16 @@
               "mod_rank": 0,
               "volume": 12,
               "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 39
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 30
             }
           ]
         }
@@ -493,21 +493,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 66.333
-            },
-            {
-              "mod_rank": 0,
-              "volume": 4,
-              "wa_price": 4
-            },
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 71.25
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -697,6 +682,16 @@
               "mod_rank": 0,
               "volume": 18,
               "wa_price": 2.83
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2.83
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 70
             }
           ]
         }
@@ -706,21 +701,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 66.25
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 65
-            },
-            {
-              "mod_rank": 0,
-              "volume": 11,
-              "wa_price": 4
-            },
             {
               "mod_rank": 5,
               "volume": 4,
@@ -1014,26 +994,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 126
-            },
-            {
-              "mod_rank": 0,
-              "volume": 26,
-              "wa_price": 7.192
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 136
-            },
-            {
-              "mod_rank": 0,
-              "volume": 26,
-              "wa_price": 7.423
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -1353,6 +1313,26 @@
               "mod_rank": 0,
               "volume": 7,
               "wa_price": 5.714
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 150
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 137.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 8
             }
           ]
         }
@@ -1362,21 +1342,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 81.667
-            },
-            {
-              "mod_rank": 0,
-              "volume": 8,
-              "wa_price": 5
-            },
-            {
-              "mod_rank": 0,
-              "volume": 4,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -1676,6 +1641,21 @@
               "mod_rank": 0,
               "volume": 9,
               "wa_price": 7.556
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 99
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 90
             }
           ]
         }
@@ -1736,11 +1716,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 30
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -1819,16 +1794,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 49.5
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 50
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -2133,6 +2098,21 @@
               "mod_rank": 0,
               "volume": 6,
               "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 50
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 49.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 39,
+              "wa_price": 5.051
             }
           ]
         }
@@ -2142,21 +2122,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 100
-            },
-            {
-              "mod_rank": 0,
-              "volume": 2,
-              "wa_price": 6
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 100
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -2366,6 +2331,11 @@
               "mod_rank": 0,
               "volume": 12,
               "wa_price": 6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 114
             }
           ]
         }
@@ -2408,6 +2378,11 @@
             {
               "mod_rank": 5,
               "volume": 1,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
               "wa_price": 30
             },
             {
@@ -2481,11 +2456,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 75
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -2595,6 +2565,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 68
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 5
             }
           ]
         }
@@ -2604,11 +2579,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 75
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -2742,21 +2712,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 375
-            },
-            {
-              "mod_rank": 0,
-              "volume": 7,
-              "wa_price": 14.857
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 15
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -3021,6 +2976,21 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 370
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 379
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 397
             }
           ]
         }
@@ -3084,6 +3054,16 @@
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 29
             }
           ]
         }
@@ -3093,16 +3073,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 3,
-              "wa_price": 5
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 188.667
-            },
             {
               "mod_rank": 0,
               "volume": 1,
@@ -3297,6 +3267,11 @@
               "mod_rank": 0,
               "volume": 4,
               "wa_price": 9.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 233.333
             }
           ]
         }
@@ -3306,11 +3281,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 12
-            },
             {
               "mod_rank": 0,
               "volume": 11,
@@ -3600,6 +3570,16 @@
               "mod_rank": 0,
               "volume": 7,
               "wa_price": 10
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 11
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 10.5
             }
           ]
         }
@@ -3623,6 +3603,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 20
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
             }
           ]
         }
@@ -3632,16 +3617,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 16,
-              "wa_price": 3.125
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 55
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -3801,6 +3776,16 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 45
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 50
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 54
             }
           ]
         }
@@ -3844,6 +3829,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 10
             }
           ]
         }
@@ -3866,16 +3856,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 50
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 50
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -4105,6 +4085,26 @@
               "mod_rank": 0,
               "volume": 46,
               "wa_price": 4.565
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 53
+            },
+            {
+              "mod_rank": 0,
+              "volume": 8,
+              "wa_price": 3.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 50
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 10
             }
           ]
         }
@@ -4114,21 +4114,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 70
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 85
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -4416,6 +4401,11 @@
               "mod_rank": 0,
               "volume": 18,
               "wa_price": 2.278
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 28
             }
           ]
         }
@@ -4443,11 +4433,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 50
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -4535,6 +4520,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 30
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
             }
           ]
         }
@@ -4544,16 +4534,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 43.25
-            },
-            {
-              "mod_rank": 0,
-              "volume": 13,
-              "wa_price": 4
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -4763,6 +4743,16 @@
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 47.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 55
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 52
             }
           ]
         }
@@ -4772,11 +4762,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -4811,6 +4796,16 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
             }
           ]
         }
@@ -4820,21 +4815,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 90
-            },
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 90
-            },
-            {
-              "mod_rank": 0,
-              "volume": 2,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -5104,6 +5084,11 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 87.4
             }
           ]
         }
@@ -5257,11 +5242,6 @@
         "statistics_closed": {
           "48hours": [
             {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 27
-            },
-            {
               "mod_rank": 0,
               "volume": 8,
               "wa_price": 2
@@ -5317,21 +5297,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 8,
-              "wa_price": 166.625
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 180
-            },
-            {
-              "mod_rank": 0,
-              "volume": 29,
-              "wa_price": 9.552
-            },
             {
               "mod_rank": 5,
               "volume": 4,
@@ -5656,6 +5621,26 @@
               "mod_rank": 5,
               "volume": 6,
               "wa_price": 157.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 163
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 9
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 171
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 8
             }
           ]
         }
@@ -5703,16 +5688,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 57
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -5877,6 +5852,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 59
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 60
             }
           ]
         }
@@ -5886,26 +5866,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 79.667
-            },
-            {
-              "mod_rank": 0,
-              "volume": 16,
-              "wa_price": 4.938
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 85
-            },
-            {
-              "mod_rank": 0,
-              "volume": 2,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -6230,6 +6190,21 @@
               "mod_rank": 0,
               "volume": 12,
               "wa_price": 4.167
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 83.333
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 82.6
             }
           ]
         }
@@ -6239,26 +6214,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 9,
-              "wa_price": 127.778
-            },
-            {
-              "mod_rank": 0,
-              "volume": 21,
-              "wa_price": 7
-            },
-            {
-              "mod_rank": 5,
-              "volume": 6,
-              "wa_price": 125
-            },
-            {
-              "mod_rank": 0,
-              "volume": 13,
-              "wa_price": 7.308
-            },
             {
               "mod_rank": 5,
               "volume": 6,
@@ -6598,6 +6553,21 @@
               "mod_rank": 0,
               "volume": 18,
               "wa_price": 8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 9,
+              "wa_price": 131.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 129
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 8
             }
           ]
         }
@@ -6607,11 +6577,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 7
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -6881,6 +6846,16 @@
               "mod_rank": 0,
               "volume": 3,
               "wa_price": 7
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 160
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 151.333
             }
           ]
         }
@@ -6923,21 +6898,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 129.5
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 124.333
-            },
-            {
-              "mod_rank": 0,
-              "volume": 2,
-              "wa_price": 7
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -7292,6 +7252,21 @@
               "mod_rank": 0,
               "volume": 16,
               "wa_price": 8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 132
+            },
+            {
+              "mod_rank": 0,
+              "volume": 19,
+              "wa_price": 7
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 140
             }
           ]
         }
@@ -7310,6 +7285,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 19
             }
           ]
         }
@@ -7417,21 +7397,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 50
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 49
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 4
-            },
             {
               "mod_rank": 0,
               "volume": 10,
@@ -7586,6 +7551,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 50
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 49.5
             }
           ]
         }
@@ -7595,16 +7565,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 98
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 98
-            },
             {
               "mod_rank": 0,
               "volume": 1,
@@ -7799,6 +7759,16 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 98
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 100
             }
           ]
         }
@@ -7808,26 +7778,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 5,
-              "wa_price": 120
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 8
-            },
-            {
-              "mod_rank": 5,
-              "volume": 7,
-              "wa_price": 120.143
-            },
-            {
-              "mod_rank": 0,
-              "volume": 6,
-              "wa_price": 7.167
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -8212,6 +8162,26 @@
               "mod_rank": 0,
               "volume": 10,
               "wa_price": 7
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 123.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 23,
+              "wa_price": 6.565
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 120
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 7
             }
           ]
         }
@@ -8221,16 +8191,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 30
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 27
-            },
             {
               "mod_rank": 5,
               "volume": 4,
@@ -8470,6 +8430,26 @@
               "mod_rank": 0,
               "volume": 3,
               "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 30
+            },
+            {
+              "mod_rank": 0,
+              "volume": 18,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 0,
+              "volume": 10,
+              "wa_price": 2
             }
           ]
         }
@@ -8479,11 +8459,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 29
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -8663,6 +8638,11 @@
               "mod_rank": 5,
               "volume": 5,
               "wa_price": 27
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
             }
           ]
         }
@@ -8672,21 +8652,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 10,
-              "wa_price": 33.7
-            },
-            {
-              "mod_rank": 0,
-              "volume": 5,
-              "wa_price": 2
-            },
-            {
-              "mod_rank": 5,
-              "volume": 10,
-              "wa_price": 32.9
-            },
             {
               "mod_rank": 5,
               "volume": 4,
@@ -9091,6 +9056,26 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 3
+            },
+            {
+              "mod_rank": 5,
+              "volume": 16,
+              "wa_price": 38.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 11,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 11,
+              "wa_price": 35.455
+            },
+            {
+              "mod_rank": 0,
+              "volume": 9,
+              "wa_price": 2.667
             }
           ]
         }
@@ -9100,21 +9085,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 25.5
-            },
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 25.5
-            },
-            {
-              "mod_rank": 0,
-              "volume": 22,
-              "wa_price": 2
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -9344,6 +9314,11 @@
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 24.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 25.667
             }
           ]
         }
@@ -9577,11 +9552,6 @@
             {
               "mod_rank": 5,
               "volume": 1,
-              "wa_price": 21
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
               "wa_price": 20
             },
             {
@@ -9793,6 +9763,11 @@
               "mod_rank": 0,
               "volume": 14,
               "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
             }
           ]
         }
@@ -9865,16 +9840,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 21
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 25
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -10079,6 +10044,16 @@
               "mod_rank": 0,
               "volume": 6,
               "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
             }
           ]
         }
@@ -10141,26 +10116,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 24.5
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 2
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 24.333
-            },
-            {
-              "mod_rank": 0,
-              "volume": 7,
-              "wa_price": 5
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -10450,6 +10405,21 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 2
             }
           ]
         }
@@ -10459,11 +10429,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 15
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -10623,11 +10588,6 @@
             {
               "mod_rank": 5,
               "volume": 1,
-              "wa_price": 10
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
               "wa_price": 9
             },
             {
@@ -10639,6 +10599,11 @@
               "mod_rank": 5,
               "volume": 6,
               "wa_price": 9.167
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 10
             },
             {
               "mod_rank": 5,
@@ -10734,11 +10699,6 @@
             {
               "mod_rank": 5,
               "volume": 1,
-              "wa_price": 10
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
               "wa_price": 8
             },
             {
@@ -10779,11 +10739,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 30
-            },
             {
               "mod_rank": 0,
               "volume": 7,
@@ -10963,6 +10918,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 30
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 30
             }
           ]
         }
@@ -10972,16 +10932,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 12
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 17.5
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -11186,6 +11136,16 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 19
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 20
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
             }
           ]
         }
@@ -11195,16 +11155,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 19.5
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 2
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -11409,6 +11359,16 @@
               "mod_rank": 5,
               "volume": 4,
               "wa_price": 19.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 20.667
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 19
             }
           ]
         }
@@ -11431,11 +11391,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 50
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -11470,6 +11425,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 45
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 40
             }
           ]
         }
@@ -11479,16 +11439,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 201.667
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 208
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -11798,6 +11748,16 @@
               "mod_rank": 0,
               "volume": 3,
               "wa_price": 10
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 207.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 190
             }
           ]
         }
@@ -11967,11 +11927,6 @@
         "statistics_closed": {
           "48hours": [
             {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 44
-            },
-            {
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 3
@@ -12009,16 +11964,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 55
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 58
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -12298,6 +12243,21 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 55
+            },
+            {
+              "mod_rank": 0,
+              "volume": 2,
+              "wa_price": 4
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 60
             }
           ]
         }
@@ -12378,11 +12338,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 9,
-              "wa_price": 3.444
-            },
             {
               "mod_rank": 3,
               "volume": 1,
@@ -12465,6 +12420,16 @@
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 32
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 23
             }
           ]
         }
@@ -12488,6 +12453,11 @@
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 46.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 30
             }
           ]
         }
@@ -12592,6 +12562,11 @@
               "mod_rank": 3,
               "volume": 1,
               "wa_price": 20
+            },
+            {
+              "mod_rank": 3,
+              "volume": 3,
+              "wa_price": 25
             }
           ]
         }
@@ -12766,11 +12741,6 @@
             {
               "mod_rank": 3,
               "volume": 1,
-              "wa_price": 26
-            },
-            {
-              "mod_rank": 3,
-              "volume": 1,
               "wa_price": 25
             },
             {
@@ -12827,6 +12797,11 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 4
+            },
+            {
+              "mod_rank": 3,
+              "volume": 1,
+              "wa_price": 27
             }
           ]
         }
@@ -12866,11 +12841,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 3,
-              "volume": 2,
-              "wa_price": 40
-            },
             {
               "mod_rank": 3,
               "volume": 1,
@@ -12933,11 +12903,6 @@
         "statistics_closed": {
           "48hours": [
             {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 51
-            },
-            {
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 5
@@ -12968,11 +12933,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 50
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -13124,11 +13084,6 @@
           "48hours": [
             {
               "mod_rank": 3,
-              "volume": 2,
-              "wa_price": 24.5
-            },
-            {
-              "mod_rank": 3,
               "volume": 1,
               "wa_price": 23
             },
@@ -13242,16 +13197,6 @@
         "statistics_closed": {
           "48hours": [
             {
-              "mod_rank": 3,
-              "volume": 1,
-              "wa_price": 60
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 7
-            },
-            {
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 8
@@ -13275,6 +13220,11 @@
               "mod_rank": 3,
               "volume": 1,
               "wa_price": 50
+            },
+            {
+              "mod_rank": 3,
+              "volume": 1,
+              "wa_price": 45
             }
           ]
         }
@@ -13284,11 +13234,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 99
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -13361,7 +13306,13 @@
     "virtuos_forge": {
       "payload": {
         "statistics_closed": {
-          "48hours": []
+          "48hours": [
+            {
+              "mod_rank": 3,
+              "volume": 1,
+              "wa_price": 30
+            }
+          ]
         }
       }
     },
@@ -13413,6 +13364,11 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 7
             }
           ]
         }
@@ -13584,11 +13540,6 @@
         "statistics_closed": {
           "48hours": [
             {
-              "mod_rank": 0,
-              "volume": 12,
-              "wa_price": 7.5
-            },
-            {
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 75
@@ -13732,6 +13683,16 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 80
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 85
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 79
             }
           ]
         }
@@ -13765,6 +13726,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 23
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
+              "wa_price": 3
             }
           ]
         }
@@ -13797,11 +13763,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 90
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -13994,6 +13955,11 @@
               "mod_rank": 0,
               "volume": 16,
               "wa_price": 2.5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 20
             }
           ]
         }
@@ -14016,21 +13982,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 45
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 45
-            },
-            {
-              "mod_rank": 0,
-              "volume": 12,
-              "wa_price": 3
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -14295,6 +14246,11 @@
               "mod_rank": 5,
               "volume": 2,
               "wa_price": 51.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 3,
+              "wa_price": 3
             }
           ]
         }
@@ -14304,26 +14260,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 15
-            },
-            {
-              "mod_rank": 0,
-              "volume": 4,
-              "wa_price": 1
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 14.5
-            },
-            {
-              "mod_rank": 0,
-              "volume": 12,
-              "wa_price": 1.67
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -14588,6 +14524,21 @@
               "mod_rank": 0,
               "volume": 5,
               "wa_price": 1.2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 13
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 14.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 23,
+              "wa_price": 1
             }
           ]
         }
@@ -14736,6 +14687,21 @@
               "mod_rank": 5,
               "volume": 4,
               "wa_price": 7
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 7.667
             }
           ]
         }
@@ -14779,6 +14745,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 24
             }
           ]
         }
@@ -14788,21 +14759,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 7,
-              "wa_price": 12.714
-            },
-            {
-              "mod_rank": 5,
-              "volume": 6,
-              "wa_price": 12.833
-            },
-            {
-              "mod_rank": 0,
-              "volume": 24,
-              "wa_price": 1.917
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -15147,6 +15103,21 @@
               "mod_rank": 0,
               "volume": 36,
               "wa_price": 1.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 15
+            },
+            {
+              "mod_rank": 0,
+              "volume": 21,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 14.667
             }
           ]
         }
@@ -15156,11 +15127,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 8
-            },
             {
               "mod_rank": 0,
               "volume": 26,
@@ -15360,6 +15326,11 @@
               "mod_rank": 0,
               "volume": 1,
               "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 7
             }
           ]
         }
@@ -15369,16 +15340,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 0,
-              "volume": 13,
-              "wa_price": 1
-            },
-            {
-              "mod_rank": 0,
-              "volume": 2,
-              "wa_price": 0.5
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -15523,6 +15484,21 @@
               "mod_rank": 0,
               "volume": 5,
               "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 6
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 1
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 6.667
             }
           ]
         }
@@ -15532,11 +15508,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 8
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -15721,6 +15692,16 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 7
             }
           ]
         }
@@ -15730,16 +15711,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 25
-            },
-            {
-              "mod_rank": 0,
-              "volume": 1,
-              "wa_price": 2
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -16064,6 +16035,21 @@
               "mod_rank": 0,
               "volume": 9,
               "wa_price": 2.111
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 25.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 43,
+              "wa_price": 2.651
             }
           ]
         }
@@ -16073,21 +16059,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 23
-            },
-            {
-              "mod_rank": 5,
-              "volume": 5,
-              "wa_price": 23.2
-            },
-            {
-              "mod_rank": 0,
-              "volume": 5,
-              "wa_price": 2
-            },
             {
               "mod_rank": 5,
               "volume": 2,
@@ -16427,6 +16398,21 @@
               "mod_rank": 0,
               "volume": 5,
               "wa_price": 1.8
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 28.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 7,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 26.667
             }
           ]
         }
@@ -16436,21 +16422,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 10,
-              "wa_price": 23.8
-            },
-            {
-              "mod_rank": 0,
-              "volume": 3,
-              "wa_price": 2
-            },
-            {
-              "mod_rank": 5,
-              "volume": 3,
-              "wa_price": 24.333
-            },
             {
               "mod_rank": 5,
               "volume": 7,
@@ -16780,6 +16751,21 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 20,
+              "wa_price": 28.6
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 22.857
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 2
             }
           ]
         }
@@ -16789,16 +16775,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 5,
-              "wa_price": 28.2
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 25
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -17103,6 +17079,21 @@
               "mod_rank": 5,
               "volume": 9,
               "wa_price": 28.333
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 29
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 30
             }
           ]
         }
@@ -17112,21 +17103,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 18.5
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 18
-            },
-            {
-              "mod_rank": 0,
-              "volume": 6,
-              "wa_price": 2
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -17316,6 +17292,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 15
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 17
             }
           ]
         }
@@ -17325,21 +17306,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 24
-            },
-            {
-              "mod_rank": 0,
-              "volume": 29,
-              "wa_price": 2.897
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 25
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -17634,6 +17600,21 @@
               "mod_rank": 5,
               "volume": 4,
               "wa_price": 26.25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 22.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 5,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 6,
+              "wa_price": 27.333
             }
           ]
         }
@@ -17643,26 +17624,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 25
-            },
-            {
-              "mod_rank": 0,
-              "volume": 8,
-              "wa_price": 2
-            },
-            {
-              "mod_rank": 5,
-              "volume": 2,
-              "wa_price": 24
-            },
-            {
-              "mod_rank": 0,
-              "volume": 2,
-              "wa_price": 2
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -18007,6 +17968,26 @@
               "mod_rank": 5,
               "volume": 5,
               "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 5,
+              "wa_price": 25.2
+            },
+            {
+              "mod_rank": 0,
+              "volume": 6,
+              "wa_price": 2
+            },
+            {
+              "mod_rank": 5,
+              "volume": 7,
+              "wa_price": 25
+            },
+            {
+              "mod_rank": 0,
+              "volume": 4,
+              "wa_price": 2
             }
           ]
         }
@@ -18016,11 +17997,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 15
-            },
             {
               "mod_rank": 5,
               "volume": 1,
@@ -18110,6 +18086,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 12
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 15
             }
           ]
         }
@@ -18178,6 +18159,11 @@
               "mod_rank": 5,
               "volume": 1,
               "wa_price": 25
+            },
+            {
+              "mod_rank": 5,
+              "volume": 1,
+              "wa_price": 25
             }
           ]
         }
@@ -18187,26 +18173,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 5,
-              "wa_price": 297.8
-            },
-            {
-              "mod_rank": 0,
-              "volume": 7,
-              "wa_price": 14.143
-            },
-            {
-              "mod_rank": 5,
-              "volume": 9,
-              "wa_price": 301
-            },
-            {
-              "mod_rank": 0,
-              "volume": 16,
-              "wa_price": 12.625
-            },
             {
               "mod_rank": 5,
               "volume": 3,
@@ -18641,6 +18607,26 @@
               "mod_rank": 0,
               "volume": 28,
               "wa_price": 13.536
+            },
+            {
+              "mod_rank": 5,
+              "volume": 4,
+              "wa_price": 294.75
+            },
+            {
+              "mod_rank": 0,
+              "volume": 45,
+              "wa_price": 13.578
+            },
+            {
+              "mod_rank": 5,
+              "volume": 3,
+              "wa_price": 311.667
+            },
+            {
+              "mod_rank": 0,
+              "volume": 22,
+              "wa_price": 13.364
             }
           ]
         }
@@ -18650,16 +18636,6 @@
       "payload": {
         "statistics_closed": {
           "48hours": [
-            {
-              "mod_rank": 5,
-              "volume": 4,
-              "wa_price": 88.75
-            },
-            {
-              "mod_rank": 5,
-              "volume": 1,
-              "wa_price": 90
-            },
             {
               "mod_rank": 5,
               "volume": 5,
@@ -18998,6 +18974,26 @@
             {
               "mod_rank": 0,
               "volume": 21,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 8,
+              "wa_price": 92.875
+            },
+            {
+              "mod_rank": 0,
+              "volume": 1,
+              "wa_price": 5
+            },
+            {
+              "mod_rank": 5,
+              "volume": 2,
+              "wa_price": 93.5
+            },
+            {
+              "mod_rank": 0,
+              "volume": 17,
               "wa_price": 5
             }
           ]
