@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { PlatinumIcon, VosforIcon, LotusIcon } from "../icons/WarframeIcons";
+import { PlatinumIcon, LotusIcon } from "../icons/WarframeIcons";
 import ArcaneDetailModal from "../modals/ArcaneDetailModal";
 import { playUiClick } from "../../util/soundEffects";
 import { getRarityStyle } from "../../util/rarityStyles";
@@ -152,7 +152,7 @@ export default function ArcaneValuesSection({
       ) : (
         <>
           {/* Pack Value Analysis Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="analysis-stat analysis-stat-primary p-4 rounded-lg border relative overflow-hidden">
               <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold flex items-center justify-between mb-1">
                 <span>Pack Expected Return (3x Drops)</span>
@@ -187,24 +187,6 @@ export default function ArcaneValuesSection({
                   ? "maxed price ÷ copies needed"
                   : "Rank 0 price"}
                 ).
-              </p>
-            </div>
-
-            <div className="analysis-stat p-4 rounded-lg border">
-              <div className="text-[11px] uppercase tracking-wider text-cyan-400 font-semibold mb-1">
-                Vosfor Efficiency Yield
-              </div>
-              <div className="flex items-baseline space-x-1.5">
-                <span className="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
-                  <VosforIcon className="w-5 h-5" />
-                  {packValue !== null ? (packValue / 2).toFixed(1) : "-"}
-                </span>
-                <span className="text-xs text-slate-400 font-mono">
-                  plat / 100 Vosfor
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 mt-1">
-                Expected platinum equivalent per 100 Vosfor spent.
               </p>
             </div>
           </div>
