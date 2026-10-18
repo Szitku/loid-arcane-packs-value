@@ -67,23 +67,11 @@ async function main() {
   await fs.mkdir(outputDir, { recursive: true });
   const outputFile = path.join(outputDir, "market-data.json");
 
-  // Read existing data if available so failed individual fetches don't wipe existing stats
-  let existingArcanes = {};
-  let existingLastUpdated = null;
-  try {
-    const raw = await fs.readFile(outputFile, "utf-8");
-    const parsed = JSON.parse(raw);
-    if (parsed?.arcanes) existingArcanes = parsed.arcanes;
-    if (parsed?.lastUpdated) existingLastUpdated = parsed.lastUpdated;
-  } catch {
-    // File doesn't exist yet, that's fine
-  }
-
-  const results = { ...existingArcanes };
+  const results = {};
   let successCount = 0;
   let failCount = 0;
 
-  // Concurrency limit = 3 with 100ms pause
+  // Concurrency limit = 3 with 120ms pause
   const BATCH_SIZE = 3;
   for (let i = 0; i < uniqueIds.length; i += BATCH_SIZE) {
     const batch = uniqueIds.slice(i, i + BATCH_SIZE);
@@ -124,12 +112,10 @@ async function main() {
 
   console.log("\nFinished fetching market data.");
 
-  const force = process.argv.includes("--force");
-  const hasChanged = JSON.stringify(results) !== JSON.stringify(existingArcanes);
-
-  if (!hasChanged && existingLastUpdated && !force) {
-    console.log("Arcane market data is identical to existing cache. No changes written.");
-    return;
+  if (failCount > 0) {
+    throw new Error(
+      `Market data update aborted: ${failCount} arcane(s) failed to fetch. Existing data snapshot preserved.`
+    );
   }
 
   const payload = {

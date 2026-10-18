@@ -24,7 +24,6 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
  * Data sources for pre-fetched market statistics:
  * 1. Dedicated 'data' branch via raw GitHub (CORS enabled by GitHub).
  * 2. jsDelivr CDN mirror for the 'data' branch.
- * 3. Local bundled copy in dist/ (fallback for offline or before first data branch push).
  */
 const DATA_BRANCH_SOURCES = [
   "https://raw.githubusercontent.com/Szitku/loid-arcane-packs-value/data/market-data.json",
@@ -35,13 +34,7 @@ export async function preloadMarketData() {
   if (staticDataPromise) return staticDataPromise;
 
   staticDataPromise = (async () => {
-    const base = import.meta.env.BASE_URL || "/";
-    const cleanBase = base.endsWith("/") ? base : `${base}/`;
-    const localUrl = `${cleanBase}data/market-data.json`;
-
-    const candidateUrls = [...DATA_BRANCH_SOURCES, localUrl];
-
-    for (const url of candidateUrls) {
+    for (const url of DATA_BRANCH_SOURCES) {
       try {
         const res = await fetchWithTimeout(url, {}, 5000);
         if (res.ok) {
@@ -59,7 +52,7 @@ export async function preloadMarketData() {
     }
 
     console.warn(
-      "Could not load pre-fetched market data from any source, will use live fallback.",
+      "Could not load pre-fetched market data from remote data branch, will use live fallback.",
     );
     return null;
   })();

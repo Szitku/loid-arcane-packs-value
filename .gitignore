@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Pre-fetched market data cache (pushed only to 'data' branch via CI)
+public/data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
