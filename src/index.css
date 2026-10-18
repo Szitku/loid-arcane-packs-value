@@ -916,6 +916,15 @@ input {
   border: 1px dashed #30352c;
   border-radius: 5px;
   color: #8e957f;
+  animation: explorationHintFadeIn 0.25s ease-out forwards;
+}
+@keyframes explorationHintFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .exploration-hint > svg:first-child {
   color: #a28d5f;
@@ -1017,6 +1026,30 @@ input {
   margin: 32px 0 40px;
   padding-top: 25px;
   border-top: 1px solid #3a3c30;
+  scroll-margin-top: 24px;
+  animation: closerLookOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes closerLookOpen {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.collection-detail.is-closing {
+  animation: closerLookClose 0.2s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes closerLookClose {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 .detail-heading {
   display: flex;

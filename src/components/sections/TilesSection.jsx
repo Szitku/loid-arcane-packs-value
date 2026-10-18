@@ -9,6 +9,7 @@ import CollectionToolbar from "./CollectionToolbar";
 import CollectionCard from "./CollectionCard";
 import { useExcludedArcanes } from "../../hooks/useExcludedArcanes";
 import { useMarketAnalysis } from "../../hooks/useMarketAnalysis";
+import { useCollectionTransition } from "../../hooks/useCollectionTransition";
 import { LotusIcon } from "../icons/WarframeIcons";
 import { playUiClick } from "../../util/soundEffects";
 import { Search, ChevronRight, X } from "lucide-react";
@@ -82,18 +83,22 @@ export default function TilesSection({ setActiveTab, activeTab }) {
     [rankedTiles, collectionQuery],
   );
 
-  const selectedTile = useMemo(
-    () => tiles.find((tile) => tile.id === activeTab),
-    [activeTab],
-  );
-
   const isAllScanned = weightedCollections.size === tiles.length;
 
-  const handleSelectCollection = (tile) => {
-    setActiveTab(tile.id);
-    playUiClick();
-    loadTileIfNeeded(tile);
-  };
+  const {
+    collectionsRef,
+    detailRef,
+    displayedTile,
+    isClosing,
+    handleSelectCollection,
+    handleClose,
+    handleAnimationEnd,
+  } = useCollectionTransition({
+    tiles,
+    activeTab,
+    setActiveTab,
+    onSelectTile: loadTileIfNeeded,
+  });
 
   return (
     <div className="exchange-dashboard">
@@ -132,6 +137,7 @@ export default function TilesSection({ setActiveTab, activeTab }) {
       )}
 
       <section
+        ref={collectionsRef}
         id="collections"
         className="collections-section"
         aria-labelledby="collections-title"
@@ -204,29 +210,31 @@ export default function TilesSection({ setActiveTab, activeTab }) {
       </section>
 
       {/* Selected Collection View */}
-      {selectedTile && (
-        <section id="collection-detail" className="collection-detail space-y-4">
+      {displayedTile && (
+        <section
+          ref={detailRef}
+          id="collection-detail"
+          className={`collection-detail space-y-4 ${isClosing ? "is-closing" : ""}`}
+          onAnimationEnd={handleAnimationEnd}
+        >
           <div className="detail-heading">
             <div className="flex items-center gap-3.5">
-              {(() => {
-                const SelectedIcon = selectedTile.icon;
-                return (
-                  <div
-                    className={`detail-emblem-badge collection-${selectedTile.id}`}
-                  >
-                    <SelectedIcon className="collection-emblem" />
-                  </div>
-                );
-              })()}
+              {displayedTile.icon && (
+                <div
+                  className={`detail-emblem-badge collection-${displayedTile.id}`}
+                >
+                  <displayedTile.icon className="collection-emblem" />
+                </div>
+              )}
               <div>
                 <div className="eyebrow">A CLOSER LOOK</div>
-                <h2>{selectedTile.label}</h2>
+                <h2>{displayedTile.label}</h2>
               </div>
             </div>
             <button
               className="icon-button"
               aria-label="Close collection details"
-              onClick={() => setActiveTab("")}
+              onClick={handleClose}
             >
               <X size={19} />
             </button>
@@ -274,21 +282,21 @@ export default function TilesSection({ setActiveTab, activeTab }) {
             fetchedArcanes={fetchedArcanes}
             loadingTiles={loadingTiles}
             weightedCollections={weightedCollections}
-            excludedArcaneIds={excludedArcanesByCollection.get(activeTab)}
+            excludedArcaneIds={excludedArcanesByCollection.get(displayedTile.id)}
             onArcaneInclusionChange={(arcaneId, included) =>
-              handleArcaneInclusionChange(activeTab, arcaneId, included)
+              handleArcaneInclusionChange(displayedTile.id, arcaneId, included)
             }
-            onIncludeAllArcanes={() => handleIncludeAllArcanes(activeTab)}
-            activeTab={activeTab}
+            onIncludeAllArcanes={() => handleIncludeAllArcanes(displayedTile.id)}
+            activeTab={displayedTile.id}
             searchQuery={searchQuery}
             rarityFilter={selectedRarityFilter}
             strategy={strategy}
-            error={fetchErrors.get(activeTab)}
+            error={fetchErrors.get(displayedTile.id)}
           />
         </section>
       )}
 
-      {!activeTab && (
+      {!displayedTile && (
         <div className="exploration-hint">
           <LotusIcon className="w-5 h-5" />
           <p>
