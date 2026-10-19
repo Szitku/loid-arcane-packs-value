@@ -841,15 +841,11 @@ input {
 }
 .card-meta {
   display: flex;
-  gap: 8px;
-  font-size: 8px;
-  color: #7f8779;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9da798;
   margin-top: 13px;
-}
-.card-meta span + span:before {
-  content: "·";
-  margin-right: 8px;
-  color: #565e50;
 }
 .card-footer {
   display: flex;
@@ -883,6 +879,24 @@ input {
 }
 .collection-card:hover .card-analyze {
   color: var(--gold);
+}
+.card-metrics {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.card-volume {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: #8da4a0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+.card-volume svg {
+  color: #588e84;
 }
 .card-value {
   display: flex;
@@ -1056,6 +1070,8 @@ input {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 .detail-emblem-badge {
   display: grid;
@@ -1240,11 +1256,7 @@ input {
     font-size: 12px;
   }
   .card-meta {
-    font-size: 7px;
-    gap: 5px;
-  }
-  .card-meta span + span:before {
-    margin-right: 5px;
+    font-size: 11px;
   }
   .footer-coordinate {
     display: none;
@@ -1313,7 +1325,7 @@ input {
     font-size: 10px;
   }
   .card-meta {
-    font-size: 9px;
+    font-size: 13px;
     margin-top: 16px;
   }
   .card-footer {
@@ -1485,11 +1497,8 @@ input {
     min-height: 28px;
   }
   .card-meta {
-    font-size: 7px;
+    font-size: 10px;
     margin-top: 10px;
-  }
-  .card-meta span + span {
-    display: none;
   }
   .card-footer {
     padding: 11px 9px;

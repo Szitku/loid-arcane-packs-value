@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronUp,
   Info,
+  TrendingUp,
 } from "lucide-react";
 
 export default function ArcaneValuesSection({
@@ -54,6 +55,7 @@ export default function ArcaneValuesSection({
       weightedValue: excludedArcaneIds.has(arcane.id)
         ? 0
         : (arcane.valuations?.[strategy]?.weightedValue ?? 0),
+      volume: arcane.valuations?.[strategy]?.volume ?? 0,
     }));
 
     if (searchQuery.trim()) {
@@ -79,6 +81,9 @@ export default function ArcaneValuesSection({
       if (sortBy === "average") {
         valA = a.avgPlatinum || 0;
         valB = b.avgPlatinum || 0;
+      } else if (sortBy === "volume") {
+        valA = a.volume || 0;
+        valB = b.volume || 0;
       } else if (sortBy === "weighted") {
         valA = a.weightedValue || 0;
         valB = b.weightedValue || 0;
@@ -152,18 +157,18 @@ export default function ArcaneValuesSection({
       ) : (
         <>
           {/* Pack Value Analysis Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="analysis-stat analysis-stat-primary p-4 rounded-lg border relative overflow-hidden">
               <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold flex items-center justify-between mb-1">
                 <span>Pack Expected Return (3x Drops)</span>
-                <span className="px-1.5 py-0.2 bg-amber-500/20 border border-amber-500/30 rounded text-[10px]">
+                <span className="px-1.5 py-0.5 bg-amber-500/20 border border-amber-500/30 rounded text-[10px]">
                   200 Vosfor
                 </span>
               </div>
               <div className="flex items-baseline space-x-2">
                 <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-mono flex items-center gap-1.5">
-                  <PlatinumIcon className="w-6 h-6" />
                   {packValue !== null ? packValue.toFixed(1) : "-"}
+                  {packValue !== null && <PlatinumIcon className="w-6 h-6" />}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 mt-1">
@@ -177,8 +182,8 @@ export default function ArcaneValuesSection({
               </div>
               <div className="flex items-baseline space-x-2">
                 <span className="text-2xl sm:text-3xl font-extrabold text-cyan-300 font-mono flex items-center gap-1.5">
-                  <PlatinumIcon className="w-6 h-6" />
                   {totalWeighted != null ? totalWeighted.toFixed(2) : "-"}
+                  {totalWeighted != null && <PlatinumIcon className="w-6 h-6" />}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 mt-1">
@@ -187,6 +192,29 @@ export default function ArcaneValuesSection({
                   ? "maxed price ÷ copies needed"
                   : "Rank 0 price"}
                 ).
+              </p>
+            </div>
+
+            <div className="analysis-stat p-4 rounded-lg border">
+              <div className="text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-1 flex items-center justify-between">
+                <span>Total Arcanes Sold (48h)</span>
+                <span className="px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-[10px] text-emerald-300">
+                  {strategy === "maxed" ? "Max Rank" : "Rank 0"}
+                </span>
+              </div>
+              <div className="flex items-baseline space-x-2">
+                <span className="text-2xl sm:text-3xl font-extrabold text-emerald-300 font-mono flex items-center gap-1.5">
+                  <TrendingUp className="w-6 h-6 text-emerald-400" />
+                  {collectionData?.totalVolume != null
+                    ? collectionData.totalVolume.toLocaleString()
+                    : "-"}
+                </span>
+                <span className="text-slate-400 text-xs font-mono">units</span>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-1">
+                {excludedCount > 0
+                  ? `${collectionData?.soldArcanesCount ?? 0} of ${rawCollectionArcanes.length - excludedCount} included Arcanes have reported sales (${excludedCount} excluded).`
+                  : `${collectionData?.soldArcanesCount ?? 0} of ${rawCollectionArcanes.length} Arcanes in this pack have reported sales.`}
               </p>
             </div>
           </div>
@@ -253,23 +281,39 @@ export default function ArcaneValuesSection({
                   ))}
               </button>
 
-              <button
-                type="button"
-                aria-sort={getSortAria("average")}
-                aria-label="Sort by average sale price"
-                className="col-span-4 sm:col-span-3 text-center cursor-pointer hover:text-cyan-300 transition-colors flex items-center justify-center gap-1"
-                onClick={() => handleSort("average")}
-              >
-                <span>
-                  Avg Sold ({strategy === "maxed" ? "Max Rank" : "Rank 0"}, 48h)
-                </span>
-                {sortBy === "average" &&
-                  (sortDir === "asc" ? (
-                    <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
-                  ) : (
-                    <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
-                  ))}
-              </button>
+              <div className="col-span-4 sm:col-span-3 flex items-center justify-center gap-1.5">
+                <button
+                  type="button"
+                  aria-sort={getSortAria("average")}
+                  aria-label="Sort by average sale price"
+                  className="cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-0.5"
+                  onClick={() => handleSort("average")}
+                >
+                  <span>Avg Price</span>
+                  {sortBy === "average" &&
+                    (sortDir === "asc" ? (
+                      <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                    ) : (
+                      <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                    ))}
+                </button>
+                <span className="text-slate-600">·</span>
+                <button
+                  type="button"
+                  aria-sort={getSortAria("volume")}
+                  aria-label="Sort by units sold"
+                  className="cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-0.5"
+                  onClick={() => handleSort("volume")}
+                >
+                  <span>Sold</span>
+                  {sortBy === "volume" &&
+                    (sortDir === "asc" ? (
+                      <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                    ) : (
+                      <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                    ))}
+                </button>
+              </div>
 
               <button
                 type="button"
@@ -373,7 +417,7 @@ export default function ArcaneValuesSection({
                             </span>
                           )}
                           <span
-                            className={`px-1.5 py-0.2 rounded text-[10px] uppercase font-semibold border ${style.badge}`}
+                            className={`px-1.5 py-0.5 rounded text-[10px] uppercase font-semibold border ${style.badge}`}
                           >
                             {arcane.rarity}
                           </span>
@@ -398,31 +442,38 @@ export default function ArcaneValuesSection({
                     {/* Average Platinum */}
                     <div className="col-span-4 sm:col-span-3 text-center font-mono">
                       <div className="text-slate-100 font-bold flex items-center justify-center gap-1">
-                        <PlatinumIcon className="w-3.5 h-3.5" />
                         <span>
                           {arcane.avgPlatinum != null
                             ? arcane.avgPlatinum.toFixed(1)
                             : "N/A"}
                         </span>
-                        <span className="text-slate-500 text-xs font-normal">
-                          p
-                        </span>
+                        {arcane.avgPlatinum != null && (
+                          <PlatinumIcon className="w-3.5 h-3.5" />
+                        )}
                       </div>
-                      <div className="text-[11px] text-slate-400">
-                        {arcane.valuations?.[strategy]?.volume ?? 0} reported sales
-                      </div>
+                      <span
+                        className={`text-[11px] font-mono ${
+                          sortBy === "volume"
+                            ? "text-emerald-400 font-semibold"
+                            : "text-slate-400"
+                        }`}
+                      >
+                        {arcane.volume.toLocaleString()} sold
+                      </span>
                     </div>
 
                     {/* Weighted Platinum Value */}
                     <div className="col-span-3 text-right font-mono flex items-center justify-end space-x-2">
                       <div>
                         <div className="text-emerald-400 font-bold flex items-center justify-end gap-1">
-                          <PlatinumIcon className="w-3.5 h-3.5" />
                           <span>
                             {arcane.weightedValue != null
                               ? arcane.weightedValue.toFixed(2)
                               : "N/A"}
                           </span>
+                          {arcane.weightedValue != null && (
+                            <PlatinumIcon className="w-3.5 h-3.5" />
+                          )}
                         </div>
                       </div>
                     </div>

@@ -6,6 +6,31 @@ const STRATEGIES = [
   { value: "maxed", label: "Max & sell" },
 ];
 
+export function StrategyControl({ strategy, onSelectStrategy, showLabel = true }) {
+  return (
+    <div className="strategy-control">
+      {showLabel && (
+        <span>
+          <SlidersHorizontal size={14} /> Selling strategy
+        </span>
+      )}
+      <div className="segmented-control" role="group" aria-label="Selling strategy">
+        {STRATEGIES.map(({ value, label }) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => onSelectStrategy(value)}
+            aria-pressed={strategy === value}
+            className={strategy === value ? "selected" : ""}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function CollectionToolbar({
   strategy,
   onSelectStrategy,
@@ -14,23 +39,10 @@ export default function CollectionToolbar({
 }) {
   return (
     <div className="collection-toolbar">
-      <div className="strategy-control">
-        <span>
-          <SlidersHorizontal size={14} /> Selling strategy
-        </span>
-        <div className="segmented-control">
-          {STRATEGIES.map(({ value, label }) => (
-            <button
-              key={value}
-              onClick={() => onSelectStrategy(value)}
-              aria-pressed={strategy === value}
-              className={strategy === value ? "selected" : ""}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
+      <StrategyControl
+        strategy={strategy}
+        onSelectStrategy={onSelectStrategy}
+      />
       <div className="collection-search">
         <Search size={15} />
         <input

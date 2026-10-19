@@ -5,7 +5,7 @@ import HeroSection from "./HeroSection";
 import ExchangeRules from "./ExchangeRules";
 import TopPackBanner from "./TopPackBanner";
 import VosforCalculator from "./VosforCalculator";
-import CollectionToolbar from "./CollectionToolbar";
+import CollectionToolbar, { StrategyControl } from "./CollectionToolbar";
 import CollectionCard from "./CollectionCard";
 import { useExcludedArcanes } from "../../hooks/useExcludedArcanes";
 import { useMarketAnalysis } from "../../hooks/useMarketAnalysis";
@@ -33,6 +33,16 @@ export default function TilesSection({ setActiveTab, activeTab }) {
   } = useMarketAnalysis(tiles, excludedArcanesByCollection);
 
   const [strategy, setStrategy] = useState("unranked");
+  const [detailStrategy, setDetailStrategy] = useState("unranked");
+
+  // Reset detailStrategy to the active global strategy whenever the selected pack changes
+  const [prevActiveTab, setPrevActiveTab] = useState(activeTab);
+  if (activeTab !== prevActiveTab) {
+    setPrevActiveTab(activeTab);
+    if (activeTab) {
+      setDetailStrategy(strategy);
+    }
+  }
 
   // Search & Filter states
   const [collectionQuery, setCollectionQuery] = useState("");
@@ -241,8 +251,16 @@ export default function TilesSection({ setActiveTab, activeTab }) {
           </div>
 
           {/* Quick Search & Filter bar for the active pack */}
-          <div className="arcane-filters flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 rounded-lg border">
-            <div className="relative flex-1">
+          <div className="arcane-filters flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 rounded-lg border">
+            <StrategyControl
+              strategy={detailStrategy}
+              onSelectStrategy={(newStrategy) => {
+                setDetailStrategy(newStrategy);
+                playUiClick();
+              }}
+            />
+
+            <div className="relative flex-1 min-w-[180px]">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -290,7 +308,7 @@ export default function TilesSection({ setActiveTab, activeTab }) {
             activeTab={displayedTile.id}
             searchQuery={searchQuery}
             rarityFilter={selectedRarityFilter}
-            strategy={strategy}
+            strategy={detailStrategy}
             error={fetchErrors.get(displayedTile.id)}
           />
         </section>

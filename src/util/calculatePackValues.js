@@ -22,20 +22,27 @@ export default function calculatePackValues(
           (arcane) => arcane?.valuations?.[strategy]?.weightedValue != null,
         );
 
-      const totalWeightedValue = complete
-        ? includedArcanes.reduce(
-            (sum, arcane) =>
-              sum + (arcane?.valuations?.[strategy]?.weightedValue ?? 0),
-            0,
-          )
-        : null;
+      let totalWeightedValue = 0;
+      let totalVolume = 0;
+      let soldArcanesCount = 0;
+      for (const arcane of includedArcanes) {
+        const val = arcane?.valuations?.[strategy];
+        totalWeightedValue += val?.weightedValue ?? 0;
+        const vol = val?.volume;
+        if (Number.isFinite(vol) && vol > 0) {
+          totalVolume += vol;
+          soldArcanesCount += 1;
+        }
+      }
 
       return [
         strategy,
         {
-          totalWeightedValue,
+          totalWeightedValue: complete ? totalWeightedValue : null,
           packValue: complete ? totalWeightedValue * 3 : null,
           platPer100Vosfor: complete ? totalWeightedValue * 1.5 : null,
+          totalVolume: complete ? totalVolume : null,
+          soldArcanesCount: complete ? soldArcanesCount : null,
         },
       ];
     }),

@@ -81,10 +81,14 @@ export default function VosforCalculator({
             Estimated Plat Return {topPack ? `(${topPack.label})` : ""}
           </div>
           <div className="text-xl font-bold text-emerald-400 font-mono flex items-center gap-1.5">
-            <PlatinumIcon className="w-5 h-5" />
-            {topPack
-              ? `${(packsCount * topPack.packValue).toFixed(0)} p`
-              : "Scan packs to calculate"}
+            {topPack ? (
+              <>
+                {(packsCount * topPack.packValue).toFixed(0)}
+                <PlatinumIcon className="w-5 h-5" />
+              </>
+            ) : (
+              "Scan packs to calculate"
+            )}
           </div>
           <p className="text-[11px] text-slate-500 mt-1">
             {strategy === "maxed"

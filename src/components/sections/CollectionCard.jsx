@@ -1,6 +1,6 @@
 import React from "react";
 import { VosforIcon, PlatinumIcon } from "../icons/WarframeIcons";
-import { RotateCw, ArrowRight, ArrowUpRight, Award } from "lucide-react";
+import { RotateCw, ArrowRight, ArrowUpRight, Award, TrendingUp } from "lucide-react";
 
 export default function CollectionCard({
   tile,
@@ -41,7 +41,6 @@ export default function CollectionCard({
         <p>{tile.desc}</p>
         <div className="card-meta">
           <span>{tile.arcanes.length} Arcanes in pool</span>
-          <span>3 per pack</span>
         </div>
       </div>
       <div className="card-footer">
@@ -55,12 +54,28 @@ export default function CollectionCard({
             Analyzing…
           </span>
         ) : cachedValues ? (
-          <span className="card-value" title="Expected platinum value per pack">
-            <PlatinumIcon className="w-3.5 h-3.5" />
-            {cachedValues.packValue === null
-              ? "Incomplete"
-              : `${cachedValues.packValue.toFixed(1)} p`}
-          </span>
+          <div className="card-metrics">
+            {cachedValues.packValue !== null &&
+              cachedValues.totalVolume != null && (
+                <span
+                  className="card-volume"
+                  title={`${cachedValues.totalVolume.toLocaleString()} units sold across ${cachedValues.soldArcanesCount ?? 0} included arcanes in the last 48 hours`}
+                >
+                  <TrendingUp size={11} className="card-volume-icon" />
+                  {cachedValues.totalVolume.toLocaleString()} sold
+                </span>
+              )}
+            <span className="card-value" title="Expected platinum value per pack">
+              {cachedValues.packValue === null ? (
+                "Incomplete"
+              ) : (
+                <>
+                  {cachedValues.packValue.toFixed(1)}
+                  <PlatinumIcon className="w-3.5 h-3.5" />
+                </>
+              )}
+            </span>
+          </div>
         ) : (
           <span className="card-analyze">
             {hasError ? "Retry analysis" : "Analyze"}

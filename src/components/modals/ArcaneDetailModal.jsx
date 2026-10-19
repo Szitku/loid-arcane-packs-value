@@ -107,30 +107,42 @@ export default function ArcaneDetailModal({
                 <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                   <span className="text-slate-400">Average Sale:</span>
                   <span className="text-slate-100 font-bold flex items-center gap-1">
-                    <PlatinumIcon className="w-4 h-4" />
-                    {activeVal.average != null
-                      ? `${activeVal.average.toFixed(1)} p`
-                      : "N/A"}
+                    {activeVal.average != null ? (
+                      <>
+                        {activeVal.average.toFixed(1)}
+                        <PlatinumIcon className="w-4 h-4" />
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                   <span className="text-slate-400">Per-Copy Value:</span>
                   <span className="text-cyan-300 font-bold flex items-center gap-1">
-                    <PlatinumIcon className="w-4 h-4" />
-                    {activeVal.perCopy != null
-                      ? `${activeVal.perCopy.toFixed(2)} p`
-                      : "N/A"}
+                    {activeVal.perCopy != null ? (
+                      <>
+                        {activeVal.perCopy.toFixed(2)}
+                        <PlatinumIcon className="w-4 h-4" />
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center py-1">
                   <span className="text-slate-400">Pack Contribution:</span>
                   <span className="text-emerald-400 font-bold flex items-center gap-1">
-                    <PlatinumIcon className="w-4 h-4" />
-                    {activeVal.weightedValue != null
-                      ? `${activeVal.weightedValue.toFixed(2)} p`
-                      : "N/A"}
+                    {activeVal.weightedValue != null ? (
+                      <>
+                        {activeVal.weightedValue.toFixed(2)}
+                        <PlatinumIcon className="w-4 h-4" />
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </span>
                 </div>
               </div>
@@ -154,10 +166,14 @@ export default function ArcaneDetailModal({
                 <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                   <span className="text-slate-400">Rank 0 Avg:</span>
                   <span className="text-purple-300 font-semibold flex items-center gap-1">
-                    <PlatinumIcon className="w-3.5 h-3.5" />
-                    {unrankedVal.average != null
-                      ? `${unrankedVal.average.toFixed(1)} p`
-                      : "N/A"}
+                    {unrankedVal.average != null ? (
+                      <>
+                        {unrankedVal.average.toFixed(1)}
+                        <PlatinumIcon className="w-3.5 h-3.5" />
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </span>
                 </div>
 
@@ -175,10 +191,14 @@ export default function ArcaneDetailModal({
                     Rank {arcane.maxRank} Avg:
                   </span>
                   <span className="text-amber-300 font-semibold flex items-center gap-1">
-                    <PlatinumIcon className="w-3.5 h-3.5" />
-                    {maxedVal.average != null
-                      ? `${maxedVal.average.toFixed(1)} p`
-                      : "N/A"}
+                    {maxedVal.average != null ? (
+                      <>
+                        {maxedVal.average.toFixed(1)}
+                        <PlatinumIcon className="w-3.5 h-3.5" />
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </span>
                 </div>
               </div>

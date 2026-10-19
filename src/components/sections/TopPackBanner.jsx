@@ -15,8 +15,9 @@ export default function TopPackBanner({ topPack, isAllScanned, onSelectPack }) {
         <strong>{topPack.label}</strong>
       </div>
       <span className="best-pack-value">
+        {topPack.packValue.toFixed(1)}
         <PlatinumIcon className="w-5 h-5" />
-        {topPack.packValue.toFixed(1)} <small>p / pack</small>
+        <small>/ pack</small>
       </span>
       <button
         className="text-button"
