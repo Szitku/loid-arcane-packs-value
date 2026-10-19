@@ -1,12 +1,12 @@
 # Loid's Exchange // Arcane Dissolution Market Calculator
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live%20on%20GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://szitku.github.io/loid-arcane-packs-value/)
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20on%20GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://szitku.github.io/loid-vosfor-exchange/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
 [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Update Market Data](https://github.com/Szitku/loid-arcane-packs-value/actions/workflows/update-market-data.yml/badge.svg)](https://github.com/Szitku/loid-arcane-packs-value/actions/workflows/update-market-data.yml)
-[![Deploy to GitHub Pages](https://github.com/Szitku/loid-arcane-packs-value/actions/workflows/deploy.yml/badge.svg)](https://github.com/Szitku/loid-arcane-packs-value/actions/workflows/deploy.yml)
+[![Update Market Data](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/update-market-data.yml/badge.svg)](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/update-market-data.yml)
+[![Deploy to GitHub Pages](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/deploy.yml/badge.svg)](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/deploy.yml)
 
 > An interactive market valuation terminal for **Warframe's Arcane Dissolution** system (Loid, Sanctum Anatomica, Deimos). Calculate expected Platinum yields per Arcane Pack and maximize your Vosfor efficiency using real transaction statistics from [warframe.market](https://warframe.market).
 
@@ -122,8 +122,8 @@ flowchart LR
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Szitku/loid-arcane-packs-value.git
-   cd loid-arcane-packs-value
+   git clone https://github.com/Szitku/loid-vosfor-exchange.git
+   cd loid-vosfor-exchange
    ```
 
 2. Install dependencies:
@@ -176,7 +176,7 @@ npm run lint
 ## 📂 Project Structure
 
 ```text
-loid-arcane-packs-value/
+loid-vosfor-exchange/
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml              # Automatic deployment to GitHub Pages

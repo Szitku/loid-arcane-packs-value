@@ -85,7 +85,7 @@ export default function App() {
             </button>
             <a
               className="icon-button github-link"
-              href="https://github.com/Szitku/loid-arcane-packs-value"
+              href="https://github.com/Szitku/loid-vosfor-exchange"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View on GitHub"

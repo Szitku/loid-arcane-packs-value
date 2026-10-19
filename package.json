@@ -1,9 +1,9 @@
 {
-  "name": "loid-arcane-packs-value",
+  "name": "loid-vosfor-exchange",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/Szitku/loid-arcane-packs-value",
+  "homepage": "https://github.com/Szitku/loid-vosfor-exchange",
   "license": "MIT",
   "scripts": {
     "dev": "vite",

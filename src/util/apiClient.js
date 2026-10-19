@@ -26,8 +26,8 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
  * 2. jsDelivr CDN mirror for the 'data' branch.
  */
 const DATA_BRANCH_SOURCES = [
-  "https://raw.githubusercontent.com/Szitku/loid-arcane-packs-value/data/market-data.json",
-  "https://cdn.jsdelivr.net/gh/Szitku/loid-arcane-packs-value@data/market-data.json",
+  "https://raw.githubusercontent.com/Szitku/loid-vosfor-exchange/data/market-data.json",
+  "https://cdn.jsdelivr.net/gh/Szitku/loid-vosfor-exchange@data/market-data.json",
 ];
 
 export async function preloadMarketData() {
