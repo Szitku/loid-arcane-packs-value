@@ -114,7 +114,7 @@ export default function DissolutionAdvisor({
             {
               arcane,
               collection: packName(tile.label),
-              value: calculateDissolutionValues(arcane, targets)[rank],
+              value: calculateDissolutionValues(arcane, targets, rank),
             },
           ];
         }),
@@ -364,9 +364,7 @@ export default function DissolutionAdvisor({
               aria-expanded={showAll}
               onClick={() => {
                 playUiClick();
-                requestAnimationFrame(() => {
-                  setShowAll((value) => !value);
-                });
+                setShowAll((value) => !value);
               }}
             >
               {showAll

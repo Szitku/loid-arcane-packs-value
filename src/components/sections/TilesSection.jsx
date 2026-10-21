@@ -36,15 +36,6 @@ export default function TilesSection({ setActiveTab, activeTab }) {
   const [strategy, setStrategy] = useState("unranked");
   const [detailStrategy, setDetailStrategy] = useState("unranked");
 
-  // Reset detailStrategy to the active global strategy whenever the selected pack changes
-  const [prevActiveTab, setPrevActiveTab] = useState(activeTab);
-  if (activeTab !== prevActiveTab) {
-    setPrevActiveTab(activeTab);
-    if (activeTab) {
-      setDetailStrategy(strategy);
-    }
-  }
-
   // Search & Filter states
   const [collectionQuery, setCollectionQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -108,7 +99,10 @@ export default function TilesSection({ setActiveTab, activeTab }) {
     tiles,
     activeTab,
     setActiveTab,
-    onSelectTile: loadTileIfNeeded,
+    onSelectTile: (tile) => {
+      setDetailStrategy(strategy);
+      loadTileIfNeeded(tile);
+    },
   });
 
   return (
