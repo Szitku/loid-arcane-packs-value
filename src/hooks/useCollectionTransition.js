@@ -113,7 +113,16 @@ export function useCollectionTransition({
   const handleSelectCollection = useCallback(
     (tile) => {
       if (activeTab === tile.id) {
-        handleClose();
+        playUiClick();
+        const isReduced =
+          typeof window !== "undefined" &&
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        detailRef.current?.scrollIntoView({
+          behavior: isReduced ? "auto" : "smooth",
+          block: "start",
+        });
         return;
       }
       clearScrollListener();
@@ -124,7 +133,7 @@ export function useCollectionTransition({
       playUiClick();
       onSelectTile?.(tile);
     },
-    [activeTab, clearScrollListener, handleClose, onSelectTile, setActiveTab],
+    [activeTab, clearScrollListener, onSelectTile, setActiveTab],
   );
 
   useEffect(() => {
