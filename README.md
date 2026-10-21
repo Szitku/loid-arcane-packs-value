@@ -35,14 +35,14 @@ Because each pack contains different Arcanes with varied drop weights and volati
   - **Max Rank (Rank 5 / Rank 3 normalized)**: Investment potential for players who rank up Arcanes prior to trading.
 - 🧮 **Vosfor Stash Calculator**:
   - Enter your available Vosfor stockpile to compute exact pack counts, projected gross Platinum yield, and best collection recommendations.
-- ♻️ **Dissolve or Sell Advisor**:
+- ♻️ **Dissolver**:
   - Switch between Rank 0 and max rank to compare sale prices against the expected return from dissolving extras and buying packs.
   - Choose a target collection or compare all scanned packs; expand a result to see every pack with a positive expected gain.
   - Includes source-specific Vosfor yields, max-rank copy counts (21 at rank 5, 10 at rank 3), search, and a worthwhile-only filter. Missing sales data never triggers a recommendation.
 - 🎯 **Selective Arcane Exclusion**:
   - Toggle individual Arcanes on or off. Excluded Arcanes still occur within the drop table mathematically, but contribute zero Platinum to your expected yield (ideal for items you plan to keep or low-liquidity Arcanes you do not wish to sell).
-- 🔍 **Deep Arcane Insights Modal**:
-  - Click any Arcane card or table row to inspect 48-hour trade volume, weighted average sales prices, rank comparisons, and direct one-click links to active listings on [warframe.market](https://warframe.market).
+- 🔍 **Direct Market Insights**:
+  - Direct one-click links on every Arcane navigate straight to active listings on [warframe.market](https://warframe.market), accompanied by inline 48-hour trade volume, weighted average sales prices, and drop rates.
 - 🔊 **Atmospheric Orokin / Tenno UI**:
   - Procedural sound synthesizer using the Web Audio API for interactive tactile feedback (toggleable).
   - High-contrast, theme-accurate faction badges, glowing rarity borders, and responsive design for mobile, tablet, and desktop viewports.
@@ -89,7 +89,7 @@ Since one pack costs 200 Vosfor:
 
 $$\text{Plat / 100 Vosfor} = \frac{\text{Pack Value}}{2} = 1.5 \times E[\text{Arcane}]$$
 
-### 4. Dissolve or Sell
+### 4. Dissolver
 
 For an owned Arcane, the advisor compares its **whole-item sale price at the selected rank** against:
 
@@ -205,8 +205,7 @@ loid-vosfor-exchange/
 ├── src/
 │   ├── components/
 │   │   ├── icons/                  # Warframe & faction SVG icons
-│   │   ├── modals/                 # Arcane detail & trade stats modal
-│   │   └── sections/               # UI sections (Hero, Cards, Rules, Calculator)
+│   │   └── sections/               # UI sections (Hero, Cards, Rules, Dissolver, Calculator)
 │   ├── data/
 │   ├── hooks/                      # Custom hooks (market analysis, filter state)
 │   ├── util/                       # Math models, sound FX, API client

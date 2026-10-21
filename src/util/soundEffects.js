@@ -52,21 +52,34 @@ export const playUiClick = () => {
     const ctx = getAudioContext();
     if (!ctx) return;
 
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const play = () => {
+      try {
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
 
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(880, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.04);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(1760, now + 0.04);
 
-    gain.gain.setValueAtTime(0.04, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
 
-    osc.start();
-    osc.stop(ctx.currentTime + 0.06);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } catch {
+        // Safe fail
+      }
+    };
+
+    if (ctx.state === "suspended") {
+      ctx.resume().then(play).catch(() => {});
+    } else {
+      play();
+    }
   } catch {
     // Audio might be blocked before user interaction
   }
@@ -79,25 +92,38 @@ export const playScanChime = () => {
     const ctx = getAudioContext();
     if (!ctx) return;
 
-    [440, 660, 880].forEach((freq, idx) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
+    const play = () => {
+      try {
+        const now = ctx.currentTime;
+        [440, 660, 880].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
 
-      osc.type = "triangle";
-      osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
 
-      gain.gain.setValueAtTime(0.03, ctx.currentTime + idx * 0.08);
-      gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        ctx.currentTime + idx * 0.08 + 0.2,
-      );
+          gain.gain.setValueAtTime(0.03, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + idx * 0.08 + 0.2,
+          );
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
 
-      osc.start(ctx.currentTime + idx * 0.08);
-      osc.stop(ctx.currentTime + idx * 0.08 + 0.2);
-    });
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.2);
+        });
+      } catch {
+        // Safe fail
+      }
+    };
+
+    if (ctx.state === "suspended") {
+      ctx.resume().then(play).catch(() => {});
+    } else {
+      play();
+    }
   } catch {
     // Audio blocked
   }

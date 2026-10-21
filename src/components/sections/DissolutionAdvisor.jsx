@@ -1,9 +1,29 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, ArrowRightLeft, ChevronDown, Search } from "lucide-react";
+import { ArrowRight, ArrowRightLeft, ChevronDown, Search, X } from "lucide-react";
 import calculateDissolutionValues from "../../util/calculateDissolutionValues";
+import { playUiClick } from "../../util/soundEffects";
+import { PlatinumIcon } from "../icons/WarframeIcons";
+import { getRarityStyle } from "../../util/rarityStyles";
 
-const platinum = (value) => (value == null ? "—" : `${value.toFixed(2)}p`);
 const packName = (label) => label.replace(/ Collection$/, "");
+
+function PlatValue({
+  value,
+  prefix = "",
+  suffix = "",
+  className = "",
+  iconClass = "w-3.5 h-3.5",
+}) {
+  if (value == null) return <span className="advisor-dim">—</span>;
+  return (
+    <span className={`advisor-plat ${className}`}>
+      {prefix && <span>{prefix}</span>}
+      <span>{value.toFixed(2)}</span>
+      <PlatinumIcon className={iconClass} />
+      {suffix && <span className="advisor-plat-suffix">{suffix}</span>}
+    </span>
+  );
+}
 
 function Recommendation({ value }) {
   const gain = value.best?.gain;
@@ -15,19 +35,33 @@ function Recommendation({ value }) {
     return <span className="advisor-unavailable">No sales data</span>;
   if (gain == null)
     return <span className="advisor-unavailable">Scan target pack</span>;
-  const worthwhile = gain > 1e-8;
+
+  const isPositive = gain > 1e-8;
+  const isNegative = gain < -1e-8;
+  const decisionClass = isPositive
+    ? "is-positive"
+    : isNegative
+      ? "is-negative"
+      : "is-neutral";
+
+  const decisionLabel = isPositive
+    ? "Dissolve"
+    : isNegative
+      ? "Sell instead"
+      : "Break even";
+
+  const prefix = gain > 0 ? "+" : "";
+
   return (
-    <div className={`advisor-decision ${worthwhile ? "is-dissolve" : ""}`}>
-      <span>
-        {worthwhile
-          ? "Dissolve"
-          : Math.abs(gain) <= 1e-8
-            ? "Break even"
-            : "Sell instead"}
-      </span>
-      <small>
-        {gain > 0 ? "+" : ""}
-        {platinum(gain)} vs. selling
+    <div className={`advisor-decision ${decisionClass}`}>
+      <span className="advisor-decision-badge">{decisionLabel}</span>
+      <small className="advisor-decision-diff">
+        <PlatValue
+          value={gain}
+          prefix={prefix}
+          suffix="vs. selling"
+          iconClass="w-3 h-3"
+        />
       </small>
     </div>
   );
@@ -136,6 +170,7 @@ export default function DissolutionAdvisor({
               aria-pressed={rank === option.id}
               className={rank === option.id ? "selected" : ""}
               onClick={() => {
+                playUiClick();
                 setRank(option.id);
                 resetView();
               }}
@@ -153,6 +188,7 @@ export default function DissolutionAdvisor({
             aria-label="Target pack"
             value={targetPack}
             onChange={(event) => {
+              playUiClick();
               setTargetPack(event.target.value);
               resetView();
             }}
@@ -177,12 +213,26 @@ export default function DissolutionAdvisor({
               resetView();
             }}
           />
+          {query && (
+            <button
+              type="button"
+              aria-label="Clear arcane search"
+              onClick={() => {
+                playUiClick();
+                setQuery("");
+                resetView();
+              }}
+            >
+              <X size={14} />
+            </button>
+          )}
         </label>
         <button
           type="button"
           className={`advisor-filter ${onlyWorthwhile ? "is-active" : ""}`}
           aria-pressed={onlyWorthwhile}
           onClick={() => {
+            playUiClick();
             setOnlyWorthwhile((value) => !value);
             resetView();
           }}
@@ -219,57 +269,105 @@ export default function DissolutionAdvisor({
             <span>Recommendation</span>
           </div>
           <ul className="advisor-results">
-            {visibleRows.map(({ arcane, collection, value }) => (
-              <li className="advisor-row" key={arcane.id}>
-                <div className="advisor-arcane">
-                  <a
-                    href={`https://warframe.market/items/${arcane.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {arcane.name}
-                  </a>
-                  <small>
-                    {collection} ·{" "}
-                    {rank === "maxed" ? `Rank ${arcane.maxRank} · ` : ""}
-                    {value.vosfor ?? "?"} Vosfor
-                  </small>
-                </div>
-                <div className="advisor-price">
-                  <span className="advisor-mobile-label">Sell price</span>
-                  {platinum(value.sellValue)}
-                </div>
-                <div className="advisor-pack">
-                  <span>
-                    {value.best ? packName(value.best.label) : "No pack valued"}
-                  </span>
-                  <small>{platinum(value.best?.expectedValue)} expected</small>
-                  {value.profitablePacks.length > 1 && (
-                    <details>
-                      <summary>
-                        +{value.profitablePacks.length - 1} other packs
-                      </summary>
-                      <ul>
-                        {value.profitablePacks.slice(1).map((pack) => (
-                          <li key={pack.id}>
-                            <span>{packName(pack.label)}</span>
-                            <strong>+{platinum(pack.gain)}</strong>
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                  )}
-                </div>
-                <Recommendation value={value} />
-              </li>
-            ))}
+            {visibleRows.map(({ arcane, collection, value }) => {
+              const style = getRarityStyle(arcane.rarity);
+              const rarityKey = (arcane.rarity || "").toLowerCase();
+
+              return (
+                <li
+                  className={`advisor-row rarity-${rarityKey}`}
+                  key={arcane.id}
+                >
+                  <div className="advisor-arcane">
+                    <a
+                      href={`https://warframe.market/items/${arcane.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => playUiClick()}
+                      className={`advisor-arcane-link ${style.color}`}
+                    >
+                      {arcane.name}
+                    </a>
+                    <div className="advisor-arcane-meta">
+                      <span className={`advisor-rarity-badge ${style.badge}`}>
+                        {arcane.rarity}
+                      </span>
+                      <span className="advisor-meta-text">
+                        {collection} ·{" "}
+                        {rank === "maxed" ? `Rank ${arcane.maxRank} · ` : ""}
+                        {value.vosfor ?? "?"} Vosfor
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="advisor-price">
+                    <span className="advisor-mobile-label">Sell price</span>
+                    {value.sellValue == null ? (
+                      <span className="advisor-dim">—</span>
+                    ) : (
+                      <PlatValue
+                        value={value.sellValue}
+                        iconClass="w-3.5 h-3.5"
+                        className="advisor-price-val"
+                      />
+                    )}
+                  </div>
+
+                  <div className="advisor-pack">
+                    <span className="advisor-pack-title">
+                      {value.best ? packName(value.best.label) : "No pack valued"}
+                    </span>
+                    {value.best?.expectedValue != null ? (
+                      <small className="advisor-pack-expected">
+                        <PlatValue
+                          value={value.best.expectedValue}
+                          suffix="expected"
+                          iconClass="w-3 h-3"
+                        />
+                      </small>
+                    ) : (
+                      <small className="advisor-dim">No value data</small>
+                    )}
+                    {value.profitablePacks.length > 1 && (
+                      <details>
+                        <summary onClick={() => playUiClick()}>
+                          +{value.profitablePacks.length - 1} other packs
+                        </summary>
+                        <ul>
+                          {value.profitablePacks.slice(1).map((pack) => (
+                            <li key={pack.id}>
+                              <span>{packName(pack.label)}</span>
+                              <strong className="advisor-pack-profit">
+                                <PlatValue
+                                  value={pack.gain}
+                                  prefix="+"
+                                  iconClass="w-3 h-3"
+                                  className="text-emerald-400"
+                                />
+                              </strong>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </div>
+
+                  <Recommendation value={value} />
+                </li>
+              );
+            })}
           </ul>
           {filteredRows.length > 6 && (
             <button
               type="button"
               className="advisor-show-more"
               aria-expanded={showAll}
-              onClick={() => setShowAll((value) => !value)}
+              onClick={() => {
+                playUiClick();
+                requestAnimationFrame(() => {
+                  setShowAll((value) => !value);
+                });
+              }}
             >
               {showAll
                 ? "Show less"
@@ -303,7 +401,7 @@ export default function DissolutionAdvisor({
           Estimates, not guaranteed profit.
         </span>
         <details className="advisor-method">
-          <summary>How it works</summary>
+          <summary onClick={() => playUiClick()}>How it works</summary>
           <p>
             Expected return = Vosfor ÷ pack cost × pack value. Compare this with
             the sale price of one owned Arcane at your selected rank. Max-rank
@@ -316,6 +414,7 @@ export default function DissolutionAdvisor({
               href="https://wiki.warframe.com/w/Vosfor"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => playUiClick()}
             >
               Vosfor yield reference ↗
             </a>

@@ -141,7 +141,10 @@ export default function TilesSection({ setActiveTab, activeTab }) {
         <VosforCalculator
           userVosfor={userVosfor}
           onChangeVosfor={setUserVosfor}
-          onClose={() => setShowCalculator(false)}
+          onClose={() => {
+            setShowCalculator(false);
+            playUiClick();
+          }}
           topPack={topPack}
           strategy={strategy}
         />

@@ -1,5 +1,6 @@
 import React from "react";
 import { SlidersHorizontal, Search, X } from "lucide-react";
+import { playUiClick } from "../../util/soundEffects";
 
 const STRATEGIES = [
   { value: "unranked", label: "Sell unranked" },
@@ -54,7 +55,10 @@ export default function CollectionToolbar({
         {collectionQuery && (
           <button
             aria-label="Clear collection search"
-            onClick={() => onChangeCollectionQuery("")}
+            onClick={() => {
+              playUiClick();
+              onChangeCollectionQuery("");
+            }}
           >
             <X size={14} />
           </button>

@@ -3,7 +3,6 @@ import { PlatinumIcon, LotusIcon } from "../icons/WarframeIcons";
 import { playUiClick } from "../../util/soundEffects";
 import { getRarityStyle } from "../../util/rarityStyles";
 import {
-  ExternalLink,
   ChevronDown,
   ChevronUp,
   TrendingUp,
@@ -333,6 +332,7 @@ export default function ArcaneValuesSection({
             <div className="divide-y divide-slate-800/60">
               {processedArcanes.map((arcane) => {
                 const style = getRarityStyle(arcane.rarity);
+                const rarityKey = (arcane.rarity || "").toLowerCase();
                 const isExcluded = excludedArcaneIds.has(arcane.id);
                 const rankCount =
                   strategy === "maxed" ? Math.max(0, arcane.maxRank || 0) : 0;
@@ -340,7 +340,7 @@ export default function ArcaneValuesSection({
                 return (
                   <div
                     key={arcane.id}
-                    className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center ${style.leftBorder} ${isExcluded ? "arcane-excluded" : ""}`}
+                    className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center rarity-${rarityKey} ${isExcluded ? "arcane-excluded" : ""}`}
                   >
                     <label className="arcane-inclusion-checkbox">
                       <input
@@ -361,30 +361,31 @@ export default function ArcaneValuesSection({
                     <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
                       <div className="min-w-0">
                         <div className="flex items-center space-x-2">
-                          <span
-                            className={`font-bold tracking-wide truncate ${style.color}`}
-                          >
-                            {arcane.name}
-                          </span>
                           <a
                             href={`https://warframe.market/items/${arcane.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="Open on Warframe.Market"
-                            className="text-slate-500 hover:text-cyan-400 transition-colors"
+                            onClick={() => playUiClick()}
+                            title={`Open ${arcane.name} on Warframe.Market`}
+                            className={`advisor-arcane-link font-bold tracking-wide truncate ${style.color}`}
                           >
-                            <ExternalLink className="w-3 h-3" />
+                            {arcane.name}
                           </a>
                         </div>
 
                         {/* Rank Indicator */}
-                        <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400 font-mono mt-0.5">
+                        <div className="advisor-arcane-meta mt-0.5">
+                          <span
+                            className={`advisor-rarity-badge ${style.badge}`}
+                          >
+                            {arcane.rarity}
+                          </span>
                           {rankCount > 0 && (
-                            <span className="text-amber-400/90 font-mono tracking-tighter">
+                            <span className="text-amber-400/90 font-mono tracking-tighter text-[11px]">
                               {"◆".repeat(rankCount)}
                             </span>
                           )}
-                          <span className="text-slate-500">
+                          <span className="text-slate-500 text-[11px] font-mono">
                             Rank {rankCount}
                             {strategy === "maxed"
                               ? ` / ${arcane.copiesToMax} copies`
@@ -395,13 +396,8 @@ export default function ArcaneValuesSection({
                               Excluded
                             </span>
                           )}
-                          <span
-                            className={`px-1.5 py-0.5 rounded text-[10px] uppercase font-semibold border ${style.badge}`}
-                          >
-                            {arcane.rarity}
-                          </span>
                           {typeof arcane.weight === "number" && (
-                            <span className="text-cyan-400 sm:hidden">
+                            <span className="text-cyan-400 sm:hidden text-[11px] font-mono">
                               • {(arcane.weight * 100).toFixed(1)}%
                             </span>
                           )}

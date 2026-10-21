@@ -1145,6 +1145,17 @@ input {
 .advisor-search {
   flex: 1 1 160px;
 }
+.advisor-search button {
+  display: flex;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+}
+.advisor-search button:hover {
+  color: var(--text);
+}
 .advisor-filter {
   min-height: 36px;
   padding: 6px 12px;
@@ -1184,6 +1195,7 @@ input {
   padding-top: 10px;
   padding-bottom: 10px;
   border-block: 1px solid var(--line);
+  border-left: 4px solid transparent;
   background: var(--card-inset);
   color: #999999;
   font-size: 9px;
@@ -1198,14 +1210,31 @@ input {
 .advisor-row {
   align-items: center;
   border-bottom: 1px solid var(--card-border);
+  border-left: 4px solid transparent;
   font-size: 12px;
+  transition: background 0.15s ease;
 }
 .advisor-row:last-child {
   border-bottom: 0;
 }
 .advisor-row:hover {
-  background: #ffffff02;
+  background: rgba(255, 255, 255, 0.03);
 }
+
+/* Rarity Left Borders */
+.advisor-row.rarity-common {
+  border-left-color: #b45309;
+}
+.advisor-row.rarity-uncommon {
+  border-left-color: #94a3b8;
+}
+.advisor-row.rarity-rare {
+  border-left-color: #f59e0b;
+}
+.advisor-row.rarity-legendary {
+  border-left-color: #38bdf8;
+}
+
 .advisor-arcane,
 .advisor-pack,
 .advisor-decision {
@@ -1216,35 +1245,147 @@ input {
   min-width: 0;
   line-height: 1.5;
 }
-.advisor-arcane a {
-  color: #e2e2e2;
+.advisor-arcane-link {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity 0.15s ease, filter 0.15s ease;
 }
-.advisor-arcane a:hover {
-  color: var(--gold);
+.advisor-arcane-link:hover {
+  filter: brightness(1.25);
+  text-decoration: underline;
 }
-.advisor-row small {
+.advisor-arcane-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
   font-size: 10px;
   color: var(--muted);
 }
+.advisor-rarity-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.advisor-meta-text {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.advisor-plat {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.advisor-plat-suffix {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 1px;
+}
 .advisor-price {
-  color: #cccccc;
   font-variant-numeric: tabular-nums;
 }
-.advisor-decision > span {
-  padding: 2px 8px;
+.advisor-price-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.advisor-dim {
+  color: var(--muted);
+}
+.advisor-pack-title {
+  font-weight: 500;
+  color: #e2e8f0;
+}
+.advisor-pack-expected {
+  font-size: 10px;
+  color: var(--muted);
+}
+.advisor-pack-profit {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #34d399;
+  font-weight: 600;
+}
+
+.advisor-decision {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  min-width: 0;
+}
+.advisor-decision-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2.5px 8px;
   border-radius: 4px;
-  background: #ffffff06;
-  color: #cccccc;
-  font-size: 11px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
 }
-.advisor-decision.is-dissolve > span {
-  background: #d9bc7e14;
-  color: var(--gold);
+.advisor-decision-diff {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
-.advisor-decision.is-dissolve small {
-  color: var(--gold);
+
+/* Positive = Green */
+.advisor-decision.is-positive .advisor-decision-badge {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #34d399;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
 }
+.advisor-decision.is-positive .advisor-decision-diff {
+  color: #34d399;
+  font-weight: 600;
+}
+
+/* Negative = Red */
+.advisor-decision.is-negative .advisor-decision-badge {
+  background: rgba(244, 63, 94, 0.14);
+  border-color: rgba(244, 63, 94, 0.45);
+  color: #f87171;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.15);
+}
+.advisor-decision.is-negative .advisor-decision-diff {
+  color: #f87171;
+  font-weight: 600;
+}
+
+/* Break even = Amber */
+.advisor-decision.is-neutral .advisor-decision-badge {
+  background: rgba(245, 158, 11, 0.14);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+.advisor-decision.is-neutral .advisor-decision-diff {
+  color: #fbbf24;
+  font-weight: 500;
+}
+
 .advisor-unavailable {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.2);
   color: var(--muted);
   font-size: 11px;
 }
@@ -1522,12 +1663,32 @@ input {
 .arcane-table-heading {
   background: var(--card-inset);
   border-color: var(--card-border);
+  border-left: 4px solid transparent;
 }
 .arcane-table-heading button {
   text-align: inherit;
 }
 .arcane-table-grid {
   grid-template-columns: 28px repeat(12, minmax(0, 1fr));
+}
+.arcane-table-row {
+  border-left: 4px solid transparent;
+  transition: background 0.15s ease;
+}
+.arcane-table-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.arcane-table-row.rarity-common {
+  border-left-color: #b45309;
+}
+.arcane-table-row.rarity-uncommon {
+  border-left-color: #94a3b8;
+}
+.arcane-table-row.rarity-rare {
+  border-left-color: #f59e0b;
+}
+.arcane-table-row.rarity-legendary {
+  border-left-color: #38bdf8;
 }
 .arcane-inclusion-toolbar {
   display: flex;
