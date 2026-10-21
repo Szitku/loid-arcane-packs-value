@@ -82,7 +82,7 @@ export default function CollectionCard({
                 </span>
                 <span className="dock-sub">Plat / Pack</span>
               </div>
-              <PlatinumIcon className="w-4.5 h-4.5 flex-shrink-0" glow />
+              <PlatinumIcon className="w-[18px] h-[18px] flex-shrink-0" glow />
             </div>
           </div>
         ) : (

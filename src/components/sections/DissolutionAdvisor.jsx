@@ -141,7 +141,7 @@ export default function DissolutionAdvisor({
 
   return (
     <section
-      id="dissolve-or-sell"
+      id="dissolver"
       className="dissolution-panel"
       aria-labelledby="dissolution-title"
     >
@@ -151,7 +151,7 @@ export default function DissolutionAdvisor({
             <ArrowRightLeft size={19} />
           </span>
           <div>
-            <h2 id="dissolution-title">Dissolve or sell?</h2>
+            <h2 id="dissolution-title">Dissolver</h2>
             <p>Find collection Arcanes worth turning into your next pack.</p>
           </div>
         </div>
