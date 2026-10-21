@@ -220,15 +220,6 @@ export default function TilesSection({ setActiveTab, activeTab }) {
         </div>
       </section>
 
-      <DissolutionAdvisor
-        tiles={tiles}
-        fetchedArcanes={fetchedArcanes}
-        weightedCollections={weightedCollections}
-        strategy={strategy}
-        onScanAll={handleScanAll}
-        isScanningAll={isScanningAll}
-      />
-
       {/* Selected Collection View */}
       {displayedTile && (
         <section
@@ -337,6 +328,15 @@ export default function TilesSection({ setActiveTab, activeTab }) {
           <ChevronRight size={17} />
         </div>
       )}
+
+      <DissolutionAdvisor
+        tiles={tiles}
+        fetchedArcanes={fetchedArcanes}
+        weightedCollections={weightedCollections}
+        strategy={strategy}
+        onScanAll={handleScanAll}
+        isScanningAll={isScanningAll}
+      />
     </div>
   );
 }
