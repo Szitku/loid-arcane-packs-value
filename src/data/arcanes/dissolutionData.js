@@ -32,5 +32,3 @@ export const vosforByArcane = new Map(
 for (const id of ["pax_bolt", "pax_charge", "pax_seeker", "pax_soar"]) {
   vosforByArcane.set(id, 36);
 }
-vosforByArcane.set("exodia_contagion", 0);
-vosforByArcane.set("exodia_epidemic", 0);

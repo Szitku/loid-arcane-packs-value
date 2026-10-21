@@ -61,8 +61,8 @@ The calculator supports all 9 Arcane Dissolution packs available from Loid:
 | **Holdfasts Collection** | Chrysalith, Zariman Ten Zero | *Molt Augmented, Molt Efficiency, Cascadia Flare* |
 | **Hollvania Collection** | Warframe: 1999 (The Hex) | *Arcane Bellicose, Arcane Heavyweight, Arcane Camisole* |
 | **Necralisk Collection** | Entrati, Deimos | *Residual & Theorem series, Primary/Secondary Plat* |
-| **Ostron Collection** | Cetus, Plains of Eidolon | *Exodia Contagion, Exodia Epidemic, Exodia Force* |
-| **Solaris Collection** | Fortuna, Orb Vallis | *Pax Seeker, Pax Charge, Virtuos Shadow* |
+| **Ostron Collection** | Cetus, Plains of Eidolon | *Exodia Force, Magus Elevate, Virtuos Shadow* |
+| **Solaris Collection** | Fortuna, Orb Vallis | *Pax Seeker, Pax Charge, Magus Lockdown* |
 | **Steel Path Collection** | Teshin / Honors | *Primary Merciless, Secondary Deadhead, Dexterity* |
 
 ---

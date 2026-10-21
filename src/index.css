@@ -895,11 +895,11 @@ input {
   align-items: center;
   gap: 3px;
   font-size: 10px;
-  color: #8da4a0;
+  color: var(--color-emerald-300, #6ee7b7);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 .card-volume svg {
-  color: #588e84;
+  color: var(--color-emerald-300, #6ee7b7);
 }
 .card-value {
   display: flex;
@@ -1532,9 +1532,6 @@ input {
 }
 .collection-detail .segmented-control {
   background: var(--card-inset);
-  border-color: var(--card-border);
-}
-.arcane-table-row + .arcane-table-row {
   border-color: var(--card-border);
 }
 .arcane-filters button[aria-pressed="true"] {
