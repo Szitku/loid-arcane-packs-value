@@ -61,6 +61,7 @@ export default function App() {
             <a className="nav-active" href="#collections">
               Collections
             </a>
+            <a href="#dissolve-or-sell">Dissolve or sell?</a>
             <a
               href="https://warframe.market"
               target="_blank"

@@ -7,6 +7,7 @@ import TopPackBanner from "./TopPackBanner";
 import VosforCalculator from "./VosforCalculator";
 import CollectionToolbar, { StrategyControl } from "./CollectionToolbar";
 import CollectionCard from "./CollectionCard";
+import DissolutionAdvisor from "./DissolutionAdvisor";
 import { useExcludedArcanes } from "../../hooks/useExcludedArcanes";
 import { useMarketAnalysis } from "../../hooks/useMarketAnalysis";
 import { useCollectionTransition } from "../../hooks/useCollectionTransition";
@@ -218,6 +219,15 @@ export default function TilesSection({ setActiveTab, activeTab }) {
           </p>
         </div>
       </section>
+
+      <DissolutionAdvisor
+        tiles={tiles}
+        fetchedArcanes={fetchedArcanes}
+        weightedCollections={weightedCollections}
+        strategy={strategy}
+        onScanAll={handleScanAll}
+        isScanningAll={isScanningAll}
+      />
 
       {/* Selected Collection View */}
       {displayedTile && (

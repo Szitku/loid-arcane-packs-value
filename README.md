@@ -35,6 +35,10 @@ Because each pack contains different Arcanes with varied drop weights and volati
   - **Max Rank (Rank 5 / Rank 3 normalized)**: Investment potential for players who rank up Arcanes prior to trading.
 - 🧮 **Vosfor Stash Calculator**:
   - Enter your available Vosfor stockpile to compute exact pack counts, projected gross Platinum yield, and best collection recommendations.
+- ♻️ **Dissolve or Sell Advisor**:
+  - Switch between Rank 0 and max rank to compare sale prices against the expected return from dissolving extras and buying packs.
+  - Choose a target collection or compare all scanned packs; expand a result to see every pack with a positive expected gain.
+  - Includes source-specific Vosfor yields, max-rank copy counts (21 at rank 5, 10 at rank 3), search, and a worthwhile-only filter. Missing sales data never triggers a recommendation.
 - 🎯 **Selective Arcane Exclusion**:
   - Toggle individual Arcanes on or off. Excluded Arcanes still occur within the drop table mathematically, but contribute zero Platinum to your expected yield (ideal for items you plan to keep or low-liquidity Arcanes you do not wish to sell).
 - 🔍 **Deep Arcane Insights Modal**:
@@ -84,6 +88,18 @@ $$\text{Pack Value} = 3 \times E[\text{Arcane}]$$
 Since one pack costs 200 Vosfor:
 
 $$\text{Plat / 100 Vosfor} = \frac{\text{Pack Value}}{2} = 1.5 \times E[\text{Arcane}]$$
+
+### 4. Dissolve or Sell
+
+For an owned Arcane, the advisor compares its **whole-item sale price at the selected rank** against:
+
+$$\text{Dissolution Return} = \frac{\text{Rank 0 Vosfor Yield} \times \text{Copies in Owned Arcane}}{200} \times \text{Pack Value}$$
+
+An Arcane is worth dissolving for a pack only when this expected return exceeds its sale price. Rank 0 uses one copy; max rank uses 21 copies at rank 5 or 10 at rank 3 (unrank before dissolving). Vosfor yields are source-specific, with exceptions such as Pax Arcanes; see the [yield reference](https://wiki.warframe.com/w/Vosfor).
+
+Pack values follow the global selling strategy and exclusions. Max-rank **pack drops** are normalized per copy, while the owned max-rank Arcane's sale price is **not** divided by its copy count. Missing sales do not imply a zero-value owned Arcane and never produce a recommendation.
+
+Fractional packs express the long-run value of pooled Vosfor. Actual purchases require full packs plus 50,000 Credits each; Credit costs, trading time and RNG risk are not converted to Platinum. Comparisons cover only scanned collections and are estimates, not guaranteed profits.
 
 ---
 
