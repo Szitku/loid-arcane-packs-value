@@ -1,13 +1,11 @@
 import React, { useState, useMemo } from "react";
 import { PlatinumIcon, LotusIcon } from "../icons/WarframeIcons";
-import ArcaneDetailModal from "../modals/ArcaneDetailModal";
 import { playUiClick } from "../../util/soundEffects";
 import { getRarityStyle } from "../../util/rarityStyles";
 import {
   ExternalLink,
   ChevronDown,
   ChevronUp,
-  Info,
   TrendingUp,
 } from "lucide-react";
 
@@ -26,7 +24,6 @@ export default function ArcaneValuesSection({
 }) {
   const [sortBy, setSortBy] = useState("weighted");
   const [sortDir, setSortDir] = useState("desc");
-  const [selectedArcane, setSelectedArcane] = useState(null);
 
   const rawCollectionArcanes = useMemo(
     () => fetchedArcanes.get(activeTab) || [],
@@ -364,35 +361,17 @@ export default function ArcaneValuesSection({
                     <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
                       <div className="min-w-0">
                         <div className="flex items-center space-x-2">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              playUiClick();
-                              setSelectedArcane(arcane);
-                            }}
-                            className={`font-bold tracking-wide truncate text-left hover:underline cursor-pointer ${style.color}`}
-                            title="Click to view detailed statistics"
+                          <span
+                            className={`font-bold tracking-wide truncate ${style.color}`}
                           >
                             {arcane.name}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              playUiClick();
-                              setSelectedArcane(arcane);
-                            }}
-                            aria-label={`View statistics for ${arcane.name}`}
-                            className="text-slate-500 hover:text-cyan-400 transition-colors"
-                          >
-                            <Info className="w-3 h-3" />
-                          </button>
+                          </span>
                           <a
                             href={`https://warframe.market/items/${arcane.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Open on Warframe.Market"
                             className="text-slate-500 hover:text-cyan-400 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
                           >
                             <ExternalLink className="w-3 h-3" />
                           </a>
@@ -484,14 +463,6 @@ export default function ArcaneValuesSection({
           </div>
         </>
       )}
-
-      {/* Interactive Detail Modal */}
-      <ArcaneDetailModal
-        arcane={selectedArcane}
-        isOpen={Boolean(selectedArcane)}
-        onClose={() => setSelectedArcane(null)}
-        strategy={strategy}
-      />
     </div>
   );
 }
