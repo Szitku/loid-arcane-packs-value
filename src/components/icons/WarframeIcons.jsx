@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 
 // Official Warframe Lotus Emblem SVG
 export const LotusIcon = ({ className = "w-6 h-6", glow = false, ...props }) => (
@@ -19,103 +19,143 @@ export const LotusIcon = ({ className = "w-6 h-6", glow = false, ...props }) => 
 export const WarframeIcon = LotusIcon;
 
 // Warframe Platinum Currency Icon (2D Authentic Stylized)
-export const PlatinumIcon = ({ className = "w-4 h-4", glow = true, ...props }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className={`inline-block ${className} ${glow ? "drop-shadow-[0_0_6px_rgba(56,189,248,0.75)]" : ""}`}
-    {...props}
-  >
-    <defs>
-      {/* 2D Platinum Metallic Sheen */}
-      <radialGradient id="wf-plat-2d-metal" cx="32%" cy="28%" r="72%">
-        <stop offset="0%" stopColor="#ffffff" />
-        <stop offset="35%" stopColor="#f8fafc" />
-        <stop offset="68%" stopColor="#cbd5e1" />
-        <stop offset="90%" stopColor="#94a3b8" />
-        <stop offset="100%" stopColor="#475569" />
-      </radialGradient>
+export const PlatinumIcon = ({
+  className = "w-4 h-4",
+  glow = true,
+  ...props
+}) => {
+  // SVG references are document-wide, including icons in hidden page views.
+  const id = useId();
+  const metalId = `wf-plat-metal-${id}`;
+  const coreId = `wf-plat-core-${id}`;
+  const maskId = `wf-plat-mask-${id}`;
 
-      {/* Luminous Cyan Energy Gradient */}
-      <linearGradient id="wf-plat-2d-core" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#0284c7" />
-        <stop offset="25%" stopColor="#38bdf8" />
-        <stop offset="50%" stopColor="#ffffff" />
-        <stop offset="75%" stopColor="#38bdf8" />
-        <stop offset="100%" stopColor="#0284c7" />
-      </linearGradient>
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={`inline-block ${className} ${glow ? "drop-shadow-[0_0_6px_rgba(56,189,248,0.75)]" : ""}`}
+      {...props}
+    >
+      <defs>
+        {/* 2D Platinum Metallic Sheen */}
+        <radialGradient id={metalId} cx="32%" cy="28%" r="72%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="35%" stopColor="#f8fafc" />
+          <stop offset="68%" stopColor="#cbd5e1" />
+          <stop offset="90%" stopColor="#94a3b8" />
+          <stop offset="100%" stopColor="#475569" />
+        </radialGradient>
 
-      {/* 4 Diagonal Rim Notches Mask for True Transparency */}
-      <mask id="wf-plat-2d-mask">
-        <rect width="24" height="24" fill="#ffffff" />
-        <g transform="rotate(45 12 12)">
-          <rect x="11.1" y="1.4" width="1.8" height="2.2" rx="0.3" fill="#000000" />
-          <rect x="11.1" y="20.4" width="1.8" height="2.2" rx="0.3" fill="#000000" />
-          <rect x="1.4" y="11.1" width="2.2" height="1.8" rx="0.3" fill="#000000" />
-          <rect x="20.4" y="11.1" width="2.2" height="1.8" rx="0.3" fill="#000000" />
-        </g>
-      </mask>
-    </defs>
+        {/* Luminous Cyan Energy Gradient */}
+        <linearGradient id={coreId} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#0284c7" />
+          <stop offset="25%" stopColor="#38bdf8" />
+          <stop offset="50%" stopColor="#ffffff" />
+          <stop offset="75%" stopColor="#38bdf8" />
+          <stop offset="100%" stopColor="#0284c7" />
+        </linearGradient>
 
-    {/* 2D Coin Body with Diagonal Rim Notches */}
-    <g mask="url(#wf-plat-2d-mask)">
-      <circle
-        cx="12"
-        cy="12"
-        r="9.5"
-        fill="url(#wf-plat-2d-metal)"
-        stroke="#ffffff"
-        strokeWidth="0.8"
-      />
-      {/* Concentric Rim Groove */}
-      <circle
-        cx="12"
-        cy="12"
-        r="7.6"
-        fill="none"
-        stroke="#64748b"
+        {/* 4 Diagonal Rim Notches Mask for True Transparency */}
+        <mask id={maskId}>
+          <rect width="24" height="24" fill="#ffffff" />
+          <g transform="rotate(45 12 12)">
+            <rect
+              x="11.1"
+              y="1.4"
+              width="1.8"
+              height="2.2"
+              rx="0.3"
+              fill="#000000"
+            />
+            <rect
+              x="11.1"
+              y="20.4"
+              width="1.8"
+              height="2.2"
+              rx="0.3"
+              fill="#000000"
+            />
+            <rect
+              x="1.4"
+              y="11.1"
+              width="2.2"
+              height="1.8"
+              rx="0.3"
+              fill="#000000"
+            />
+            <rect
+              x="20.4"
+              y="11.1"
+              width="2.2"
+              height="1.8"
+              rx="0.3"
+              fill="#000000"
+            />
+          </g>
+        </mask>
+      </defs>
+
+      {/* 2D Coin Body with Diagonal Rim Notches */}
+      <g mask={`url(#${maskId})`}>
+        <circle
+          cx="12"
+          cy="12"
+          r="9.5"
+          fill={`url(#${metalId})`}
+          stroke="#ffffff"
+          strokeWidth="0.8"
+        />
+        {/* Concentric Rim Groove */}
+        <circle
+          cx="12"
+          cy="12"
+          r="7.6"
+          fill="none"
+          stroke="#64748b"
+          strokeWidth="0.6"
+        />
+      </g>
+
+      {/* Recessed Cyan Energy Aperture */}
+      <rect
+        x="9.9"
+        y="6.8"
+        width="4.2"
+        height="10.4"
+        rx="1.2"
+        fill="#082f49"
+        stroke="#38bdf8"
         strokeWidth="0.6"
       />
-    </g>
 
-    {/* Recessed Cyan Energy Aperture */}
-    <rect
-      x="9.9"
-      y="6.8"
-      width="4.2"
-      height="10.4"
-      rx="1.2"
-      fill="#082f49"
-      stroke="#38bdf8"
-      strokeWidth="0.6"
-    />
+      {/* Glowing Cyan Core Pill */}
+      <rect
+        x="10.7"
+        y="7.5"
+        width="2.6"
+        height="9"
+        rx="0.7"
+        fill={`url(#${coreId})`}
+      />
 
-    {/* Glowing Cyan Core Pill */}
-    <rect
-      x="10.7"
-      y="7.5"
-      width="2.6"
-      height="9"
-      rx="0.7"
-      fill="url(#wf-plat-2d-core)"
-    />
+      {/* White-Hot Center Light Beam */}
+      <line
+        x1="12"
+        y1="7.8"
+        x2="12"
+        y2="16.2"
+        stroke="#ffffff"
+        strokeWidth="0.75"
+        opacity="0.95"
+      />
 
-    {/* White-Hot Center Light Beam */}
-    <line
-      x1="12"
-      y1="7.8"
-      x2="12"
-      y2="16.2"
-      stroke="#ffffff"
-      strokeWidth="0.75"
-      opacity="0.95"
-    />
-
-    {/* Side Indicator Accent Ticks */}
-    <rect x="7.8" y="11" width="1.2" height="2" rx="0.3" fill="#38bdf8" />
-    <rect x="15" y="11" width="1.2" height="2" rx="0.3" fill="#38bdf8" />
-  </svg>
-);
+      {/* Side Indicator Accent Ticks */}
+      <rect x="7.8" y="11" width="1.2" height="2" rx="0.3" fill="#38bdf8" />
+      <rect x="15" y="11" width="1.2" height="2" rx="0.3" fill="#38bdf8" />
+    </svg>
+  );
+};
 
 // Official Warframe Vosfor Resource Icon (Arcane Dissolution)
 export const VosforIcon = ({ className = "w-4 h-4", glow = true, ...props }) => (
@@ -564,4 +604,3 @@ export const HollvaniaIcon = ({ className = "w-6 h-6", ...props }) => (
     </g>
   </svg>
 );
-

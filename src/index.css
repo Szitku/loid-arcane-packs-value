@@ -251,7 +251,7 @@ input {
 .header-nav .nav-active {
   color: #e5d7b8;
 }
-.nav-active:after {
+.header-nav a::after {
   content: "";
   position: absolute;
   height: 2px;
@@ -259,6 +259,11 @@ input {
   left: 0;
   right: 0;
   background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.header-nav .nav-active::after {
+  transform: scaleX(1);
 }
 .header-tools {
   display: flex;
@@ -304,6 +309,25 @@ input {
   width: calc(100% - 96px);
   margin: 0 auto;
   flex: 1;
+}
+.page-view-collections {
+  --page-enter-offset: -12px;
+}
+.page-view-dissolver {
+  --page-enter-offset: 12px;
+}
+.page-view:not([hidden]) {
+  animation: pageViewEnter 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes pageViewEnter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--page-enter-offset));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .hero {
   display: grid;
@@ -1060,18 +1084,6 @@ input {
   background: var(--card-surface);
   scroll-margin-top: 24px;
 }
-.dissolution-panel .segmented-control {
-  background: var(--card-inset);
-  border-color: var(--line);
-}
-.dissolution-panel .segmented-control button {
-  color: var(--muted);
-}
-.dissolution-panel .segmented-control button.selected {
-  background: #d9bc7e14;
-  border-color: #d9bc7e40;
-  color: var(--gold);
-}
 .advisor-heading,
 .advisor-title {
   display: flex;
@@ -1094,7 +1106,7 @@ input {
   background: #d9bc7e08;
   color: var(--gold);
 }
-.advisor-title h2 {
+.advisor-title h1 {
   font-size: 17px;
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -1104,12 +1116,146 @@ input {
   color: var(--muted);
   font-size: 12px;
 }
+.advisor-strategies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  padding: 0 22px 22px;
+}
+.advisor-strategy {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  flex: 1 1 240px;
+}
+.advisor-strategy legend {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+}
+.advisor-step {
+  display: inline-block;
+  margin-right: 8px;
+  color: var(--gold);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+.advisor-rank-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.advisor-rank-option {
+  position: relative;
+  min-width: 0;
+  cursor: pointer;
+}
+.advisor-rank-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  opacity: 0;
+}
+.advisor-rank-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 100%;
+  min-height: 70px;
+  padding: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 7px;
+  background: var(--card-inset);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.advisor-rank-option:hover .advisor-rank-card {
+  border-color: #d9bc7e66;
+  background: #d9bc7e08;
+}
+.advisor-rank-option input:checked + .advisor-rank-card {
+  border-color: var(--gold);
+  background: #d9bc7e10;
+  box-shadow: inset 0 0 0 1px #d9bc7e18;
+}
+.advisor-rank-option input:focus-visible + .advisor-rank-card {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+.advisor-rank-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.advisor-rank-label {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+.advisor-rank-option input:checked + .advisor-rank-card .advisor-rank-label {
+  color: var(--gold);
+}
+.advisor-rank-description {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.advisor-rank-check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #737373;
+  border-radius: 50%;
+  color: var(--card-surface);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+.advisor-rank-check svg {
+  opacity: 0;
+}
+.advisor-rank-option input:checked + .advisor-rank-card .advisor-rank-check {
+  border-color: var(--gold);
+  background: var(--gold);
+}
+.advisor-rank-option input:checked + .advisor-rank-card .advisor-rank-check svg {
+  opacity: 1;
+}
+.advisor-strategy p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
 .advisor-toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
   padding: 0 22px 16px;
+}
+.advisor-normalization-note {
+  margin: 0 22px 18px;
+  padding: 10px 12px;
+  border-left: 2px solid var(--gold);
+  background: var(--card-inset);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.advisor-normalization-note strong {
+  color: var(--text);
+  font-weight: 500;
 }
 .advisor-target,
 .advisor-search {

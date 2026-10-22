@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TilesSection from "./components/sections/TilesSection";
 import { LotusIcon } from "./components/icons/WarframeIcons";
 import { toggleSound, isSoundEnabled, playUiClick } from "./util/soundEffects";
@@ -24,9 +24,31 @@ function GithubIcon({ size = 24, className = "", ...props }) {
   );
 }
 
+const getPage = () =>
+  ["#/dissolver", "#dissolver"].includes(window.location.hash)
+    ? "dissolver"
+    : "collections";
+
 export default function App() {
+  const [page, setPage] = useState(getPage);
   const [activeTab, setActiveTab] = useState("");
   const [soundOn, setSoundOn] = useState(isSoundEnabled());
+
+  useEffect(() => {
+    const handleNavigation = () => {
+      if (
+        !["", "#/collections", "#collections", "#/dissolver", "#dissolver"].includes(
+          window.location.hash,
+        )
+      ) {
+        return;
+      }
+      setPage(getPage());
+      window.scrollTo({ top: 0, behavior: "instant" });
+    };
+    window.addEventListener("hashchange", handleNavigation);
+    return () => window.removeEventListener("hashchange", handleNavigation);
+  }, []);
 
   const handleSoundToggle = () => {
     const newState = toggleSound();
@@ -37,7 +59,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main">
-        Skip to collections
+        Skip to content
       </a>
       <header className="site-header">
         <div className="header-inner">
@@ -45,6 +67,7 @@ export default function App() {
             className="brand"
             onClick={() => {
               setActiveTab("");
+              window.location.hash = "/collections";
               playUiClick();
             }}
             aria-label="Loid's Exchange home"
@@ -58,10 +81,20 @@ export default function App() {
             </span>
           </button>
           <nav className="header-nav" aria-label="Main navigation">
-            <a className="nav-active" href="#collections">
+            <a
+              className={page === "collections" ? "nav-active" : ""}
+              aria-current={page === "collections" ? "page" : undefined}
+              href="#/collections"
+            >
               Collections
             </a>
-            <a href="#dissolver">Dissolver</a>
+            <a
+              className={page === "dissolver" ? "nav-active" : ""}
+              aria-current={page === "dissolver" ? "page" : undefined}
+              href="#/dissolver"
+            >
+              Dissolver
+            </a>
             <a
               href="https://warframe.market"
               target="_blank"
@@ -97,8 +130,12 @@ export default function App() {
         </div>
       </header>
 
-      <main id="main" className="main-content">
-        <TilesSection setActiveTab={setActiveTab} activeTab={activeTab} />
+      <main id="main" className="main-content" tabIndex={-1}>
+        <TilesSection
+          page={page}
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+        />
       </main>
 
       <footer className="site-footer">

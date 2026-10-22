@@ -27,7 +27,16 @@ export default function calculateDissolutionValues(arcane, packs, rank = null) {
           expectedValue != null && sellValue != null
             ? expectedValue - sellValue
             : null;
-        return { ...pack, expectedValue, gain };
+        return {
+          ...pack,
+          expectedValue,
+          gain,
+          perCopy: {
+            expectedValue:
+              expectedValue == null ? null : expectedValue / copies,
+            gain: gain == null ? null : gain / copies,
+          },
+        };
       })
       .sort((a, b) => (b.expectedValue ?? -1) - (a.expectedValue ?? -1));
 
@@ -35,8 +44,12 @@ export default function calculateDissolutionValues(arcane, packs, rank = null) {
       copies,
       vosfor,
       sellValue,
+      perCopy: {
+        vosfor: baseVosfor,
+        sellValue: sellValue == null ? null : sellValue / copies,
+      },
       comparisons,
-      profitablePacks: comparisons.filter((pack) => pack.gain > 1e-8),
+      profitablePacks: comparisons.filter((pack) => pack.perCopy.gain > 1e-8),
       best: comparisons.find((pack) => pack.expectedValue != null) ?? null,
     };
   };

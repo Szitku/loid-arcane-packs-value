@@ -1,5 +1,12 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, ArrowRightLeft, ChevronDown, Search, X } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowRightLeft,
+  Check,
+  ChevronDown,
+  Search,
+  X,
+} from "lucide-react";
 import calculateDissolutionValues from "../../util/calculateDissolutionValues";
 import { playUiClick } from "../../util/soundEffects";
 import { PlatinumIcon } from "../icons/WarframeIcons";
@@ -26,7 +33,7 @@ function PlatValue({
 }
 
 function Recommendation({ value }) {
-  const gain = value.best?.gain;
+  const gain = value.best?.perCopy.gain;
   if (value.vosfor === 0)
     return <span className="advisor-unavailable">Cannot dissolve</span>;
   if (value.vosfor == null)
@@ -71,11 +78,11 @@ export default function DissolutionAdvisor({
   tiles,
   fetchedArcanes,
   weightedCollections,
-  strategy,
   onScanAll,
   isScanningAll,
 }) {
   const [rank, setRank] = useState("unranked");
+  const [strategy, setStrategy] = useState("unranked");
   const [targetPack, setTargetPack] = useState("all");
   const [query, setQuery] = useState("");
   const [onlyWorthwhile, setOnlyWorthwhile] = useState(true);
@@ -121,8 +128,8 @@ export default function DissolutionAdvisor({
       )
       .sort(
         (a, b) =>
-          (b.value.best?.gain ?? -Infinity) -
-            (a.value.best?.gain ?? -Infinity) ||
+          (b.value.best?.perCopy.gain ?? -Infinity) -
+            (a.value.best?.perCopy.gain ?? -Infinity) ||
           a.arcane.name.localeCompare(b.arcane.name),
       );
   }, [tiles, fetchedArcanes, packs, targetPack, rank]);
@@ -151,34 +158,82 @@ export default function DissolutionAdvisor({
             <ArrowRightLeft size={19} />
           </span>
           <div>
-            <h2 id="dissolution-title">Dissolver</h2>
+            <h1 id="dissolution-title">Dissolver</h1>
             <p>Find collection Arcanes worth turning into your next pack.</p>
           </div>
         </div>
-        <div
-          className="segmented-control"
-          role="group"
-          aria-label="Owned Arcane rank"
-        >
-          {[
-            { id: "unranked", label: "Rank 0" },
-            { id: "maxed", label: "Max rank" },
-          ].map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              aria-pressed={rank === option.id}
-              className={rank === option.id ? "selected" : ""}
-              onClick={() => {
-                playUiClick();
-                setRank(option.id);
-                resetView();
-              }}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
+      </div>
+
+      <div className="advisor-strategies">
+        {[
+          {
+            id: "dissolve-rank",
+            label: "Dissolve Arcanes at",
+            value: rank,
+            onChange: setRank,
+            hint: "Choose the rank you own. Returns stay normalized per copy.",
+            descriptions: ["One unranked copy", "Already ranked up"],
+          },
+          {
+            id: "pack-sale-rank",
+            label: "Sell collection drops at",
+            value: strategy,
+            onChange: setStrategy,
+            hint: "Choose how you plan to sell the Arcanes from your packs.",
+            descriptions: ["Sell drops individually", "Combine matching drops"],
+          },
+        ].map(({ id, label, value, onChange, hint, descriptions }, index) => (
+          <fieldset
+            className="advisor-strategy"
+            key={id}
+            aria-describedby={`${id}-hint`}
+          >
+            <legend>
+              <span className="advisor-step" aria-hidden="true">
+                0{index + 1}
+              </span>
+              {label}
+            </legend>
+            <div className="advisor-rank-options">
+              {[
+                { id: "unranked", label: "Rank 0" },
+                { id: "maxed", label: "Max rank" },
+              ].map((option, optionIndex) => (
+                <label className="advisor-rank-option" key={option.id}>
+                  <input
+                    type="radio"
+                    name={id}
+                    value={option.id}
+                    checked={value === option.id}
+                    onChange={() => {
+                      playUiClick();
+                      onChange(option.id);
+                      resetView();
+                    }}
+                  />
+                  <span className="advisor-rank-card">
+                    <span className="advisor-rank-copy">
+                      <span className="advisor-rank-label">{option.label}</span>
+                      <span className="advisor-rank-description">
+                        {descriptions[optionIndex]}
+                      </span>
+                    </span>
+                    <span className="advisor-rank-check" aria-hidden="true">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+            <p id={`${id}-hint`}>{hint}</p>
+          </fieldset>
+        ))}
+      </div>
+
+      <div className="advisor-normalization-note">
+        <strong>Fair comparison: platinum per Rank 0-equivalent copy.</strong>{" "}
+        Sell prices, expected returns, gains, and result ordering all use this
+        basis. A rank 5 Arcane represents 21 copies; rank 3 represents 10.
       </div>
 
       <div className="advisor-toolbar">
@@ -264,7 +319,7 @@ export default function DissolutionAdvisor({
         <>
           <div className="advisor-columns" aria-hidden="true">
             <span>Arcane</span>
-            <span>Sell price</span>
+            <span>Sell / copy</span>
             <span>Dissolve into</span>
             <span>Recommendation</span>
           </div>
@@ -295,18 +350,28 @@ export default function DissolutionAdvisor({
                       <span className="advisor-meta-text">
                         {collection} ·{" "}
                         {rank === "maxed" ? `Rank ${arcane.maxRank} · ` : ""}
-                        {value.vosfor ?? "?"} Vosfor
+                        {value.vosfor ?? "?"} Vosfor total
+                        {value.copies > 1
+                          ? ` · ${value.copies} copies`
+                          : " · 1 copy"}
                       </span>
                     </div>
                   </div>
 
-                  <div className="advisor-price">
-                    <span className="advisor-mobile-label">Sell price</span>
+                  <div
+                    className="advisor-price"
+                    title={
+                      value.sellValue == null
+                        ? undefined
+                        : `${value.sellValue.toFixed(2)}p total for ${value.copies} ${value.copies === 1 ? "copy" : "copies"}`
+                    }
+                  >
+                    <span className="advisor-mobile-label">Sell / copy</span>
                     {value.sellValue == null ? (
                       <span className="advisor-dim">—</span>
                     ) : (
                       <PlatValue
-                        value={value.sellValue}
+                        value={value.perCopy.sellValue}
                         iconClass="w-3.5 h-3.5"
                         className="advisor-price-val"
                       />
@@ -315,13 +380,15 @@ export default function DissolutionAdvisor({
 
                   <div className="advisor-pack">
                     <span className="advisor-pack-title">
-                      {value.best ? packName(value.best.label) : "No pack valued"}
+                      {value.best
+                        ? packName(value.best.label)
+                        : "No pack valued"}
                     </span>
                     {value.best?.expectedValue != null ? (
                       <small className="advisor-pack-expected">
                         <PlatValue
-                          value={value.best.expectedValue}
-                          suffix="expected"
+                          value={value.best.perCopy.expectedValue}
+                          suffix="expected / copy"
                           iconClass="w-3 h-3"
                         />
                       </small>
@@ -339,7 +406,7 @@ export default function DissolutionAdvisor({
                               <span>{packName(pack.label)}</span>
                               <strong className="advisor-pack-profit">
                                 <PlatValue
-                                  value={pack.gain}
+                                  value={pack.perCopy.gain}
                                   prefix="+"
                                   iconClass="w-3 h-3"
                                   className="text-emerald-400"
@@ -396,15 +463,21 @@ export default function DissolutionAdvisor({
         <span>
           Pack returns:{" "}
           {strategy === "maxed" ? "max-rank sales / copy" : "Rank 0 sales"} ·
-          Estimates, not guaranteed profit.
+          All platinum values per input copy · Estimates, not guaranteed profit.
         </span>
         <details className="advisor-method">
           <summary onClick={() => playUiClick()}>How it works</summary>
           <p>
             Expected return = Vosfor ÷ pack cost × pack value. Compare this with
-            the sale price of one owned Arcane at your selected rank. Max-rank
-            yields assume unranking first (21 copies at rank 5; 10 at rank 3).
-            Pack returns follow the collection selling strategy and exclusions.
+            the sale price of one owned Arcane at your selected rank, then
+            divide both values and their difference by the number of Rank 0
+            copies in that Arcane. For example, 42p returned from a rank 5
+            Arcane is 2p per copy, not 42p per copy. Results are sorted by gain
+            per copy. Vosfor yields remain full-Arcane totals and assume
+            unranking first (21 copies at rank 5; 10 at rank 3). Pack returns
+            use the independent “Sell collection drops at” setting and
+            collection exclusions. Max-rank sales assume you collect enough
+            matching drops to rank up, with sale values normalized per copy.
             Missing sales mean unknown, not 0p. Fractional packs represent
             pooled Vosfor; trading time and the 50,000 Credit cost per pack are
             not priced in.{" "}
