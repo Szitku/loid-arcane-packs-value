@@ -107,11 +107,9 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
 
   return (
     <div className="exchange-dashboard">
-      <div
-        className="page-view page-view-collections"
-        hidden={page !== "collections"}
-      >
-        <HeroSection
+      {page === "collections" && (
+        <div className="page-view page-view-collections">
+          <HeroSection
           isScanningAll={isScanningAll}
           completedScans={weightedCollections.size}
           totalCollections={tiles.length}
@@ -337,20 +335,20 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
             <ChevronRight size={17} />
           </div>
         )}
-      </div>
+        </div>
+      )}
 
-      <div
-        className="page-view page-view-dissolver"
-        hidden={page !== "dissolver"}
-      >
-        <DissolutionAdvisor
-          tiles={tiles}
-          fetchedArcanes={fetchedArcanes}
-          weightedCollections={weightedCollections}
-          onScanAll={handleScanAll}
-          isScanningAll={isScanningAll}
-        />
-      </div>
+      {page === "dissolver" && (
+        <div className="page-view page-view-dissolver">
+          <DissolutionAdvisor
+            tiles={tiles}
+            fetchedArcanes={fetchedArcanes}
+            weightedCollections={weightedCollections}
+            onScanAll={handleScanAll}
+            isScanningAll={isScanningAll}
+          />
+        </div>
+      )}
     </div>
   );
 }
