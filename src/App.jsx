@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import TilesSection from "./components/sections/TilesSection";
-import { LotusIcon } from "./components/icons/WarframeIcons";
+import { LotusIcon, WarframeSvgDefs } from "./components/icons/WarframeIcons";
 import { toggleSound, isSoundEnabled, playUiClick } from "./util/soundEffects";
 import { Volume2, VolumeX, ArrowUpRight } from "lucide-react";
 
@@ -24,9 +24,26 @@ function GithubIcon({ size = 24, className = "", ...props }) {
   );
 }
 
+function subscribeHash(callback) {
+  window.addEventListener("hashchange", callback);
+  return () => window.removeEventListener("hashchange", callback);
+}
+
+function getPageSnapshot() {
+  const hash = window.location.hash.toLowerCase();
+  return hash.startsWith("#/dissolver") || hash === "#dissolver"
+    ? "dissolver"
+    : "collections";
+}
+
 export default function App() {
+  const page = useSyncExternalStore(subscribeHash, getPageSnapshot);
   const [activeTab, setActiveTab] = useState("");
   const [soundOn, setSoundOn] = useState(isSoundEnabled());
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [page]);
 
   const handleSoundToggle = () => {
     const newState = toggleSound();
@@ -36,12 +53,25 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <a className="skip-link" href="#main">
-        Skip to collections
+      <WarframeSvgDefs />
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(e) => {
+          e.preventDefault();
+          const mainEl = document.getElementById("main");
+          if (mainEl) {
+            mainEl.focus();
+            mainEl.scrollIntoView();
+          }
+        }}
+      >
+        Skip to content
       </a>
       <header className="site-header">
         <div className="header-inner">
-          <button
+          <a
+            href="#/collections"
             className="brand"
             onClick={() => {
               setActiveTab("");
@@ -56,10 +86,21 @@ export default function App() {
               LOID’S <span className="brand-light">EXCHANGE</span>
               <small>ARCANE DISSOLUTION TERMINAL</small>
             </span>
-          </button>
+          </a>
           <nav className="header-nav" aria-label="Main navigation">
-            <a className="nav-active" href="#collections">
+            <a
+              className={page === "collections" ? "nav-active" : ""}
+              aria-current={page === "collections" ? "page" : undefined}
+              href="#/collections"
+            >
               Collections
+            </a>
+            <a
+              className={page === "dissolver" ? "nav-active" : ""}
+              aria-current={page === "dissolver" ? "page" : undefined}
+              href="#/dissolver"
+            >
+              Dissolver
             </a>
             <a
               href="https://warframe.market"
@@ -96,8 +137,12 @@ export default function App() {
         </div>
       </header>
 
-      <main id="main" className="main-content">
-        <TilesSection setActiveTab={setActiveTab} activeTab={activeTab} />
+      <main id="main" className="main-content" tabIndex={-1}>
+        <TilesSection
+          page={page}
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+        />
       </main>
 
       <footer className="site-footer">

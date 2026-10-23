@@ -1,5 +1,5 @@
 import React from "react";
-import { VosforIcon, PlatinumIcon } from "../icons/WarframeIcons";
+import { PlatinumIcon } from "../icons/WarframeIcons";
 import { RotateCw, ArrowRight, ArrowUpRight, Award, TrendingUp } from "lucide-react";
 
 export default function CollectionCard({
@@ -17,9 +17,10 @@ export default function CollectionCard({
 
   return (
     <button
+      type="button"
       onClick={onSelect}
-      aria-pressed={isSelected}
-      aria-controls="collection-detail"
+      aria-expanded={isSelected}
+      aria-controls={isSelected ? "collection-detail" : undefined}
       className={`collection-card collection-${tile.id} ${isSelected ? "is-selected" : ""}`}
     >
       <div className="card-art">
@@ -36,51 +37,60 @@ export default function CollectionCard({
         )}
       </div>
       <div className="card-body">
-        <span className="card-faction">{tile.faction}</span>
-        <h3>{tile.label}</h3>
-        <p>{tile.desc}</p>
-        <div className="card-meta">
-          <span>{tile.arcanes.length} Arcanes in pool</span>
+        <div className="card-header-meta">
+          <span className="card-faction">{tile.faction}</span>
+          <span className="card-pool-badge">
+            {tile.arcanes.length} in pool
+          </span>
         </div>
+        <span className="card-title">{tile.label}</span>
       </div>
       <div className="card-footer">
-        <span className="card-cost">
-          <VosforIcon className="w-3.5 h-3.5" />
-          200 <span>Vosfor</span>
-        </span>
         {isLoading ? (
-          <span className="card-analyze">
-            <RotateCw size={12} className="animate-spin" />
-            Analyzing…
-          </span>
+          <div className="card-analyze-state is-loading">
+            <RotateCw size={13} className="animate-spin text-[#d9bc7e]" />
+            <span>Analyzing…</span>
+          </div>
         ) : cachedValues ? (
-          <div className="card-metrics">
-            {cachedValues.packValue !== null &&
-              cachedValues.totalVolume != null && (
-                <span
-                  className="card-volume"
-                  title={`${cachedValues.totalVolume.toLocaleString()} units sold across ${cachedValues.soldArcanesCount ?? 0} included arcanes in the last 48 hours`}
-                >
-                  <TrendingUp size={11} className="card-volume-icon" />
-                  {cachedValues.totalVolume.toLocaleString()} sold
+          <div className="card-ultra-dock">
+            <div
+              className="dock-item dock-volume"
+              title={
+                cachedValues.totalVolume != null
+                  ? `${cachedValues.totalVolume.toLocaleString()} units sold across ${cachedValues.soldArcanesCount ?? 0} included arcanes in the last 48 hours`
+                  : "No sales data in the last 48 hours"
+              }
+            >
+              <TrendingUp size={13} className="dock-icon text-emerald-400" />
+              <div className="dock-text">
+                <span className="dock-val">
+                  {cachedValues.totalVolume != null
+                    ? cachedValues.totalVolume.toLocaleString()
+                    : "0"}
                 </span>
-              )}
-            <span className="card-value" title="Expected platinum value per pack">
-              {cachedValues.packValue === null ? (
-                "Incomplete"
-              ) : (
-                <>
-                  {cachedValues.packValue.toFixed(1)}
-                  <PlatinumIcon className="w-3.5 h-3.5" />
-                </>
-              )}
-            </span>
+                <span className="dock-sub">sold (48h)</span>
+              </div>
+            </div>
+            <div
+              className="dock-item dock-value"
+              title="Expected platinum value per pack"
+            >
+              <div className="dock-text text-right">
+                <span className="dock-val">
+                  {Number.isFinite(cachedValues?.packValue)
+                    ? cachedValues.packValue.toFixed(1)
+                    : "Incomplete"}
+                </span>
+                <span className="dock-sub">Plat / Pack</span>
+              </div>
+              <PlatinumIcon className="w-[18px] h-[18px] flex-shrink-0" glow />
+            </div>
           </div>
         ) : (
-          <span className="card-analyze">
-            {hasError ? "Retry analysis" : "Analyze"}
+          <div className={`card-analyze-state ${hasError ? "is-error" : ""}`}>
+            <span>{hasError ? "Retry analysis" : "Analyze Market"}</span>
             <ArrowRight size={13} />
-          </span>
+          </div>
         )}
       </div>
     </button>

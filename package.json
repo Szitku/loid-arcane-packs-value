@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vite",
     "fetch-data": "node scripts/fetch-market-data.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

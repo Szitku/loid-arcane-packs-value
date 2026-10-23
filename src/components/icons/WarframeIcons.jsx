@@ -1,5 +1,78 @@
 import React from "react";
 
+// Global SVG Defs for Warframe icons (avoids duplicate definitions in DOM)
+export const WarframeSvgDefs = () => (
+  <svg
+    aria-hidden="true"
+    style={{
+      position: "absolute",
+      width: 0,
+      height: 0,
+      overflow: "hidden",
+      pointerEvents: "none",
+    }}
+  >
+    <defs>
+      {/* 2D Platinum Metallic Sheen */}
+      <radialGradient id="wf-plat-metal" cx="32%" cy="28%" r="72%">
+        <stop offset="0%" stopColor="#ffffff" />
+        <stop offset="35%" stopColor="#f8fafc" />
+        <stop offset="68%" stopColor="#cbd5e1" />
+        <stop offset="90%" stopColor="#94a3b8" />
+        <stop offset="100%" stopColor="#475569" />
+      </radialGradient>
+
+      {/* Luminous Cyan Energy Gradient */}
+      <linearGradient id="wf-plat-core" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#0284c7" />
+        <stop offset="25%" stopColor="#38bdf8" />
+        <stop offset="50%" stopColor="#ffffff" />
+        <stop offset="75%" stopColor="#38bdf8" />
+        <stop offset="100%" stopColor="#0284c7" />
+      </linearGradient>
+
+      {/* 4 Diagonal Rim Notches Mask for True Transparency */}
+      <mask id="wf-plat-mask">
+        <rect width="24" height="24" fill="#ffffff" />
+        <g transform="rotate(45 12 12)">
+          <rect
+            x="11.1"
+            y="1.4"
+            width="1.8"
+            height="2.2"
+            rx="0.3"
+            fill="#000000"
+          />
+          <rect
+            x="11.1"
+            y="20.4"
+            width="1.8"
+            height="2.2"
+            rx="0.3"
+            fill="#000000"
+          />
+          <rect
+            x="1.4"
+            y="11.1"
+            width="2.2"
+            height="1.8"
+            rx="0.3"
+            fill="#000000"
+          />
+          <rect
+            x="20.4"
+            y="11.1"
+            width="2.2"
+            height="1.8"
+            rx="0.3"
+            fill="#000000"
+          />
+        </g>
+      </mask>
+    </defs>
+  </svg>
+);
+
 // Official Warframe Lotus Emblem SVG
 export const LotusIcon = ({ className = "w-6 h-6", glow = false, ...props }) => (
   <svg
@@ -19,51 +92,24 @@ export const LotusIcon = ({ className = "w-6 h-6", glow = false, ...props }) => 
 export const WarframeIcon = LotusIcon;
 
 // Warframe Platinum Currency Icon (2D Authentic Stylized)
-export const PlatinumIcon = ({ className = "w-4 h-4", glow = true, ...props }) => (
+export const PlatinumIcon = ({
+  className = "w-4 h-4",
+  glow = true,
+  ...props
+}) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
     className={`inline-block ${className} ${glow ? "drop-shadow-[0_0_6px_rgba(56,189,248,0.75)]" : ""}`}
     {...props}
   >
-    <defs>
-      {/* 2D Platinum Metallic Sheen */}
-      <radialGradient id="wf-plat-2d-metal" cx="32%" cy="28%" r="72%">
-        <stop offset="0%" stopColor="#ffffff" />
-        <stop offset="35%" stopColor="#f8fafc" />
-        <stop offset="68%" stopColor="#cbd5e1" />
-        <stop offset="90%" stopColor="#94a3b8" />
-        <stop offset="100%" stopColor="#475569" />
-      </radialGradient>
-
-      {/* Luminous Cyan Energy Gradient */}
-      <linearGradient id="wf-plat-2d-core" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#0284c7" />
-        <stop offset="25%" stopColor="#38bdf8" />
-        <stop offset="50%" stopColor="#ffffff" />
-        <stop offset="75%" stopColor="#38bdf8" />
-        <stop offset="100%" stopColor="#0284c7" />
-      </linearGradient>
-
-      {/* 4 Diagonal Rim Notches Mask for True Transparency */}
-      <mask id="wf-plat-2d-mask">
-        <rect width="24" height="24" fill="#ffffff" />
-        <g transform="rotate(45 12 12)">
-          <rect x="11.1" y="1.4" width="1.8" height="2.2" rx="0.3" fill="#000000" />
-          <rect x="11.1" y="20.4" width="1.8" height="2.2" rx="0.3" fill="#000000" />
-          <rect x="1.4" y="11.1" width="2.2" height="1.8" rx="0.3" fill="#000000" />
-          <rect x="20.4" y="11.1" width="2.2" height="1.8" rx="0.3" fill="#000000" />
-        </g>
-      </mask>
-    </defs>
-
     {/* 2D Coin Body with Diagonal Rim Notches */}
-    <g mask="url(#wf-plat-2d-mask)">
+    <g mask="url(#wf-plat-mask)">
       <circle
         cx="12"
         cy="12"
         r="9.5"
-        fill="url(#wf-plat-2d-metal)"
+        fill="url(#wf-plat-metal)"
         stroke="#ffffff"
         strokeWidth="0.8"
       />
@@ -97,7 +143,7 @@ export const PlatinumIcon = ({ className = "w-4 h-4", glow = true, ...props }) =
       width="2.6"
       height="9"
       rx="0.7"
-      fill="url(#wf-plat-2d-core)"
+      fill="url(#wf-plat-core)"
     />
 
     {/* White-Hot Center Light Beam */}
@@ -564,4 +610,3 @@ export const HollvaniaIcon = ({ className = "w-6 h-6", ...props }) => (
     </g>
   </svg>
 );
-

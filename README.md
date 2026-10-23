@@ -35,10 +35,14 @@ Because each pack contains different Arcanes with varied drop weights and volati
   - **Max Rank (Rank 5 / Rank 3 normalized)**: Investment potential for players who rank up Arcanes prior to trading.
 - 🧮 **Vosfor Stash Calculator**:
   - Enter your available Vosfor stockpile to compute exact pack counts, projected gross Platinum yield, and best collection recommendations.
+- ♻️ **Dissolver**:
+  - Switch between Rank 0 and max rank to compare sale prices against the expected return from dissolving extras and buying packs.
+  - Choose a target collection or compare all scanned packs; expand a result to see every pack with a positive expected gain.
+  - Includes source-specific Vosfor yields, max-rank copy counts (21 at rank 5, 10 at rank 3), search, and a worthwhile-only filter. Missing sales data never triggers a recommendation.
 - 🎯 **Selective Arcane Exclusion**:
   - Toggle individual Arcanes on or off. Excluded Arcanes still occur within the drop table mathematically, but contribute zero Platinum to your expected yield (ideal for items you plan to keep or low-liquidity Arcanes you do not wish to sell).
-- 🔍 **Deep Arcane Insights Modal**:
-  - Click any Arcane card or table row to inspect 48-hour trade volume, weighted average sales prices, rank comparisons, and direct one-click links to active listings on [warframe.market](https://warframe.market).
+- 🔍 **Direct Market Insights**:
+  - Direct one-click links on every Arcane navigate straight to active listings on [warframe.market](https://warframe.market), accompanied by inline 48-hour trade volume, weighted average sales prices, and drop rates.
 - 🔊 **Atmospheric Orokin / Tenno UI**:
   - Procedural sound synthesizer using the Web Audio API for interactive tactile feedback (toggleable).
   - High-contrast, theme-accurate faction badges, glowing rarity borders, and responsive design for mobile, tablet, and desktop viewports.
@@ -57,8 +61,8 @@ The calculator supports all 9 Arcane Dissolution packs available from Loid:
 | **Holdfasts Collection** | Chrysalith, Zariman Ten Zero | *Molt Augmented, Molt Efficiency, Cascadia Flare* |
 | **Hollvania Collection** | Warframe: 1999 (The Hex) | *Arcane Bellicose, Arcane Heavyweight, Arcane Camisole* |
 | **Necralisk Collection** | Entrati, Deimos | *Residual & Theorem series, Primary/Secondary Plat* |
-| **Ostron Collection** | Cetus, Plains of Eidolon | *Exodia Contagion, Exodia Epidemic, Exodia Force* |
-| **Solaris Collection** | Fortuna, Orb Vallis | *Pax Seeker, Pax Charge, Virtuos Shadow* |
+| **Ostron Collection** | Cetus, Plains of Eidolon | *Exodia Force, Magus Elevate, Virtuos Shadow* |
+| **Solaris Collection** | Fortuna, Orb Vallis | *Pax Seeker, Pax Charge, Magus Lockdown* |
 | **Steel Path Collection** | Teshin / Honors | *Primary Merciless, Secondary Deadhead, Dexterity* |
 
 ---
@@ -84,6 +88,29 @@ $$\text{Pack Value} = 3 \times E[\text{Arcane}]$$
 Since one pack costs 200 Vosfor:
 
 $$\text{Plat / 100 Vosfor} = \frac{\text{Pack Value}}{2} = 1.5 \times E[\text{Arcane}]$$
+
+### 4. Dissolver
+
+The Dissolver compares what an Arcane is worth on [warframe.market](https://warframe.market) versus the expected value of dissolving it into Vosfor to purchase new packs:
+
+1. **Sell Value (per copy)**:
+   $$\text{Sell / Copy} = \frac{\text{Market Sale Price}}{\text{Copies in Owned Arcane}}$$
+   *(Rank 0 = 1 copy; Rank 5 = 21 copies; Rank 3 = 10 copies)*
+
+2. **Dissolution Return (per copy)**:
+   $$\text{Dissolve / Copy} = \frac{\text{Vosfor Yield}}{200} \times \frac{\text{Target Pack Value}}{\text{Copies in Owned Arcane}}$$
+
+3. **Net Recommendation (Gain)**:
+   $$\text{Gain / Copy} = \text{Dissolve / Copy} - \text{Sell / Copy}$$
+   - **Gain > 0** $\rightarrow$ **Dissolve**: The Arcane's Vosfor yields more expected Platinum from packs than selling it directly.
+   - **Gain < 0** $\rightarrow$ **Sell instead**: Selling directly on the market yields more Platinum.
+
+> **Key Notes**:
+> - **Per-Copy Normalization**: Comparing everything per Rank 0-equivalent copy ensures an apples-to-apples comparison across unranked and max-rank Arcanes.
+> - **Unranking**: Max-rank yields assume unranking at Loid first (21 copies at Rank 5; 10 at Rank 3). Source-specific Vosfor yields follow the official [yield reference](https://wiki.warframe.com/w/Vosfor).
+> - **Drop Selling Strategy**: Target pack returns reflect your chosen drop sale strategy (Rank 0 vs. Max Rank) and account for excluded Arcanes.
+> - **Missing Data**: Missing 48-hour sales mean unknown, not zero value (an Arcane with no sales data will never trigger a false recommendation).
+> - **Assumptions**: Fractional packs express the expected long-run value of pooled Vosfor. Trading time, market volatility, and the 50,000 Credit cost per pack are not converted to Platinum.
 
 ---
 
@@ -189,8 +216,7 @@ loid-vosfor-exchange/
 ├── src/
 │   ├── components/
 │   │   ├── icons/                  # Warframe & faction SVG icons
-│   │   ├── modals/                 # Arcane detail & trade stats modal
-│   │   └── sections/               # UI sections (Hero, Cards, Rules, Calculator)
+│   │   └── sections/               # UI sections (Hero, Cards, Rules, Dissolver, Calculator)
 │   ├── data/
 │   ├── hooks/                      # Custom hooks (market analysis, filter state)
 │   ├── util/                       # Math models, sound FX, API client
