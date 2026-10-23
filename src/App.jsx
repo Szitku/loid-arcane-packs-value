@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import TilesSection from "./components/sections/TilesSection";
 import { LotusIcon } from "./components/icons/WarframeIcons";
 import { toggleSound, isSoundEnabled, playUiClick } from "./util/soundEffects";
@@ -24,31 +24,26 @@ function GithubIcon({ size = 24, className = "", ...props }) {
   );
 }
 
-const getPage = () =>
-  ["#/dissolver", "#dissolver"].includes(window.location.hash)
+function subscribeHash(callback) {
+  window.addEventListener("hashchange", callback);
+  return () => window.removeEventListener("hashchange", callback);
+}
+
+function getPageSnapshot() {
+  const hash = window.location.hash.toLowerCase();
+  return hash === "#/dissolver" || hash === "#dissolver"
     ? "dissolver"
     : "collections";
+}
 
 export default function App() {
-  const [page, setPage] = useState(getPage);
+  const page = useSyncExternalStore(subscribeHash, getPageSnapshot);
   const [activeTab, setActiveTab] = useState("");
   const [soundOn, setSoundOn] = useState(isSoundEnabled());
 
   useEffect(() => {
-    const handleNavigation = () => {
-      if (
-        !["", "#/collections", "#collections", "#/dissolver", "#dissolver"].includes(
-          window.location.hash,
-        )
-      ) {
-        return;
-      }
-      setPage(getPage());
-      window.scrollTo({ top: 0, behavior: "instant" });
-    };
-    window.addEventListener("hashchange", handleNavigation);
-    return () => window.removeEventListener("hashchange", handleNavigation);
-  }, []);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [page]);
 
   const handleSoundToggle = () => {
     const newState = toggleSound();
@@ -63,11 +58,11 @@ export default function App() {
       </a>
       <header className="site-header">
         <div className="header-inner">
-          <button
+          <a
+            href="#/collections"
             className="brand"
             onClick={() => {
               setActiveTab("");
-              window.location.hash = "/collections";
               playUiClick();
             }}
             aria-label="Loid's Exchange home"
@@ -79,7 +74,7 @@ export default function App() {
               LOID’S <span className="brand-light">EXCHANGE</span>
               <small>ARCANE DISSOLUTION TERMINAL</small>
             </span>
-          </button>
+          </a>
           <nav className="header-nav" aria-label="Main navigation">
             <a
               className={page === "collections" ? "nav-active" : ""}
