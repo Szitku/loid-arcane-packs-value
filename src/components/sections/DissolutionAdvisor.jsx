@@ -87,6 +87,7 @@ export default function DissolutionAdvisor({
   const [query, setQuery] = useState("");
   const [onlyWorthwhile, setOnlyWorthwhile] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
   const packs = useMemo(
     () =>
       tiles.flatMap((tile) => {
@@ -463,13 +464,26 @@ export default function DissolutionAdvisor({
       )}
 
       <div className="advisor-footer">
-        <span>
-          Pack returns:{" "}
-          {strategy === "maxed" ? "max-rank sales / copy" : "Rank 0 sales"} ·
-          All platinum values per input copy · Estimates, not guaranteed profit.
-        </span>
-        <details className="advisor-method">
-          <summary onClick={() => playUiClick()}>How it works</summary>
+        <div className="advisor-footer-bar">
+          <span className="advisor-footer-note">
+            Pack returns:{" "}
+            {strategy === "maxed" ? "max-rank sales / copy" : "Rank 0 sales"} ·
+            All platinum values per input copy · Estimates, not guaranteed profit.
+          </span>
+          <button
+            type="button"
+            className="advisor-method-toggle"
+            aria-expanded={showGuide}
+            onClick={() => {
+              playUiClick();
+              setShowGuide((prev) => !prev);
+            }}
+          >
+            How it works
+            <ChevronDown size={14} className={showGuide ? "is-expanded" : ""} />
+          </button>
+        </div>
+        {showGuide && (
           <div className="advisor-guide">
             <div className="advisor-guide-grid">
               <div className="advisor-guide-card">
@@ -542,7 +556,7 @@ export default function DissolutionAdvisor({
               </a>
             </div>
           </div>
-        </details>
+        )}
       </div>
     </section>
   );
