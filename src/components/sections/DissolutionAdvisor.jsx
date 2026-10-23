@@ -302,17 +302,6 @@ export default function DissolutionAdvisor({
           {packs.length}/{tiles.length} packs scanned
           {isPartial ? " · Partial results" : ""}
         </span>
-        {isPartial && (
-          <button
-            type="button"
-            className="text-button"
-            onClick={onScanAll}
-            disabled={isScanningAll}
-          >
-            {isScanningAll ? "Scanning…" : "Scan all"}
-            <ArrowRight size={12} />
-          </button>
-        )}
       </div>
 
       {visibleRows.length > 0 ? (
