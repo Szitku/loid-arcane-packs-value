@@ -1351,6 +1351,10 @@ input {
 .advisor-results {
   list-style: none;
 }
+.advisor-results.is-expanded {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
 .advisor-row {
   align-items: center;
   border-bottom: 1px solid var(--card-border);

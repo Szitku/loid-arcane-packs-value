@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowRightLeft,
@@ -145,7 +145,38 @@ export default function DissolutionAdvisor({
   const targetMissing =
     targetPack !== "all" && !packs.some((pack) => pack.id === targetPack);
 
-  const resetView = () => setShowAll(false);
+  const listRef = useRef(null);
+  const [collapsedHeight, setCollapsedHeight] = useState(null);
+
+  useLayoutEffect(() => {
+    if (!showAll && listRef.current) {
+      const height = listRef.current.offsetHeight;
+      if (height > 0) {
+        setCollapsedHeight(height);
+      }
+    }
+  }, [showAll, filteredRows.length]);
+
+  useEffect(() => {
+    if (!window.ResizeObserver) return;
+    const observer = new ResizeObserver(() => {
+      if (!showAll && listRef.current) {
+        const height = listRef.current.offsetHeight;
+        if (height > 0) {
+          setCollapsedHeight(height);
+        }
+      }
+    });
+    if (listRef.current) {
+      observer.observe(listRef.current);
+    }
+    return () => observer.disconnect();
+  }, [showAll]);
+
+  const resetView = () => {
+    if (listRef.current) listRef.current.scrollTop = 0;
+    setShowAll(false);
+  };
 
   return (
     <section
@@ -313,7 +344,15 @@ export default function DissolutionAdvisor({
             <span>Dissolve into</span>
             <span>Recommendation</span>
           </div>
-          <ul className="advisor-results">
+          <ul
+            ref={listRef}
+            className={`advisor-results ${showAll ? "is-expanded" : ""}`}
+            style={
+              showAll && collapsedHeight
+                ? { maxHeight: `${collapsedHeight}px` }
+                : undefined
+            }
+          >
             {visibleRows.map(({ arcane, collection, value }) => {
               const style = getRarityStyle(arcane.rarity);
               const rarityKey = (arcane.rarity || "").toLowerCase();
@@ -424,6 +463,7 @@ export default function DissolutionAdvisor({
                 setShowAll((prev) => {
                   const next = !prev;
                   if (!next) {
+                    if (listRef.current) listRef.current.scrollTop = 0;
                     document.getElementById("dissolver")?.scrollIntoView({
                       behavior: "smooth",
                       block: "start",
