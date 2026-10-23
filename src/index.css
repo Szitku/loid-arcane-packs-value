@@ -2041,6 +2041,38 @@ input {
   border-color: #7c6943;
   color: var(--gold);
 }
+.arcane-search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.15s ease;
+}
+.arcane-search-clear:hover {
+  color: var(--text);
+}
+.arcane-empty {
+  border-top: 0;
+  padding: 36px 20px;
+}
+.arcane-empty p {
+  color: #8c8f85;
+  font-size: 12px;
+  max-width: 380px;
+  margin: 0;
+  line-height: 1.5;
+}
+.arcane-empty svg {
+  color: #787e72;
+}
 .analysis-stat .text-cyan-300,
 .analysis-stat .text-cyan-400,
 .analysis-stat .text-amber-300,

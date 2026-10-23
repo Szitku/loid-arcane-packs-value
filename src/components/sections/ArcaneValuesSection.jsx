@@ -5,6 +5,7 @@ import { getRarityStyle } from "../../util/rarityStyles";
 import {
   ChevronDown,
   ChevronUp,
+  Search,
   TrendingUp,
 } from "lucide-react";
 
@@ -238,224 +239,248 @@ export default function ArcaneValuesSection({
               </button>
             </div>
 
-            <div className="arcane-table-grid arcane-table-heading grid gap-2 px-4 py-3 border-b text-xs font-semibold uppercase tracking-wider text-slate-400 select-none">
-              <span
-                className="arcane-include-heading"
-                title="Include in calculation"
-              >
-                Incl.
-              </span>
-              <button
-                type="button"
-                aria-sort={getSortAria("name")}
-                aria-label={`Sort by arcane name${sortBy === "name" ? `, currently ${sortDir === "asc" ? "ascending" : "descending"}` : ""}`}
-                className="col-span-5 sm:col-span-4 cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-1"
-                onClick={() => handleSort("name")}
-              >
-                <span>Arcane</span>
-                {sortBy === "name" &&
-                  (sortDir === "asc" ? (
-                    <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
-                  ) : (
-                    <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
-                  ))}
-              </button>
-
-              <button
-                type="button"
-                aria-sort={getSortAria("weight")}
-                aria-label="Sort by drop rate"
-                className="col-span-2 hidden sm:flex items-center justify-center cursor-pointer hover:text-cyan-300 transition-colors gap-1"
-                onClick={() => handleSort("weight")}
-              >
-                <span>Drop Rate</span>
-                {sortBy === "weight" &&
-                  (sortDir === "asc" ? (
-                    <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
-                  ) : (
-                    <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
-                  ))}
-              </button>
-
-              <div className="col-span-4 sm:col-span-3 flex items-center justify-center gap-1.5">
-                <button
-                  type="button"
-                  aria-sort={getSortAria("average")}
-                  aria-label="Sort by average sale price"
-                  className="cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-0.5"
-                  onClick={() => handleSort("average")}
-                >
-                  <span>Avg Price</span>
-                  {sortBy === "average" &&
-                    (sortDir === "asc" ? (
-                      <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
-                    ) : (
-                      <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
-                    ))}
-                </button>
-                <span className="text-slate-600">·</span>
-                <button
-                  type="button"
-                  aria-sort={getSortAria("volume")}
-                  aria-label="Sort by units sold"
-                  className="cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-0.5"
-                  onClick={() => handleSort("volume")}
-                >
-                  <span>Sold</span>
-                  {sortBy === "volume" &&
-                    (sortDir === "asc" ? (
-                      <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
-                    ) : (
-                      <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
-                    ))}
-                </button>
-              </div>
-
-              <button
-                type="button"
-                aria-sort={getSortAria("weighted")}
-                aria-label="Sort by weighted platinum value"
-                className="col-span-3 text-right cursor-pointer hover:text-cyan-300 transition-colors flex items-center justify-end gap-1"
-                onClick={() => handleSort("weighted")}
-              >
-                <span>Weighted Plat</span>
-                {sortBy === "weighted" &&
-                  (sortDir === "asc" ? (
-                    <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
-                  ) : (
-                    <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
-                  ))}
-              </button>
-            </div>
-
-            {/* Arcanes List */}
-            <div className="divide-y divide-slate-800/60">
-              {processedArcanes.map((arcane) => {
-                const style = getRarityStyle(arcane.rarity);
-                const rarityKey = (arcane.rarity || "").toLowerCase();
-                const isExcluded = excludedArcaneIds.has(arcane.id);
-                const rankCount =
-                  strategy === "maxed" ? Math.max(0, arcane.maxRank || 0) : 0;
-
-                return (
-                  <div
-                    key={arcane.id}
-                    className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center rarity-${rarityKey} ${isExcluded ? "arcane-excluded" : ""}`}
+            {processedArcanes.length > 0 ? (
+              <>
+                <div className="arcane-table-grid arcane-table-heading grid gap-2 px-4 py-3 border-b text-xs font-semibold uppercase tracking-wider text-slate-400 select-none">
+                  <span
+                    className="arcane-include-heading"
+                    title="Include in calculation"
                   >
-                    <label className="arcane-inclusion-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={!isExcluded}
-                        onChange={(event) =>
-                          onArcaneInclusionChange(
-                            arcane.id,
-                            event.target.checked,
-                          )
-                        }
-                        aria-label={`Include ${arcane.name} in calculations`}
-                        aria-describedby="arcane-inclusion-help"
-                      />
-                    </label>
+                    Incl.
+                  </span>
+                  <button
+                    type="button"
+                    aria-sort={getSortAria("name")}
+                    aria-label={`Sort by arcane name${sortBy === "name" ? `, currently ${sortDir === "asc" ? "ascending" : "descending"}` : ""}`}
+                    className="col-span-5 sm:col-span-4 cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-1"
+                    onClick={() => handleSort("name")}
+                  >
+                    <span>Arcane</span>
+                    {sortBy === "name" &&
+                      (sortDir === "asc" ? (
+                        <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                      ) : (
+                        <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                      ))}
+                  </button>
 
-                    {/* Arcane Name & Rarity */}
-                    <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
-                      <div className="min-w-0">
-                        <div className="flex items-center space-x-2">
-                          <a
-                            href={`https://warframe.market/items/${arcane.id}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => playUiClick()}
-                            title={`Open ${arcane.name} on Warframe.Market`}
-                            className={`advisor-arcane-link font-bold tracking-wide truncate ${style.color}`}
-                          >
-                            {arcane.name}
-                          </a>
-                        </div>
+                  <button
+                    type="button"
+                    aria-sort={getSortAria("weight")}
+                    aria-label="Sort by drop rate"
+                    className="col-span-2 hidden sm:flex items-center justify-center cursor-pointer hover:text-cyan-300 transition-colors gap-1"
+                    onClick={() => handleSort("weight")}
+                  >
+                    <span>Drop Rate</span>
+                    {sortBy === "weight" &&
+                      (sortDir === "asc" ? (
+                        <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                      ) : (
+                        <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                      ))}
+                  </button>
 
-                        {/* Rank Indicator */}
-                        <div className="advisor-arcane-meta mt-0.5">
-                          <span
-                            className={`advisor-rarity-badge ${style.badge}`}
-                          >
-                            {arcane.rarity}
-                          </span>
-                          {rankCount > 0 && (
-                            <span className="text-amber-400/90 font-mono tracking-tighter text-[11px]">
-                              {"◆".repeat(rankCount)}
-                            </span>
-                          )}
-                          <span className="text-slate-500 text-[11px] font-mono">
-                            Rank {rankCount}
-                            {strategy === "maxed"
-                              ? ` / ${arcane.copiesToMax} copies`
-                              : ""}
-                          </span>
-                          {isExcluded && (
-                            <span className="arcane-excluded-label">
-                              Excluded
-                            </span>
-                          )}
-                          {typeof arcane.weight === "number" && (
-                            <span className="text-cyan-400 sm:hidden text-[11px] font-mono">
-                              • {(arcane.weight * 100).toFixed(1)}%
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Drop Rate Percentage */}
-                    <div className="col-span-2 hidden sm:flex items-center justify-center font-mono text-xs text-slate-300">
-                      <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-cyan-300 font-semibold">
-                        {typeof arcane.weight === "number"
-                          ? `${(arcane.weight * 100).toFixed(1)}%`
-                          : "-"}
-                      </span>
-                    </div>
-
-                    {/* Average Platinum */}
-                    <div className="col-span-4 sm:col-span-3 text-center font-mono">
-                      <div className="text-slate-100 font-bold flex items-center justify-center gap-1">
-                        <span>
-                          {arcane.avgPlatinum != null
-                            ? arcane.avgPlatinum.toFixed(1)
-                            : "N/A"}
-                        </span>
-                        {arcane.avgPlatinum != null && (
-                          <PlatinumIcon className="w-3.5 h-3.5" />
-                        )}
-                      </div>
-                      <span
-                        className={`text-[11px] font-mono ${
-                          sortBy === "volume"
-                            ? "text-emerald-400 font-semibold"
-                            : "text-slate-400"
-                        }`}
-                      >
-                        {arcane.volume.toLocaleString()} sold
-                      </span>
-                    </div>
-
-                    {/* Weighted Platinum Value */}
-                    <div className="col-span-3 text-right font-mono flex items-center justify-end space-x-2">
-                      <div>
-                        <div className="text-emerald-400 font-bold flex items-center justify-end gap-1">
-                          <span>
-                            {arcane.weightedValue != null
-                              ? arcane.weightedValue.toFixed(2)
-                              : "N/A"}
-                          </span>
-                          {arcane.weightedValue != null && (
-                            <PlatinumIcon className="w-3.5 h-3.5" />
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                  <div className="col-span-4 sm:col-span-3 flex items-center justify-center gap-1.5">
+                    <button
+                      type="button"
+                      aria-sort={getSortAria("average")}
+                      aria-label="Sort by average sale price"
+                      className="cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-0.5"
+                      onClick={() => handleSort("average")}
+                    >
+                      <span>Avg Price</span>
+                      {sortBy === "average" &&
+                        (sortDir === "asc" ? (
+                          <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                        ) : (
+                          <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                        ))}
+                    </button>
+                    <span className="text-slate-600">·</span>
+                    <button
+                      type="button"
+                      aria-sort={getSortAria("volume")}
+                      aria-label="Sort by units sold"
+                      className="cursor-pointer hover:text-cyan-300 transition-colors flex items-center gap-0.5"
+                      onClick={() => handleSort("volume")}
+                    >
+                      <span>Sold</span>
+                      {sortBy === "volume" &&
+                        (sortDir === "asc" ? (
+                          <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                        ) : (
+                          <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                        ))}
+                    </button>
                   </div>
-                );
-              })}
-            </div>
+
+                  <button
+                    type="button"
+                    aria-sort={getSortAria("weighted")}
+                    aria-label="Sort by weighted platinum value"
+                    className="col-span-3 text-right cursor-pointer hover:text-cyan-300 transition-colors flex items-center justify-end gap-1"
+                    onClick={() => handleSort("weighted")}
+                  >
+                    <span>Weighted Plat</span>
+                    {sortBy === "weighted" &&
+                      (sortDir === "asc" ? (
+                        <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                      ) : (
+                        <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                      ))}
+                  </button>
+                </div>
+
+                {/* Arcanes List */}
+                <div className="divide-y divide-slate-800/60">
+                  {processedArcanes.map((arcane) => {
+                    const style = getRarityStyle(arcane.rarity);
+                    const rarityKey = (arcane.rarity || "").toLowerCase();
+                    const isExcluded = excludedArcaneIds.has(arcane.id);
+                    const rankCount =
+                      strategy === "maxed" ? Math.max(0, arcane.maxRank || 0) : 0;
+
+                    return (
+                      <div
+                        key={arcane.id}
+                        className={`arcane-table-grid arcane-table-row grid gap-2 px-4 py-3 items-center rarity-${rarityKey} ${isExcluded ? "arcane-excluded" : ""}`}
+                      >
+                        <label className="arcane-inclusion-checkbox">
+                          <input
+                            type="checkbox"
+                            checked={!isExcluded}
+                            onChange={(event) =>
+                              onArcaneInclusionChange(
+                                arcane.id,
+                                event.target.checked,
+                              )
+                            }
+                            aria-label={`Include ${arcane.name} in calculations`}
+                            aria-describedby="arcane-inclusion-help"
+                          />
+                        </label>
+
+                        {/* Arcane Name & Rarity */}
+                        <div className="col-span-5 sm:col-span-4 flex items-center space-x-2.5 min-w-0">
+                          <div className="min-w-0">
+                            <div className="flex items-center space-x-2">
+                              <a
+                                href={`https://warframe.market/items/${arcane.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => playUiClick()}
+                                title={`Open ${arcane.name} on Warframe.Market`}
+                                className={`advisor-arcane-link font-bold tracking-wide truncate ${style.color}`}
+                              >
+                                {arcane.name}
+                              </a>
+                            </div>
+
+                            {/* Rank Indicator */}
+                            <div className="advisor-arcane-meta mt-0.5">
+                              <span
+                                className={`advisor-rarity-badge ${style.badge}`}
+                              >
+                                {arcane.rarity}
+                              </span>
+                              {rankCount > 0 && (
+                                <span className="text-amber-400/90 font-mono tracking-tighter text-[11px]">
+                                  {"◆".repeat(rankCount)}
+                                </span>
+                              )}
+                              <span className="text-slate-500 text-[11px] font-mono">
+                                Rank {rankCount}
+                                {strategy === "maxed"
+                                  ? ` / ${arcane.copiesToMax} copies`
+                                  : ""}
+                              </span>
+                              {isExcluded && (
+                                <span className="arcane-excluded-label">
+                                  Excluded
+                                </span>
+                              )}
+                              {typeof arcane.weight === "number" && (
+                                <span className="text-cyan-400 sm:hidden text-[11px] font-mono">
+                                  • {(arcane.weight * 100).toFixed(1)}%
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Drop Rate Percentage */}
+                        <div className="col-span-2 hidden sm:flex items-center justify-center font-mono text-xs text-slate-300">
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-cyan-300 font-semibold">
+                            {typeof arcane.weight === "number"
+                              ? `${(arcane.weight * 100).toFixed(1)}%`
+                              : "-"}
+                          </span>
+                        </div>
+
+                        {/* Average Platinum */}
+                        <div className="col-span-4 sm:col-span-3 text-center font-mono">
+                          <div className="text-slate-100 font-bold flex items-center justify-center gap-1">
+                            <span>
+                              {arcane.avgPlatinum != null
+                                ? arcane.avgPlatinum.toFixed(1)
+                                : "N/A"}
+                            </span>
+                            {arcane.avgPlatinum != null && (
+                              <PlatinumIcon className="w-3.5 h-3.5" />
+                            )}
+                          </div>
+                          <span
+                            className={`text-[11px] font-mono ${
+                              sortBy === "volume"
+                                ? "text-emerald-400 font-semibold"
+                                : "text-slate-400"
+                            }`}
+                          >
+                            {arcane.volume.toLocaleString()} sold
+                          </span>
+                        </div>
+
+                        {/* Weighted Platinum Value */}
+                        <div className="col-span-3 text-right font-mono flex items-center justify-end space-x-2">
+                          <div>
+                            <div className="text-emerald-400 font-bold flex items-center justify-end gap-1">
+                              <span>
+                                {arcane.weightedValue != null
+                                  ? arcane.weightedValue.toFixed(2)
+                                  : "N/A"}
+                              </span>
+                              {arcane.weightedValue != null && (
+                                <PlatinumIcon className="w-3.5 h-3.5" />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              <div className="advisor-empty arcane-empty">
+                <Search size={22} aria-hidden="true" />
+                <strong>
+                  {rawCollectionArcanes.length === 0
+                    ? "No Arcanes available"
+                    : "No matching Arcanes"}
+                </strong>
+                <p>
+                  {rawCollectionArcanes.length === 0
+                    ? "This collection currently has no Arcanes configured."
+                    : searchQuery.trim() && rarityFilter !== "all"
+                      ? "Try another search term or select a different rarity."
+                      : searchQuery.trim()
+                        ? "Try another search term or clear the search bar."
+                        : rarityFilter !== "all"
+                          ? "No Arcanes in this collection match the selected rarity."
+                          : "No Arcanes found in this collection."}
+                </p>
+              </div>
+            )}
           </div>
         </>
       )}

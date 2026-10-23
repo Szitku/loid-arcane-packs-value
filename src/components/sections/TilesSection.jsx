@@ -90,6 +90,8 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
   const handleSelectTile = useCallback(
     (tile) => {
       setDetailStrategy(strategy);
+      setSearchQuery("");
+      setSelectedRarityFilter("all");
       loadTileIfNeeded(tile);
     },
     [strategy, loadTileIfNeeded],
@@ -268,15 +270,31 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
               />
 
               <div className="relative flex-1 min-w-[180px]">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search
+                  className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                  aria-hidden="true"
+                />
                 <input
                   type="text"
                   aria-label="Search arcanes in this collection"
                   placeholder="Search arcanes in this pack..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 rounded bg-slate-950/80 border border-slate-700/80 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-sans"
+                  className="w-full pl-9 pr-8 py-1.5 rounded bg-slate-950/80 border border-slate-700/80 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-sans"
                 />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    aria-label="Clear arcane search"
+                    onClick={() => {
+                      playUiClick();
+                      setSearchQuery("");
+                    }}
+                    className="arcane-search-clear"
+                  >
+                    <X size={14} aria-hidden="true" />
+                  </button>
+                )}
               </div>
 
               {/* Rarity filter tabs */}
