@@ -76,9 +76,9 @@ export default function CollectionCard({
             >
               <div className="dock-text text-right">
                 <span className="dock-val">
-                  {cachedValues.packValue === null
-                    ? "Incomplete"
-                    : cachedValues.packValue.toFixed(1)}
+                  {Number.isFinite(cachedValues?.packValue)
+                    ? cachedValues.packValue.toFixed(1)
+                    : "Incomplete"}
                 </span>
                 <span className="dock-sub">Plat / Pack</span>
               </div>
