@@ -1,19 +1,20 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, lazy, Suspense } from "react";
 import { tiles } from "../../data/tilesData";
-import ArcaneValuesSection from "./ArcaneValuesSection";
 import HeroSection from "./HeroSection";
 import ExchangeRules from "./ExchangeRules";
 import TopPackBanner from "./TopPackBanner";
-import VosforCalculator from "./VosforCalculator";
 import CollectionToolbar, { StrategyControl } from "./CollectionToolbar";
 import CollectionCard from "./CollectionCard";
-import DissolutionAdvisor from "./DissolutionAdvisor";
 import { useExcludedArcanes } from "../../hooks/useExcludedArcanes";
 import { useMarketAnalysis } from "../../hooks/useMarketAnalysis";
 import { useCollectionTransition } from "../../hooks/useCollectionTransition";
 import { LotusIcon } from "../icons/WarframeIcons";
 import { playUiClick } from "../../util/soundEffects";
 import { Search, ChevronRight, X } from "lucide-react";
+
+const ArcaneValuesSection = lazy(() => import("./ArcaneValuesSection"));
+const VosforCalculator = lazy(() => import("./VosforCalculator"));
+const DissolutionAdvisor = lazy(() => import("./DissolutionAdvisor"));
 
 export default function TilesSection({ page, setActiveTab, activeTab }) {
   const {
@@ -44,6 +45,14 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
   // Vosfor Calculator Modal / Drawer state
   const [showCalculator, setShowCalculator] = useState(false);
   const [userVosfor, setUserVosfor] = useState(600);
+
+  // Lazy load Dissolver only on demand
+  const [hasVisitedDissolver, setHasVisitedDissolver] = useState(
+    () => page === "dissolver",
+  );
+  if (page === "dissolver" && !hasVisitedDissolver) {
+    setHasVisitedDissolver(true);
+  }
 
   // Highest value pack calculation
   const topPack = useMemo(() => {
@@ -143,16 +152,18 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
         />
 
         {showCalculator && (
-          <VosforCalculator
-            userVosfor={userVosfor}
-            onChangeVosfor={setUserVosfor}
-            onClose={() => {
-              setShowCalculator(false);
-              playUiClick();
-            }}
-            topPack={topPack}
-            strategy={strategy}
-          />
+          <Suspense fallback={null}>
+            <VosforCalculator
+              userVosfor={userVosfor}
+              onChangeVosfor={setUserVosfor}
+              onClose={() => {
+                setShowCalculator(false);
+                playUiClick();
+              }}
+              topPack={topPack}
+              strategy={strategy}
+            />
+          </Suspense>
         )}
 
         <section
@@ -321,29 +332,38 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
               </div>
             </div>
 
-            <ArcaneValuesSection
-              fetchedArcanes={fetchedArcanes}
-              loadingTiles={loadingTiles}
-              weightedCollections={weightedCollections}
-              excludedArcaneIds={excludedArcanesByCollection.get(
-                displayedTile.id,
-              )}
-              onArcaneInclusionChange={(arcaneId, included) =>
-                handleArcaneInclusionChange(
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center p-12 text-slate-400">
+                  <div className="animate-spin mr-3 h-5 w-5 border-2 border-cyan-400 border-t-transparent rounded-full" />
+                  <span>Loading Arcane data...</span>
+                </div>
+              }
+            >
+              <ArcaneValuesSection
+                fetchedArcanes={fetchedArcanes}
+                loadingTiles={loadingTiles}
+                weightedCollections={weightedCollections}
+                excludedArcaneIds={excludedArcanesByCollection.get(
                   displayedTile.id,
-                  arcaneId,
-                  included,
-                )
-              }
-              onIncludeAllArcanes={() =>
-                handleIncludeAllArcanes(displayedTile.id)
-              }
-              activeTab={displayedTile.id}
-              searchQuery={searchQuery}
-              rarityFilter={selectedRarityFilter}
-              strategy={detailStrategy}
-              error={fetchErrors.get(displayedTile.id)}
-            />
+                )}
+                onArcaneInclusionChange={(arcaneId, included) =>
+                  handleArcaneInclusionChange(
+                    displayedTile.id,
+                    arcaneId,
+                    included,
+                  )
+                }
+                onIncludeAllArcanes={() =>
+                  handleIncludeAllArcanes(displayedTile.id)
+                }
+                activeTab={displayedTile.id}
+                searchQuery={searchQuery}
+                rarityFilter={selectedRarityFilter}
+                strategy={detailStrategy}
+                error={fetchErrors.get(displayedTile.id)}
+              />
+            </Suspense>
           </section>
         )}
 
@@ -366,13 +386,24 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
         className="page-view page-view-dissolver"
         hidden={page !== "dissolver"}
       >
-        <DissolutionAdvisor
-          tiles={tiles}
-          fetchedArcanes={fetchedArcanes}
-          weightedCollections={weightedCollections}
-          onScanAll={handleScanAll}
-          isScanningAll={isScanningAll}
-        />
+        {hasVisitedDissolver && (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center p-16 text-slate-400">
+                <div className="animate-spin mr-3 h-5 w-5 border-2 border-cyan-400 border-t-transparent rounded-full" />
+                <span>Loading Dissolver...</span>
+              </div>
+            }
+          >
+            <DissolutionAdvisor
+              tiles={tiles}
+              fetchedArcanes={fetchedArcanes}
+              weightedCollections={weightedCollections}
+              onScanAll={handleScanAll}
+              isScanningAll={isScanningAll}
+            />
+          </Suspense>
+        )}
       </div>
     </div>
   );

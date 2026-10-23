@@ -21,7 +21,51 @@
     </noscript>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app-shell">
+        <header class="site-header">
+          <div class="header-inner">
+            <a href="#/collections" class="brand" aria-label="Loid's Exchange home">
+              <span class="brand-mark">
+                <svg viewBox="0 0 352 208" fill="currentColor" style="width: 28px; height: 28px;">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M 173.217 8.313 C 165.892 25.246, 131.125 52.586, 86.438 76.557 C 74.663 82.873, 75 82.235, 75 98.196 C 75 106.055, 75.342 108.485, 76.629 109.772 C 78.135 111.277, 78.435 111.196, 80.581 108.701 C 81.859 107.215, 83.713 105.994, 84.702 105.986 C 85.691 105.978, 88.486 104.181, 90.913 101.992 C 93.341 99.802, 96.794 97.481, 98.587 96.832 C 100.380 96.184, 102.408 94.606, 103.093 93.327 C 103.778 92.047, 104.911 91, 105.612 91 C 106.312 91, 108.374 90.135, 110.193 89.077 C 112.012 88.020, 115.735 86.829, 118.466 86.431 C 121.197 86.034, 124.765 84.897, 126.395 83.906 C 128.025 82.915, 129.731 82.334, 130.186 82.615 C 130.642 82.897, 131.284 82.423, 131.614 81.563 C 131.944 80.704, 132.861 80, 133.651 80 C 134.782 80, 163.124 64.010, 173.612 57.455 C 175.731 56.130, 182.437 59.837, 252.105 100.837 C 253.538 101.680, 256.238 104.590, 258.105 107.303 C 262.408 113.555, 270.836 122, 272.772 122 C 275.247 122, 277.645 101.373, 276.540 89.583 L 275.824 81.945 270.662 79.349 C 259.350 73.660, 241.721 63.202, 227 53.447 C 200.690 36.012, 183.808 20.358, 178.259 8.250 C 176.936 5.362, 175.774 3.008, 175.677 3.017 C 175.580 3.026, 174.472 5.409, 173.217 8.313" />
+                </svg>
+              </span>
+              <span>
+                LOID’S <span class="brand-light">EXCHANGE</span>
+                <small>ARCANE DISSOLUTION TERMINAL</small>
+              </span>
+            </a>
+            <nav class="header-nav" aria-label="Main navigation">
+              <a class="nav-active" href="#/collections">Collections</a>
+              <a href="#/dissolver">Dissolver</a>
+            </nav>
+          </div>
+        </header>
+
+        <main id="main" class="main-content" tabindex="-1">
+          <div class="exchange-dashboard">
+            <div class="page-view page-view-collections">
+              <section class="hero" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                  <div class="eyebrow">
+                    <span class="small-diamond"></span> THE ART OF DISSOLUTION
+                  </div>
+                  <h1 id="hero-title">
+                    Less guesswork.<br />
+                    More <span>platinum.</span>
+                  </h1>
+                  <p>
+                    Give your unwanted Arcanes a new purpose. Compare Loid’s collections
+                    and find the best return for your Vosfor.
+                  </p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
