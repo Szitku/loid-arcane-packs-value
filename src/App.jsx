@@ -1,6 +1,6 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import TilesSection from "./components/sections/TilesSection";
-import { LotusIcon } from "./components/icons/WarframeIcons";
+import { LotusIcon, WarframeSvgDefs } from "./components/icons/WarframeIcons";
 import { toggleSound, isSoundEnabled, playUiClick } from "./util/soundEffects";
 import { Volume2, VolumeX, ArrowUpRight } from "lucide-react";
 
@@ -53,6 +53,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <WarframeSvgDefs />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
