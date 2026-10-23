@@ -421,7 +421,16 @@ export default function DissolutionAdvisor({
               aria-expanded={showAll}
               onClick={() => {
                 playUiClick();
-                setShowAll((value) => !value);
+                setShowAll((prev) => {
+                  const next = !prev;
+                  if (!next) {
+                    document.getElementById("dissolver")?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                  return next;
+                });
               }}
             >
               {showAll

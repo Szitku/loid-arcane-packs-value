@@ -1350,8 +1350,6 @@ input {
 }
 .advisor-results {
   list-style: none;
-  max-height: 510px;
-  overflow-y: auto;
 }
 .advisor-row {
   align-items: center;
