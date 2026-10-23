@@ -127,19 +127,28 @@ export default function DissolutionAdvisor({
           ];
         }),
       )
-      .sort(
-        (a, b) =>
-          (b.value.best?.perCopy.gain ?? -Infinity) -
-            (a.value.best?.perCopy.gain ?? -Infinity) ||
-          a.arcane.name.localeCompare(b.arcane.name),
-      );
+      .sort((a, b) => {
+        const gainA = a.value.best?.perCopy.gain;
+        const gainB = b.value.best?.perCopy.gain;
+        if (gainA == null && gainB == null) {
+          return a.arcane.name.localeCompare(b.arcane.name);
+        }
+        if (gainA == null) return 1;
+        if (gainB == null) return -1;
+        if (gainB !== gainA) return gainB - gainA;
+        return a.arcane.name.localeCompare(b.arcane.name);
+      });
   }, [tiles, fetchedArcanes, packs, targetPack, rank]);
 
-  const filteredRows = rows.filter(
-    ({ arcane, value }) =>
-      arcane.name.toLowerCase().includes(query.trim().toLowerCase()) &&
-      (!onlyWorthwhile || value.profitablePacks.length > 0),
-  );
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredRows = useMemo(() => {
+    return rows.filter(
+      ({ arcane, value }) =>
+        (!normalizedQuery ||
+          arcane.name.toLowerCase().includes(normalizedQuery)) &&
+        (!onlyWorthwhile || value.profitablePacks.length > 0),
+    );
+  }, [rows, normalizedQuery, onlyWorthwhile]);
   const visibleRows = showAll ? filteredRows : filteredRows.slice(0, 6);
   const isPartial = fetchedArcanes.size < tiles.length;
   const targetMissing =
