@@ -17,9 +17,10 @@ export default function CollectionCard({
 
   return (
     <button
+      type="button"
       onClick={onSelect}
-      aria-pressed={isSelected}
-      aria-controls="collection-detail"
+      aria-expanded={isSelected}
+      aria-controls={isSelected ? "collection-detail" : undefined}
       className={`collection-card collection-${tile.id} ${isSelected ? "is-selected" : ""}`}
     >
       <div className="card-art">
@@ -42,7 +43,7 @@ export default function CollectionCard({
             {tile.arcanes.length} in pool
           </span>
         </div>
-        <h3>{tile.label}</h3>
+        <span className="card-title">{tile.label}</span>
       </div>
       <div className="card-footer">
         {isLoading ? (

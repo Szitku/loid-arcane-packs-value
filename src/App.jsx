@@ -31,7 +31,7 @@ function subscribeHash(callback) {
 
 function getPageSnapshot() {
   const hash = window.location.hash.toLowerCase();
-  return hash === "#/dissolver" || hash === "#dissolver"
+  return hash.startsWith("#/dissolver") || hash === "#dissolver"
     ? "dissolver"
     : "collections";
 }
@@ -54,7 +54,18 @@ export default function App() {
   return (
     <div className="app-shell">
       <WarframeSvgDefs />
-      <a className="skip-link" href="#main">
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(e) => {
+          e.preventDefault();
+          const mainEl = document.getElementById("main");
+          if (mainEl) {
+            mainEl.focus();
+            mainEl.scrollIntoView();
+          }
+        }}
+      >
         Skip to content
       </a>
       <header className="site-header">

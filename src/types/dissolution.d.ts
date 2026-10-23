@@ -14,7 +14,7 @@ export interface ArcaneValuation {
 export interface ArcaneData {
   id: string;
   name: string;
-  rarity: "common" | "uncommon" | "rare" | "legendary" | string;
+  rarity: "common" | "uncommon" | "rare" | "legendary" | (string & {});
   maxRank?: number;
   copiesToMax?: number;
   weight?: number;

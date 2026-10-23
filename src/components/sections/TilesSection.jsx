@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { tiles } from "../../data/tilesData";
 import ArcaneValuesSection from "./ArcaneValuesSection";
 import HeroSection from "./HeroSection";
@@ -87,6 +87,14 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
 
   const isAllScanned = weightedCollections.size === tiles.length;
 
+  const handleSelectTile = useCallback(
+    (tile) => {
+      setDetailStrategy(strategy);
+      loadTileIfNeeded(tile);
+    },
+    [strategy, loadTileIfNeeded],
+  );
+
   const {
     collectionsRef,
     detailRef,
@@ -99,16 +107,15 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
     tiles,
     activeTab,
     setActiveTab,
-    onSelectTile: (tile) => {
-      setDetailStrategy(strategy);
-      loadTileIfNeeded(tile);
-    },
+    onSelectTile: handleSelectTile,
   });
 
   return (
     <div className="exchange-dashboard">
-      {page === "collections" && (
-        <div className="page-view page-view-collections">
+      <div
+        className="page-view page-view-collections"
+        hidden={page !== "collections"}
+      >
           <HeroSection
           isScanningAll={isScanningAll}
           completedScans={weightedCollections.size}
@@ -335,20 +342,20 @@ export default function TilesSection({ page, setActiveTab, activeTab }) {
             <ChevronRight size={17} />
           </div>
         )}
-        </div>
-      )}
+      </div>
 
-      {page === "dissolver" && (
-        <div className="page-view page-view-dissolver">
-          <DissolutionAdvisor
-            tiles={tiles}
-            fetchedArcanes={fetchedArcanes}
-            weightedCollections={weightedCollections}
-            onScanAll={handleScanAll}
-            isScanningAll={isScanningAll}
-          />
-        </div>
-      )}
+      <div
+        className="page-view page-view-dissolver"
+        hidden={page !== "dissolver"}
+      >
+        <DissolutionAdvisor
+          tiles={tiles}
+          fetchedArcanes={fetchedArcanes}
+          weightedCollections={weightedCollections}
+          onScanAll={handleScanAll}
+          isScanningAll={isScanningAll}
+        />
+      </div>
     </div>
   );
 }

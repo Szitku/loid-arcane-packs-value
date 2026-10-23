@@ -2,11 +2,11 @@ import { vosforByArcane } from "../data/arcanes/dissolutionData.js";
 import { copiesToMax } from "./processArcaneSalesData.js";
 
 /**
- * @typedef {import("../types/dissolution.js").ArcaneData} ArcaneData
- * @typedef {import("../types/dissolution.js").PackTarget} PackTarget
- * @typedef {import("../types/dissolution.js").PackComparison} PackComparison
- * @typedef {import("../types/dissolution.js").DissolutionRankResult} DissolutionRankResult
- * @typedef {import("../types/dissolution.js").DissolutionDualResult} DissolutionDualResult
+ * @typedef {import("../types/dissolution.d.ts").ArcaneData} ArcaneData
+ * @typedef {import("../types/dissolution.d.ts").PackTarget} PackTarget
+ * @typedef {import("../types/dissolution.d.ts").PackComparison} PackComparison
+ * @typedef {import("../types/dissolution.d.ts").DissolutionRankResult} DissolutionRankResult
+ * @typedef {import("../types/dissolution.d.ts").DissolutionDualResult} DissolutionDualResult
  */
 
 /**

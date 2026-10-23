@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowRightLeft,
@@ -26,7 +26,7 @@ function PlatValue({
     <span className={`advisor-plat ${className}`}>
       {prefix && <span>{prefix}</span>}
       <span>{value.toFixed(2)}</span>
-      <PlatinumIcon className={iconClass} />
+      <PlatinumIcon className={iconClass} aria-hidden="true" />
       {suffix && <span className="advisor-plat-suffix">{suffix}</span>}
     </span>
   );
@@ -171,32 +171,6 @@ export default function DissolutionAdvisor({
     targetPack !== "all" && !packs.some((pack) => pack.id === targetPack);
 
   const listRef = useRef(null);
-  const [collapsedHeight, setCollapsedHeight] = useState(null);
-
-  useLayoutEffect(() => {
-    if (!showAll && listRef.current) {
-      const height = listRef.current.offsetHeight;
-      if (height > 0) {
-        setCollapsedHeight(height);
-      }
-    }
-  }, [showAll, filteredRows.length]);
-
-  useEffect(() => {
-    if (!window.ResizeObserver) return;
-    const observer = new ResizeObserver(() => {
-      if (!showAll && listRef.current) {
-        const height = listRef.current.offsetHeight;
-        if (height > 0) {
-          setCollapsedHeight(height);
-        }
-      }
-    });
-    if (listRef.current) {
-      observer.observe(listRef.current);
-    }
-    return () => observer.disconnect();
-  }, [showAll]);
 
   const resetView = () => {
     if (listRef.current) listRef.current.scrollTop = 0;
@@ -402,7 +376,7 @@ export default function DissolutionAdvisor({
             ))}
           </select>
         </label>
-        <label className="advisor-search">
+        <div className="advisor-search">
           <Search size={14} aria-hidden="true" />
           <input
             aria-label="Find a collection Arcane"
@@ -424,10 +398,10 @@ export default function DissolutionAdvisor({
                 resetView();
               }}
             >
-              <X size={14} />
+              <X size={14} aria-hidden="true" />
             </button>
           )}
-        </label>
+        </div>
         <button
           type="button"
           className={`advisor-filter ${onlyWorthwhile ? "is-active" : ""}`}
@@ -455,9 +429,10 @@ export default function DissolutionAdvisor({
           <div
             role="table"
             aria-label="Arcane dissolution and market comparison"
+            aria-rowcount={filteredRows.length + 1}
           >
             <div role="rowgroup">
-              <div className="advisor-columns" role="row">
+              <div className="advisor-columns" role="row" aria-rowindex={1}>
                 <span role="columnheader">Arcane</span>
                 <span role="columnheader">Sell / copy</span>
                 <span role="columnheader">Dissolve into</span>
@@ -466,21 +441,18 @@ export default function DissolutionAdvisor({
             </div>
             <ul
               ref={listRef}
+              id="advisor-results-list"
               role="rowgroup"
               className={`advisor-results ${showAll ? "is-expanded" : ""}`}
-              style={
-                showAll && collapsedHeight
-                  ? { maxHeight: `${collapsedHeight}px` }
-                  : undefined
-              }
             >
-              {visibleRows.map(({ arcane, collection, value }) => {
+              {visibleRows.map(({ arcane, collection, value }, index) => {
                 const style = getRarityStyle(arcane.rarity);
                 const rarityKey = (arcane.rarity || "").toLowerCase();
 
                 return (
                   <li
                     role="row"
+                    aria-rowindex={index + 2}
                     className={`advisor-row rarity-${rarityKey}`}
                     key={arcane.id}
                   >
@@ -582,6 +554,7 @@ export default function DissolutionAdvisor({
               type="button"
               className="advisor-show-more"
               aria-expanded={showAll}
+              aria-controls="advisor-results-list"
               onClick={() => {
                 playUiClick();
                 setShowAll((prev) => {
@@ -600,7 +573,7 @@ export default function DissolutionAdvisor({
               {showAll
                 ? "Show less"
                 : `Show all ${filteredRows.length} results`}
-              <ChevronDown size={14} className={showAll ? "is-expanded" : ""} />
+              <ChevronDown size={14} className={showAll ? "is-expanded" : ""} aria-hidden="true" />
             </button>
           )}
         </>
