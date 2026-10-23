@@ -4,6 +4,8 @@ import {
   ArrowRightLeft,
   Check,
   ChevronDown,
+  Layers3,
+  RotateCw,
   Search,
   X,
 } from "lucide-react";
@@ -166,7 +168,8 @@ export default function DissolutionAdvisor({
     );
   }, [rows, normalizedQuery, onlyWorthwhile]);
   const visibleRows = showAll ? filteredRows : filteredRows.slice(0, 6);
-  const isPartial = fetchedArcanes.size < tiles.length;
+  const hasScannedAny = fetchedArcanes.size > 0;
+  const isPartial = hasScannedAny && fetchedArcanes.size < tiles.length;
   const targetMissing =
     targetPack !== "all" && !packs.some((pack) => pack.id === targetPack);
 
@@ -193,18 +196,43 @@ export default function DissolutionAdvisor({
             <p>Find collection Arcanes worth turning into your next pack.</p>
           </div>
         </div>
-        <button
-          type="button"
-          className="advisor-method-toggle"
-          aria-expanded={showGuide}
-          onClick={() => {
-            playUiClick();
-            setShowGuide((prev) => !prev);
-          }}
-        >
-          How it works
-          <ChevronDown size={14} className={showGuide ? "is-expanded" : ""} />
-        </button>
+        <div className="advisor-actions">
+          {packs.length < tiles.length && onScanAll && (
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() => {
+                playUiClick();
+                onScanAll();
+              }}
+              disabled={isScanningAll}
+            >
+              {isScanningAll ? (
+                <RotateCw size={14} className="animate-spin" aria-hidden="true" />
+              ) : (
+                <Layers3 size={14} aria-hidden="true" />
+              )}
+              {isScanningAll
+                ? `Scanning · ${packs.length}/${tiles.length}`
+                : packs.length === 0
+                  ? "Scan all collections"
+                  : `Scan remaining ${tiles.length - packs.length} packs`}
+              {!isScanningAll && <ArrowRight size={14} aria-hidden="true" />}
+            </button>
+          )}
+          <button
+            type="button"
+            className="advisor-method-toggle"
+            aria-expanded={showGuide}
+            onClick={() => {
+              playUiClick();
+              setShowGuide((prev) => !prev);
+            }}
+          >
+            How it works
+            <ChevronDown size={14} className={showGuide ? "is-expanded" : ""} />
+          </button>
+        </div>
       </div>
 
       {showGuide && (
@@ -369,11 +397,14 @@ export default function DissolutionAdvisor({
             }}
           >
             <option value="all">Best available pack</option>
-            {tiles.map((tile) => (
-              <option key={tile.id} value={tile.id}>
-                {packName(tile.label)}
-              </option>
-            ))}
+            {tiles.map((tile) => {
+              const isScanned = packs.some((p) => p.id === tile.id);
+              return (
+                <option key={tile.id} value={tile.id}>
+                  {packName(tile.label)}{!isScanned ? " (not scanned)" : ""}
+                </option>
+              );
+            })}
           </select>
         </label>
         <div className="advisor-search">
@@ -418,10 +449,41 @@ export default function DissolutionAdvisor({
 
       <div className="advisor-status">
         <span role="status">
-          {filteredRows.length} {onlyWorthwhile ? "opportunities" : "Arcanes"} ·{" "}
-          {packs.length}/{tiles.length} packs scanned
-          {isPartial ? " · Partial results" : ""}
+          {!hasScannedAny ? (
+            `0/${tiles.length} packs scanned · No scans yet`
+          ) : (
+            <>
+              {filteredRows.length} {onlyWorthwhile ? "opportunities" : "Arcanes"} ·{" "}
+              {packs.length}/{tiles.length} packs scanned
+              {isPartial ? " · Partial results" : ""}
+            </>
+          )}
         </span>
+        {packs.length < tiles.length && onScanAll && (
+          <button
+            type="button"
+            className="text-button"
+            onClick={() => {
+              playUiClick();
+              onScanAll();
+            }}
+            disabled={isScanningAll}
+          >
+            {isScanningAll ? (
+              <>
+                <RotateCw size={12} className="animate-spin" aria-hidden="true" />
+                Scanning…
+              </>
+            ) : (
+              <>
+                {!hasScannedAny
+                  ? "Scan all collections"
+                  : `Scan remaining ${tiles.length - packs.length} packs`}
+                <ArrowRight size={13} aria-hidden="true" />
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       {visibleRows.length > 0 ? (
@@ -581,18 +643,22 @@ export default function DissolutionAdvisor({
         <div className="advisor-empty">
           <ArrowRightLeft size={22} />
           <strong>
-            {rows.length === 0 || targetMissing
+            {!hasScannedAny || targetMissing
               ? "Scan packs to compare"
-              : "No matching opportunities"}
+              : packs.length < tiles.length
+                ? "No matching opportunities in scanned packs"
+                : "No matching opportunities"}
           </strong>
           <p>
-            {rows.length === 0
+            {!hasScannedAny
               ? "Your collection Arcanes will appear here once scanned."
               : targetMissing
                 ? "Scan all to include the selected target pack."
-                : "Try another pack or turn off the worthwhile-only filter."}
+                : packs.length < tiles.length
+                  ? "Scan the remaining packs or turn off the worthwhile-only filter."
+                  : "Try another pack or turn off the worthwhile-only filter."}
           </p>
-          {(rows.length === 0 || targetMissing) && (
+          {packs.length < tiles.length && onScanAll && (
             <button
               type="button"
               className="primary-button"
@@ -602,8 +668,19 @@ export default function DissolutionAdvisor({
               }}
               disabled={isScanningAll}
             >
-              {isScanningAll ? "Scanning…" : "Scan all collections"}
-              <ArrowRight size={14} />
+              {isScanningAll ? (
+                <>
+                  <RotateCw size={14} className="animate-spin" aria-hidden="true" />
+                  Scanning…
+                </>
+              ) : (
+                <>
+                  {!hasScannedAny
+                    ? "Scan all collections"
+                    : `Scan remaining ${tiles.length - packs.length} collections`}
+                  <ArrowRight size={14} aria-hidden="true" />
+                </>
+              )}
             </button>
           )}
         </div>

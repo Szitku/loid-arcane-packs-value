@@ -1097,6 +1097,12 @@ input {
   flex-wrap: wrap;
   padding: 20px 22px;
 }
+.advisor-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 .advisor-mark {
   display: grid;
   place-items: center;
@@ -1321,6 +1327,8 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   min-height: 34px;
   padding: 0 22px 8px;
   color: var(--muted);
