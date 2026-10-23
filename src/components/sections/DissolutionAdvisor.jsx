@@ -219,7 +219,96 @@ export default function DissolutionAdvisor({
             <p>Find collection Arcanes worth turning into your next pack.</p>
           </div>
         </div>
+        <button
+          type="button"
+          className="advisor-method-toggle"
+          aria-expanded={showGuide}
+          onClick={() => {
+            playUiClick();
+            setShowGuide((prev) => !prev);
+          }}
+        >
+          How it works
+          <ChevronDown size={14} className={showGuide ? "is-expanded" : ""} />
+        </button>
       </div>
+
+      {showGuide && (
+        <div className="advisor-guide-panel">
+          <div className="advisor-guide">
+            <div className="advisor-guide-grid">
+              <div className="advisor-guide-card">
+                <div className="advisor-guide-card-header">
+                  <span className="advisor-guide-card-num">01</span>
+                  <strong>Sell / copy</strong>
+                </div>
+                <p>
+                  Direct platinum value from selling 1 copy on the market.
+                </p>
+                <div className="advisor-guide-formula">
+                  Market Price ÷ Copy Count
+                </div>
+              </div>
+
+              <div className="advisor-guide-card">
+                <div className="advisor-guide-card-header">
+                  <span className="advisor-guide-card-num">02</span>
+                  <strong>Dissolve into</strong>
+                </div>
+                <p>
+                  Expected platinum value from turning 1 copy into Vosfor.
+                </p>
+                <div className="advisor-guide-formula">
+                  (Vosfor ÷ 200) × Pack Value ÷ Copies
+                </div>
+              </div>
+
+              <div className="advisor-guide-card">
+                <div className="advisor-guide-card-header">
+                  <span className="advisor-guide-card-num">03</span>
+                  <strong>Recommendation</strong>
+                </div>
+                <p>
+                  Net profit comparing Vosfor return against market sale.
+                </p>
+                <div className="advisor-guide-formula">
+                  Dissolve Return − Sell Price
+                </div>
+              </div>
+            </div>
+
+            <div className="advisor-guide-example">
+              <strong>Quick Example:</strong> An Arcane sells for <strong>1.00p</strong> on the market, but dissolves into <strong>20 Vosfor</strong>. If your target pack averages <strong>30.00p</strong> (per 200 Vosfor), your 20 Vosfor represents 10% of a pack: <code>(20 ÷ 200) × 30.00p = 3.00p</code>. Because <strong>3.00p</strong> &gt; <strong>1.00p</strong> (+2.00p gain), the recommendation is <strong>Dissolve</strong>!
+            </div>
+
+            <div className="advisor-guide-rules">
+              <div>
+                <strong>• Fair Per-Copy Basis:</strong> Rank 5 Arcanes contain 21 copies (Rank 3 contains 10). Both market prices and Vosfor returns are divided by the copy count so you can compare any rank apples-to-apples.
+              </div>
+              <div>
+                <strong>• Unrank First:</strong> In-game, unrank your Arcanes at Loid before dissolving to guarantee the full 21× or 10× Vosfor yield.
+              </div>
+              <div>
+                <strong>• Strategy & Exclusions:</strong> Pack returns match your chosen drop selling rank (Rank 0 vs Max rank) and respect excluded Arcanes.
+              </div>
+              <div>
+                <strong>• Real Market Data:</strong> Missing 48h sales show unknown rather than 0p. Fractional packs represent pooled Vosfor across multiple purchases; Credit costs (50,000/pack) and trade times are not converted to Platinum.
+              </div>
+            </div>
+
+            <div className="advisor-guide-link">
+              <a
+                href="https://wiki.warframe.com/w/Vosfor"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playUiClick()}
+              >
+                Official Vosfor yield reference ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="advisor-strategies">
         {[
@@ -548,99 +637,11 @@ export default function DissolutionAdvisor({
       )}
 
       <div className="advisor-footer">
-        <div className="advisor-footer-bar">
-          <span className="advisor-footer-note">
-            Pack returns:{" "}
-            {strategy === "maxed" ? "max-rank sales / copy" : "Rank 0 sales"} ·
-            All platinum values per input copy · Estimates, not guaranteed profit.
-          </span>
-          <button
-            type="button"
-            className="advisor-method-toggle"
-            aria-expanded={showGuide}
-            onClick={() => {
-              playUiClick();
-              setShowGuide((prev) => !prev);
-            }}
-          >
-            How it works
-            <ChevronDown size={14} className={showGuide ? "is-expanded" : ""} />
-          </button>
-        </div>
-        {showGuide && (
-          <div className="advisor-guide">
-            <div className="advisor-guide-grid">
-              <div className="advisor-guide-card">
-                <div className="advisor-guide-card-header">
-                  <span className="advisor-guide-card-num">01</span>
-                  <strong>Sell / copy</strong>
-                </div>
-                <p>
-                  Direct platinum value from selling 1 copy on the market.
-                </p>
-                <div className="advisor-guide-formula">
-                  Market Price ÷ Copy Count
-                </div>
-              </div>
-
-              <div className="advisor-guide-card">
-                <div className="advisor-guide-card-header">
-                  <span className="advisor-guide-card-num">02</span>
-                  <strong>Dissolve into</strong>
-                </div>
-                <p>
-                  Expected platinum value from turning 1 copy into Vosfor.
-                </p>
-                <div className="advisor-guide-formula">
-                  (Vosfor ÷ 200) × Pack Value ÷ Copies
-                </div>
-              </div>
-
-              <div className="advisor-guide-card">
-                <div className="advisor-guide-card-header">
-                  <span className="advisor-guide-card-num">03</span>
-                  <strong>Recommendation</strong>
-                </div>
-                <p>
-                  Net profit comparing Vosfor return against market sale.
-                </p>
-                <div className="advisor-guide-formula">
-                  Dissolve Return − Sell Price
-                </div>
-              </div>
-            </div>
-
-            <div className="advisor-guide-example">
-              <strong>Quick Example:</strong> An Arcane sells for <strong>1.00p</strong> on the market, but dissolves into <strong>20 Vosfor</strong>. If your target pack averages <strong>30.00p</strong> (per 200 Vosfor), your 20 Vosfor represents 10% of a pack: <code>(20 ÷ 200) × 30.00p = 3.00p</code>. Because <strong>3.00p</strong> &gt; <strong>1.00p</strong> (+2.00p gain), the recommendation is <strong>Dissolve</strong>!
-            </div>
-
-            <div className="advisor-guide-rules">
-              <div>
-                <strong>• Fair Per-Copy Basis:</strong> Rank 5 Arcanes contain 21 copies (Rank 3 contains 10). Both market prices and Vosfor returns are divided by the copy count so you can compare any rank apples-to-apples.
-              </div>
-              <div>
-                <strong>• Unrank First:</strong> In-game, unrank your Arcanes at Loid before dissolving to guarantee the full 21× or 10× Vosfor yield.
-              </div>
-              <div>
-                <strong>• Strategy & Exclusions:</strong> Pack returns match your chosen drop selling rank (Rank 0 vs Max rank) and respect excluded Arcanes.
-              </div>
-              <div>
-                <strong>• Real Market Data:</strong> Missing 48h sales show unknown rather than 0p. Fractional packs represent pooled Vosfor across multiple purchases; Credit costs (50,000/pack) and trade times are not converted to Platinum.
-              </div>
-            </div>
-
-            <div className="advisor-guide-link">
-              <a
-                href="https://wiki.warframe.com/w/Vosfor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => playUiClick()}
-              >
-                Official Vosfor yield reference ↗
-              </a>
-            </div>
-          </div>
-        )}
+        <span className="advisor-footer-note">
+          Pack returns:{" "}
+          {strategy === "maxed" ? "max-rank sales / copy" : "Rank 0 sales"} ·
+          All platinum values per input copy · Estimates, not guaranteed profit.
+        </span>
       </div>
     </section>
   );
