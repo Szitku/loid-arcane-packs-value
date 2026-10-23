@@ -35,13 +35,29 @@ function PlatValue({
 function Recommendation({ value }) {
   const gain = value.best?.perCopy.gain;
   if (value.vosfor === 0)
-    return <span className="advisor-unavailable">Cannot dissolve</span>;
+    return (
+      <span role="cell" className="advisor-unavailable">
+        Cannot dissolve
+      </span>
+    );
   if (value.vosfor == null)
-    return <span className="advisor-unavailable">Unknown yield</span>;
+    return (
+      <span role="cell" className="advisor-unavailable">
+        Unknown yield
+      </span>
+    );
   if (value.sellValue == null)
-    return <span className="advisor-unavailable">No sales data</span>;
+    return (
+      <span role="cell" className="advisor-unavailable">
+        No sales data
+      </span>
+    );
   if (gain == null)
-    return <span className="advisor-unavailable">Scan target pack</span>;
+    return (
+      <span role="cell" className="advisor-unavailable">
+        Scan target pack
+      </span>
+    );
 
   const isPositive = gain > 1e-8;
   const isNegative = gain < -1e-8;
@@ -60,7 +76,7 @@ function Recommendation({ value }) {
   const prefix = gain > 0 ? "+" : "";
 
   return (
-    <div className={`advisor-decision ${decisionClass}`}>
+    <div role="cell" className={`advisor-decision ${decisionClass}`}>
       <span className="advisor-decision-badge">{decisionLabel}</span>
       <small className="advisor-decision-diff">
         <PlatValue
@@ -347,121 +363,131 @@ export default function DissolutionAdvisor({
 
       {visibleRows.length > 0 ? (
         <>
-          <div className="advisor-columns" aria-hidden="true">
-            <span>Arcane</span>
-            <span>Sell / copy</span>
-            <span>Dissolve into</span>
-            <span>Recommendation</span>
-          </div>
-          <ul
-            ref={listRef}
-            className={`advisor-results ${showAll ? "is-expanded" : ""}`}
-            style={
-              showAll && collapsedHeight
-                ? { maxHeight: `${collapsedHeight}px` }
-                : undefined
-            }
+          <div
+            role="table"
+            aria-label="Arcane dissolution and market comparison"
           >
-            {visibleRows.map(({ arcane, collection, value }) => {
-              const style = getRarityStyle(arcane.rarity);
-              const rarityKey = (arcane.rarity || "").toLowerCase();
+            <div role="rowgroup">
+              <div className="advisor-columns" role="row">
+                <span role="columnheader">Arcane</span>
+                <span role="columnheader">Sell / copy</span>
+                <span role="columnheader">Dissolve into</span>
+                <span role="columnheader">Recommendation</span>
+              </div>
+            </div>
+            <ul
+              ref={listRef}
+              role="rowgroup"
+              className={`advisor-results ${showAll ? "is-expanded" : ""}`}
+              style={
+                showAll && collapsedHeight
+                  ? { maxHeight: `${collapsedHeight}px` }
+                  : undefined
+              }
+            >
+              {visibleRows.map(({ arcane, collection, value }) => {
+                const style = getRarityStyle(arcane.rarity);
+                const rarityKey = (arcane.rarity || "").toLowerCase();
 
-              return (
-                <li
-                  className={`advisor-row rarity-${rarityKey}`}
-                  key={arcane.id}
-                >
-                  <div className="advisor-arcane">
-                    <a
-                      href={`https://warframe.market/items/${arcane.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => playUiClick()}
-                      className={`advisor-arcane-link ${style.color}`}
-                    >
-                      {arcane.name}
-                    </a>
-                    <div className="advisor-arcane-meta">
-                      <span className={`advisor-rarity-badge ${style.badge}`}>
-                        {arcane.rarity}
-                      </span>
-                      <span className="advisor-meta-text">
-                        {collection} ·{" "}
-                        {rank === "maxed" ? `Rank ${arcane.maxRank} · ` : ""}
-                        {value.vosfor ?? "?"} Vosfor total
-                        {value.copies > 1
-                          ? ` · ${value.copies} copies`
-                          : " · 1 copy"}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div
-                    className="advisor-price"
-                    title={
-                      value.sellValue == null
-                        ? undefined
-                        : `${value.sellValue.toFixed(2)}p total for ${value.copies} ${value.copies === 1 ? "copy" : "copies"}`
-                    }
+                return (
+                  <li
+                    role="row"
+                    className={`advisor-row rarity-${rarityKey}`}
+                    key={arcane.id}
                   >
-                    <span className="advisor-mobile-label">Sell / copy</span>
-                    {value.sellValue == null ? (
-                      <span className="advisor-dim">—</span>
-                    ) : (
-                      <PlatValue
-                        value={value.perCopy.sellValue}
-                        iconClass="w-3.5 h-3.5"
-                        className="advisor-price-val"
-                      />
-                    )}
-                  </div>
+                    <div role="cell" className="advisor-arcane">
+                      <a
+                        href={`https://warframe.market/items/${arcane.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => playUiClick()}
+                        className={`advisor-arcane-link ${style.color}`}
+                      >
+                        {arcane.name}
+                      </a>
+                      <div className="advisor-arcane-meta">
+                        <span className={`advisor-rarity-badge ${style.badge}`}>
+                          {arcane.rarity}
+                        </span>
+                        <span className="advisor-meta-text">
+                          {collection} ·{" "}
+                          {rank === "maxed" ? `Rank ${arcane.maxRank} · ` : ""}
+                          {value.vosfor ?? "?"} Vosfor total
+                          {value.copies > 1
+                            ? ` · ${value.copies} copies`
+                            : " · 1 copy"}
+                        </span>
+                      </div>
+                    </div>
 
-                  <div className="advisor-pack">
-                    <span className="advisor-pack-title">
-                      {value.best
-                        ? packName(value.best.label)
-                        : "No pack valued"}
-                    </span>
-                    {value.best?.expectedValue != null ? (
-                      <small className="advisor-pack-expected">
+                    <div
+                      role="cell"
+                      className="advisor-price"
+                      title={
+                        value.sellValue == null
+                          ? undefined
+                          : `${value.sellValue.toFixed(2)}p total for ${value.copies} ${value.copies === 1 ? "copy" : "copies"}`
+                      }
+                    >
+                      <span className="advisor-mobile-label">Sell / copy</span>
+                      {value.sellValue == null ? (
+                        <span className="advisor-dim">—</span>
+                      ) : (
                         <PlatValue
-                          value={value.best.perCopy.expectedValue}
-                          suffix="expected / copy"
-                          iconClass="w-3 h-3"
+                          value={value.perCopy.sellValue}
+                          iconClass="w-3.5 h-3.5"
+                          className="advisor-price-val"
                         />
-                      </small>
-                    ) : (
-                      <small className="advisor-dim">No value data</small>
-                    )}
-                    {value.profitablePacks.length > 1 && (
-                      <details>
-                        <summary onClick={() => playUiClick()}>
-                          +{value.profitablePacks.length - 1} other packs
-                        </summary>
-                        <ul>
-                          {value.profitablePacks.slice(1).map((pack) => (
-                            <li key={pack.id}>
-                              <span>{packName(pack.label)}</span>
-                              <strong className="advisor-pack-profit">
-                                <PlatValue
-                                  value={pack.perCopy.gain}
-                                  prefix="+"
-                                  iconClass="w-3 h-3"
-                                  className="text-emerald-400"
-                                />
-                              </strong>
-                            </li>
-                          ))}
-                        </ul>
-                      </details>
-                    )}
-                  </div>
+                      )}
+                    </div>
 
-                  <Recommendation value={value} />
-                </li>
-              );
-            })}
-          </ul>
+                    <div role="cell" className="advisor-pack">
+                      <span className="advisor-pack-title">
+                        {value.best
+                          ? packName(value.best.label)
+                          : "No pack valued"}
+                      </span>
+                      {value.best?.expectedValue != null ? (
+                        <small className="advisor-pack-expected">
+                          <PlatValue
+                            value={value.best.perCopy.expectedValue}
+                            suffix="expected / copy"
+                            iconClass="w-3 h-3"
+                          />
+                        </small>
+                      ) : (
+                        <small className="advisor-dim">No value data</small>
+                      )}
+                      {value.profitablePacks.length > 1 && (
+                        <details>
+                          <summary onClick={() => playUiClick()}>
+                            +{value.profitablePacks.length - 1} other packs
+                          </summary>
+                          <ul>
+                            {value.profitablePacks.slice(1).map((pack) => (
+                              <li key={pack.id}>
+                                <span>{packName(pack.label)}</span>
+                                <strong className="advisor-pack-profit">
+                                  <PlatValue
+                                    value={pack.perCopy.gain}
+                                    prefix="+"
+                                    iconClass="w-3 h-3"
+                                    className="text-emerald-400"
+                                  />
+                                </strong>
+                              </li>
+                            ))}
+                          </ul>
+                        </details>
+                      )}
+                    </div>
+
+                    <Recommendation value={value} />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           {filteredRows.length > 6 && (
             <button
               type="button"
