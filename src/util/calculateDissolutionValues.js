@@ -1,6 +1,23 @@
 import { vosforByArcane } from "../data/arcanes/dissolutionData.js";
 import { copiesToMax } from "./processArcaneSalesData.js";
 
+/**
+ * @typedef {import("../types/dissolution.js").ArcaneData} ArcaneData
+ * @typedef {import("../types/dissolution.js").PackTarget} PackTarget
+ * @typedef {import("../types/dissolution.js").PackComparison} PackComparison
+ * @typedef {import("../types/dissolution.js").DissolutionRankResult} DissolutionRankResult
+ * @typedef {import("../types/dissolution.js").DissolutionDualResult} DissolutionDualResult
+ */
+
+/**
+ * Evaluates whether dissolving an Arcane into Vosfor yields more expected platinum
+ * than selling the Arcane directly on Warframe.Market.
+ *
+ * @param {ArcaneData} arcane - Arcane record with valuation and rank properties.
+ * @param {PackTarget[]} packs - Available target packs with vosforCost and packValue.
+ * @param {"unranked" | "maxed" | null} [rank=null] - Target evaluation rank, or null for both.
+ * @returns {DissolutionRankResult | DissolutionDualResult}
+ */
 export default function calculateDissolutionValues(arcane, packs, rank = null) {
   const baseVosfor = vosforByArcane.get(arcane.id) ?? null;
 
