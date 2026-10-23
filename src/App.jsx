@@ -92,6 +92,7 @@ export default function App() {
               className={page === "collections" ? "nav-active" : ""}
               aria-current={page === "collections" ? "page" : undefined}
               href="#/collections"
+              onClick={() => playUiClick()}
             >
               Collections
             </a>
@@ -99,6 +100,7 @@ export default function App() {
               className={page === "dissolver" ? "nav-active" : ""}
               aria-current={page === "dissolver" ? "page" : undefined}
               href="#/dissolver"
+              onClick={() => playUiClick()}
             >
               Dissolver
             </a>
