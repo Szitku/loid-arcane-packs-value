@@ -91,15 +91,26 @@ $$\text{Plat / 100 Vosfor} = \frac{\text{Pack Value}}{2} = 1.5 \times E[\text{Ar
 
 ### 4. Dissolver
 
-For an owned Arcane, the advisor compares its **whole-item sale price at the selected rank** against:
+The Dissolver compares what an Arcane is worth on [warframe.market](https://warframe.market) versus the expected value of dissolving it into Vosfor to purchase new packs:
 
-$$\text{Dissolution Return} = \frac{\text{Rank 0 Vosfor Yield} \times \text{Copies in Owned Arcane}}{200} \times \text{Pack Value}$$
+1. **Sell Value (per copy)**:
+   $$\text{Sell / Copy} = \frac{\text{Market Sale Price}}{\text{Copies in Owned Arcane}}$$
+   *(Rank 0 = 1 copy; Rank 5 = 21 copies; Rank 3 = 10 copies)*
 
-An Arcane is worth dissolving for a pack only when this expected return exceeds its sale price. Rank 0 uses one copy; max rank uses 21 copies at rank 5 or 10 at rank 3 (unrank before dissolving). Vosfor yields are source-specific, with exceptions such as Pax Arcanes; see the [yield reference](https://wiki.warframe.com/w/Vosfor).
+2. **Dissolution Return (per copy)**:
+   $$\text{Dissolve / Copy} = \frac{\text{Vosfor Yield}}{200} \times \frac{\text{Target Pack Value}}{\text{Copies in Owned Arcane}}$$
 
-Pack values follow the global selling strategy and exclusions. Max-rank **pack drops** are normalized per copy, while the owned max-rank Arcane's sale price is **not** divided by its copy count. Missing sales do not imply a zero-value owned Arcane and never produce a recommendation.
+3. **Net Recommendation (Gain)**:
+   $$\text{Gain / Copy} = \text{Dissolve / Copy} - \text{Sell / Copy}$$
+   - **Gain > 0** $\rightarrow$ **Dissolve**: The Arcane's Vosfor yields more expected Platinum from packs than selling it directly.
+   - **Gain < 0** $\rightarrow$ **Sell instead**: Selling directly on the market yields more Platinum.
 
-Fractional packs express the long-run value of pooled Vosfor. Actual purchases require full packs plus 50,000 Credits each; Credit costs, trading time and RNG risk are not converted to Platinum. Comparisons cover only scanned collections and are estimates, not guaranteed profits.
+> **Key Notes**:
+> - **Per-Copy Normalization**: Comparing everything per Rank 0-equivalent copy ensures an apples-to-apples comparison across unranked and max-rank Arcanes.
+> - **Unranking**: Max-rank yields assume unranking at Loid first (21 copies at Rank 5; 10 at Rank 3). Source-specific Vosfor yields follow the official [yield reference](https://wiki.warframe.com/w/Vosfor).
+> - **Drop Selling Strategy**: Target pack returns reflect your chosen drop sale strategy (Rank 0 vs. Max Rank) and account for excluded Arcanes.
+> - **Missing Data**: Missing 48-hour sales mean unknown, not zero value (an Arcane with no sales data will never trigger a false recommendation).
+> - **Assumptions**: Fractional packs express the expected long-run value of pooled Vosfor. Trading time, market volatility, and the 50,000 Credit cost per pack are not converted to Platinum.
 
 ---
 
