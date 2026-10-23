@@ -456,6 +456,20 @@ export default function DissolutionAdvisor({
                 ? "Scan all to include the selected target pack."
                 : "Try another pack or turn off the worthwhile-only filter."}
           </p>
+          {(rows.length === 0 || targetMissing) && (
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() => {
+                playUiClick();
+                onScanAll();
+              }}
+              disabled={isScanningAll}
+            >
+              {isScanningAll ? "Scanning…" : "Scan all collections"}
+              <ArrowRight size={14} />
+            </button>
+          )}
         </div>
       )}
 
