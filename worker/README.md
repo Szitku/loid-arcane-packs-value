@@ -14,15 +14,30 @@ This Cloudflare Worker acts as a reliable cron trigger for the GitHub Actions ma
 
 ---
 
-## Manual Trigger & Testing
+## Manual Trigger & Authentication
 
-You can trigger a manual run anytime:
+The `/trigger` endpoint is protected behind a required secret key (`TRIGGER_SECRET`) to prevent unauthorized workflow dispatches.
 
-* **From your browser or terminal:**
-  ```powershell
-  Invoke-RestMethod -Uri "https://loid-market-updater.szitku.workers.dev/trigger" -Method POST
+You can trigger a manual run by providing your secret:
+
+* **From terminal using curl:**
+  ```bash
+  curl -X POST "https://loid-market-updater.szitku.workers.dev/trigger" \
+    -H "x-trigger-secret: YOUR_TRIGGER_SECRET"
   ```
-  *(Or simply visit `https://loid-market-updater.szitku.workers.dev/trigger` in your browser)*.
+
+* **From terminal using PowerShell:**
+  ```powershell
+  Invoke-RestMethod -Uri "https://loid-market-updater.szitku.workers.dev/trigger" `
+    -Method POST `
+    -Headers @{ "x-trigger-secret" = "YOUR_TRIGGER_SECRET" }
+  ```
+
+* **From your browser:**
+  Visit:
+  ```text
+  https://loid-market-updater.szitku.workers.dev/trigger?token=YOUR_TRIGGER_SECRET
+  ```
 
 * **Check the GitHub Actions tab:**
   You will immediately see the **Update Market Data** workflow start running!

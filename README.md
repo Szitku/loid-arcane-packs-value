@@ -31,7 +31,7 @@ Because each pack contains different Arcanes with varied drop weights and volati
 - 📈 **Real-Time & Scheduled Market Sync**:
   - Market statistics update automatically every 2 hours using real 48-hour closed transaction data from [warframe.market](https://warframe.market).
   - Pre-cached market snapshots distributed via CDN mirrors for instant loading without rate limits.
-  - On-demand manual sync trigger via Cloudflare Worker endpoint (`POST /trigger`) or GitHub Actions workflow dispatch.
+  - On-demand manual sync via authenticated Cloudflare Worker endpoint (`POST /trigger` with secret key) or GitHub Actions workflow dispatch.
 - ⚖️ **Dual Pricing Strategies**:
   - **Unranked (Rank 0)**: Immediate sell value for players looking to liquidate drops without fusing additional duplicate copies.
   - **Max Rank (Rank 5 / Rank 3 normalized)**: Investment potential for players who hold and fuse duplicate Arcanes prior to trading.
@@ -187,7 +187,7 @@ flowchart LR
    - Deployed as a serverless Cloudflare Worker with a Cron Trigger firing every 2 hours (`0 */2 * * *`).
    - Executes with exact second-level precision, completely circumventing GitHub Actions native cron queueing delays or dropped runs during high-traffic GitHub periods.
    - Dispatches a `repository_dispatch` event (`event_type: "update-market-data"`) to the GitHub REST API (`POST /repos/Szitku/loid-vosfor-exchange/dispatches`) in a single subrequest (~200ms runtime).
-   - Exposes an authorized HTTP `/trigger` endpoint (with optional `TRIGGER_SECRET`) allowing manual on-demand market updates from a browser, terminal, or webhook.
+   - Exposes a secured HTTP `/trigger` endpoint requiring secret key authentication (`TRIGGER_SECRET` via header `x-trigger-secret` or query parameter `?token=...`) to prevent unauthorized workflow dispatches.
 2. **Automated Ingestion Pipeline (`.github/workflows/update-market-data.yml`)**:
    - Listens for `repository_dispatch` (`types: [update-market-data]`) and manual `workflow_dispatch`.
    - Boots an Ubuntu environment with Node.js 22 and executes `node scripts/fetch-market-data.mjs --force`.
@@ -275,20 +275,24 @@ The market update scheduler is powered by Cloudflare Workers in `worker/`:
    npm run worker:deploy
    ```
 
-3. **Required Secrets**: Configure `GITHUB_TOKEN` (a GitHub Personal Access Token with `repo` dispatch permissions) in your Cloudflare Worker environment:
+3. **Required Secrets**: Configure `GITHUB_TOKEN` (a GitHub Personal Access Token with `repo` dispatch permissions) and `TRIGGER_SECRET` in your Cloudflare Worker environment:
    ```bash
    cd worker
    npx wrangler secret put GITHUB_TOKEN
-   npx wrangler secret put TRIGGER_SECRET # optional: secret token for HTTP trigger
+   npx wrangler secret put TRIGGER_SECRET
    ```
 
 4. **Trigger Manual Market Update via HTTP**:
+   The `/trigger` endpoint is protected behind `TRIGGER_SECRET` and requires authentication:
    ```bash
-   # Using curl:
-   curl -X POST https://loid-market-updater.szitku.workers.dev/trigger
+   # Using curl (via header or query parameter):
+   curl -X POST "https://loid-market-updater.szitku.workers.dev/trigger" \
+     -H "x-trigger-secret: YOUR_TRIGGER_SECRET"
 
    # Using PowerShell:
-   Invoke-RestMethod -Uri "https://loid-market-updater.szitku.workers.dev/trigger" -Method POST
+   Invoke-RestMethod -Uri "https://loid-market-updater.szitku.workers.dev/trigger" `
+     -Method POST `
+     -Headers @{ "x-trigger-secret" = "YOUR_TRIGGER_SECRET" }
    ```
 
 ### Production Build
