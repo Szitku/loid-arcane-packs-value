@@ -58,6 +58,26 @@ export interface DissolutionDualResult {
   maxed: DissolutionRankResult;
 }
 
+export interface DissolutionTile {
+  id: string;
+  label: string;
+  vosforCost: number;
+  [key: string]: unknown;
+}
+
+export interface CollectionStrategyValue {
+  packValue: number;
+  [key: string]: unknown;
+}
+
+export interface DissolutionAdvisorProps {
+  tiles: DissolutionTile[];
+  fetchedArcanes: Map<string, ArcaneData[]>;
+  weightedCollections: Map<string, Record<RankStrategy, CollectionStrategyValue>>;
+  onScanAll?: () => void;
+  isScanningAll?: boolean;
+}
+
 /**
  * Calculates Vosfor yields, pack conversion expected values, and profit gains.
  */

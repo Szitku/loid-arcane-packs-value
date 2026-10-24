@@ -1,9 +1,11 @@
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowRightLeft,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Layers3,
   RotateCw,
   Search,
@@ -15,6 +17,69 @@ import { PlatinumIcon } from "../icons/WarframeIcons";
 import { getRarityStyle } from "../../util/rarityStyles";
 
 const packName = (label) => label.replace(/ Collection$/, "");
+const PAGE_SIZE = 10;
+
+/**
+ * @typedef {Object} PageItem
+ * @property {"page"} type
+ * @property {number} page
+ * @property {string} key
+ *
+ * @typedef {Object} EllipsisItem
+ * @property {"ellipsis"} type
+ * @property {null} page
+ * @property {string} key
+ *
+ * @typedef {PageItem | EllipsisItem} PaginationItem
+ */
+
+/**
+ * Generates pagination items with stable, semantic keys and ellipsis identifiers.
+ *
+ * @param {number} currentPage
+ * @param {number} totalPages
+ * @returns {PaginationItem[]}
+ */
+function getPaginationItems(currentPage, totalPages) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => ({
+      type: "page",
+      page: i + 1,
+      key: `page-${i + 1}`,
+    }));
+  }
+  if (currentPage <= 4) {
+    return [
+      ...[1, 2, 3, 4, 5].map((p) => ({
+        type: /** @type {const} */ ("page"),
+        page: p,
+        key: `page-${p}`,
+      })),
+      { type: /** @type {const} */ ("ellipsis"), page: null, key: "ellipsis-end" },
+      { type: /** @type {const} */ ("page"), page: totalPages, key: `page-${totalPages}` },
+    ];
+  }
+  if (currentPage >= totalPages - 3) {
+    return [
+      { type: /** @type {const} */ ("page"), page: 1, key: "page-1" },
+      { type: /** @type {const} */ ("ellipsis"), page: null, key: "ellipsis-start" },
+      ...Array.from({ length: 5 }, (_, i) => totalPages - 4 + i).map((p) => ({
+        type: /** @type {const} */ ("page"),
+        page: p,
+        key: `page-${p}`,
+      })),
+    ];
+  }
+  return [
+    { type: /** @type {const} */ ("page"), page: 1, key: "page-1" },
+    { type: /** @type {const} */ ("ellipsis"), page: null, key: "ellipsis-start" },
+    { type: /** @type {const} */ ("page"), page: currentPage - 1, key: `page-${currentPage - 1}` },
+    { type: /** @type {const} */ ("page"), page: currentPage, key: `page-${currentPage}` },
+    { type: /** @type {const} */ ("page"), page: currentPage + 1, key: `page-${currentPage + 1}` },
+    { type: /** @type {const} */ ("ellipsis"), page: null, key: "ellipsis-end" },
+    { type: /** @type {const} */ ("page"), page: totalPages, key: `page-${totalPages}` },
+  ];
+}
 
 function PlatValue({
   value,
@@ -92,20 +157,33 @@ function Recommendation({ value }) {
   );
 }
 
+/**
+ * @typedef {import("../../types/dissolution").DissolutionAdvisorProps} DissolutionAdvisorProps
+ */
+
+/**
+ * Arcane Dissolution Advisor component.
+ *
+ * @param {DissolutionAdvisorProps} props
+ */
 export default function DissolutionAdvisor({
   tiles,
   fetchedArcanes,
   weightedCollections,
   onScanAll,
-  isScanningAll,
+  isScanningAll = false,
 }) {
   const [rank, setRank] = useState("unranked");
   const [strategy, setStrategy] = useState("unranked");
   const [targetPack, setTargetPack] = useState("all");
   const [query, setQuery] = useState("");
   const [onlyWorthwhile, setOnlyWorthwhile] = useState(true);
-  const [showAll, setShowAll] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [showGuide, setShowGuide] = useState(false);
+
+  const sectionRef = useRef(null);
+  const tableRef = useRef(null);
+
   const packs = useMemo(
     () =>
       tiles.flatMap((tile) => {
@@ -167,21 +245,47 @@ export default function DissolutionAdvisor({
         (!onlyWorthwhile || value.profitablePacks.length > 0),
     );
   }, [rows, normalizedQuery, onlyWorthwhile]);
-  const visibleRows = showAll ? filteredRows : filteredRows.slice(0, 6);
+
+  const totalPages = Math.max(1, Math.ceil(filteredRows.length / PAGE_SIZE));
+
+  // Sync state during render when filtered rows or external props shrink the page range
+  if (currentPage > totalPages) {
+    setCurrentPage(totalPages);
+  }
+
+  const validPage = Math.min(Math.max(1, currentPage), totalPages);
+  const startIndex = (validPage - 1) * PAGE_SIZE;
+  const visibleRows = filteredRows.slice(startIndex, startIndex + PAGE_SIZE);
+
+  const paginationItems = useMemo(
+    () => getPaginationItems(validPage, totalPages),
+    [validPage, totalPages],
+  );
+
   const hasScannedAny = fetchedArcanes.size > 0;
   const isPartial = hasScannedAny && fetchedArcanes.size < tiles.length;
   const targetMissing =
     targetPack !== "all" && !packs.some((pack) => pack.id === targetPack);
 
-  const listRef = useRef(null);
+  const resetPage = useCallback(() => {
+    setCurrentPage(1);
+  }, []);
 
-  const resetView = () => {
-    if (listRef.current) listRef.current.scrollTop = 0;
-    setShowAll(false);
-  };
+  const handlePageChange = useCallback((newPage) => {
+    setCurrentPage(newPage);
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    sectionRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+    tableRef.current?.focus({ preventScroll: true });
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="dissolver"
       className="dissolution-panel"
       aria-labelledby="dissolution-title"
@@ -356,7 +460,7 @@ export default function DissolutionAdvisor({
                     onChange={() => {
                       playUiClick();
                       onChange(option.id);
-                      resetView();
+                      resetPage();
                     }}
                   />
                   <span className="advisor-rank-card">
@@ -393,7 +497,7 @@ export default function DissolutionAdvisor({
             onChange={(event) => {
               playUiClick();
               setTargetPack(event.target.value);
-              resetView();
+              resetPage();
             }}
           >
             <option value="all">Best available pack</option>
@@ -416,7 +520,7 @@ export default function DissolutionAdvisor({
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
-              resetView();
+              resetPage();
             }}
           />
           {query && (
@@ -426,7 +530,7 @@ export default function DissolutionAdvisor({
               onClick={() => {
                 playUiClick();
                 setQuery("");
-                resetView();
+                resetPage();
               }}
             >
               <X size={14} aria-hidden="true" />
@@ -440,7 +544,7 @@ export default function DissolutionAdvisor({
           onClick={() => {
             playUiClick();
             setOnlyWorthwhile((value) => !value);
-            resetView();
+            resetPage();
           }}
         >
           Only worth dissolving
@@ -489,10 +593,18 @@ export default function DissolutionAdvisor({
       {visibleRows.length > 0 ? (
         <>
           <div
+            ref={tableRef}
+            tabIndex={-1}
+            className="outline-none"
             role="table"
             aria-label="Arcane dissolution and market comparison"
             aria-rowcount={filteredRows.length + 1}
           >
+            <div className="sr-only" role="status" aria-live="polite">
+              Page {validPage} of {totalPages}, showing rows {startIndex + 1} to{" "}
+              {Math.min(startIndex + PAGE_SIZE, filteredRows.length)} of{" "}
+              {filteredRows.length}
+            </div>
             <div role="rowgroup">
               <div className="advisor-columns" role="row" aria-rowindex={1}>
                 <span role="columnheader">Arcane</span>
@@ -501,20 +613,19 @@ export default function DissolutionAdvisor({
                 <span role="columnheader">Recommendation</span>
               </div>
             </div>
-            <ul
-              ref={listRef}
+            <div
               id="advisor-results-list"
               role="rowgroup"
-              className={`advisor-results ${showAll ? "is-expanded" : ""}`}
+              className="advisor-results"
             >
               {visibleRows.map(({ arcane, collection, value }, index) => {
                 const style = getRarityStyle(arcane.rarity);
                 const rarityKey = (arcane.rarity || "").toLowerCase();
 
                 return (
-                  <li
+                  <div
                     role="row"
-                    aria-rowindex={index + 2}
+                    aria-rowindex={startIndex + index + 2}
                     className={`advisor-row rarity-${rarityKey}`}
                     key={arcane.id}
                   >
@@ -606,37 +717,81 @@ export default function DissolutionAdvisor({
                     </div>
 
                     <Recommendation value={value} />
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           </div>
-          {filteredRows.length > 6 && (
-            <button
-              type="button"
-              className="advisor-show-more"
-              aria-expanded={showAll}
-              aria-controls="advisor-results-list"
-              onClick={() => {
-                playUiClick();
-                setShowAll((prev) => {
-                  const next = !prev;
-                  if (!next) {
-                    if (listRef.current) listRef.current.scrollTop = 0;
-                    document.getElementById("dissolver")?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  }
-                  return next;
-                });
-              }}
+          {totalPages > 1 && (
+            <nav
+              className="advisor-pagination"
+              aria-label="Dissolver results pagination"
             >
-              {showAll
-                ? "Show less"
-                : `Show all ${filteredRows.length} results`}
-              <ChevronDown size={14} className={showAll ? "is-expanded" : ""} aria-hidden="true" />
-            </button>
+              <div className="advisor-pagination-info">
+                Showing{" "}
+                <strong>
+                  {startIndex + 1}–{Math.min(startIndex + PAGE_SIZE, filteredRows.length)}
+                </strong>{" "}
+                of <strong>{filteredRows.length}</strong> Arcanes
+              </div>
+              <div className="advisor-pagination-controls">
+                <button
+                  type="button"
+                  className="advisor-pagination-btn"
+                  disabled={validPage <= 1}
+                  onClick={() => {
+                    playUiClick();
+                    handlePageChange(validPage - 1);
+                  }}
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft size={14} aria-hidden="true" />
+                  <span>Prev</span>
+                </button>
+
+                <div className="advisor-pagination-pages">
+                  {paginationItems.map((item) =>
+                    item.type === "ellipsis" ? (
+                      <span
+                        key={item.key}
+                        className="advisor-pagination-ellipsis"
+                        aria-hidden="true"
+                      >
+                        …
+                      </span>
+                    ) : (
+                      <button
+                        key={item.key}
+                        type="button"
+                        className={`advisor-pagination-page ${item.page === validPage ? "is-active" : ""}`}
+                        onClick={() => {
+                          playUiClick();
+                          handlePageChange(item.page);
+                        }}
+                        aria-label={`Page ${item.page}`}
+                        aria-current={item.page === validPage ? "page" : undefined}
+                      >
+                        {item.page}
+                      </button>
+                    ),
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  className="advisor-pagination-btn"
+                  disabled={validPage >= totalPages}
+                  onClick={() => {
+                    playUiClick();
+                    handlePageChange(validPage + 1);
+                  }}
+                  aria-label="Next page"
+                >
+                  <span>Next</span>
+                  <ChevronRight size={14} aria-hidden="true" />
+                </button>
+              </div>
+            </nav>
           )}
         </>
       ) : (
