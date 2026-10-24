@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "loid-market-updater",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "triggers": {
+    "crons": ["0 */2 * * *"]
+  },
+  "vars": {
+    "GITHUB_REPO": "Szitku/loid-vosfor-exchange"
+  }
+}

@@ -14,6 +14,7 @@ dist-ssr
 
 # Pre-fetched market data cache (pushed only to 'data' branch via CI)
 public/data/
+.wrangler/
 
 # Editor directories and files
 .vscode/*

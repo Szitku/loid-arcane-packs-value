@@ -1,9 +1,8 @@
 name: Update Market Data
 
 on:
-  schedule:
-    # Update market data every 4 hours without rebuilding or redeploying the website
-    - cron: "17 */4 * * *"
+  repository_dispatch:
+    types: [update-market-data]
   workflow_dispatch:
 
 jobs:

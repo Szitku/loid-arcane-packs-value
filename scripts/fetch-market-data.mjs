@@ -33,19 +33,20 @@ console.log(`Found ${uniqueIds.length} unique arcanes to fetch.`);
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchWithRetry(url, retries = 3, backoffMs = 1000) {
+async function fetchWithRetry(url, retries = 4, baseBackoffMs = 2500) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const res = await fetch(url, {
         headers: {
-          "User-Agent": "LoidExchange/1.0 (Warframe Community Tool)",
+          "User-Agent": "LoidExchange/1.0 (Warframe Community Tool; Automated CI)",
           Accept: "application/json",
         },
       });
 
       if (res.status === 429) {
-        console.warn(`[Rate limit 429] Backing off for ${backoffMs * attempt}ms...`);
-        await delay(backoffMs * attempt);
+        const backoff = baseBackoffMs * attempt;
+        console.warn(`\n[Rate limit 429] Backing off for ${backoff}ms (attempt ${attempt}/${retries})...`);
+        await delay(backoff);
         continue;
       }
 
@@ -56,8 +57,9 @@ async function fetchWithRetry(url, retries = 3, backoffMs = 1000) {
       return await res.json();
     } catch (err) {
       if (attempt === retries) throw err;
-      console.warn(`[Attempt ${attempt} failed] ${err.message}. Retrying in ${backoffMs * attempt}ms...`);
-      await delay(backoffMs * attempt);
+      const backoff = 1200 * attempt;
+      console.warn(`\n[Attempt ${attempt} failed] ${err.message}. Retrying in ${backoff}ms...`);
+      await delay(backoff);
     }
   }
 }
@@ -71,18 +73,16 @@ async function main() {
   let successCount = 0;
   let failCount = 0;
 
-  // Concurrency limit = 3 with 120ms pause
-  const BATCH_SIZE = 3;
+  // Controlled concurrency = 2 with 350ms pause (~2.5 requests per second, well within API rate limits)
+  const BATCH_SIZE = 2;
   for (let i = 0; i < uniqueIds.length; i += BATCH_SIZE) {
     const batch = uniqueIds.slice(i, i + BATCH_SIZE);
-    
+
     await Promise.all(
       batch.map(async (id) => {
         const url = `https://api.warframe.market/v1/items/${id}/statistics`;
         try {
           const data = await fetchWithRetry(url);
-          // Only preserve the 48hours closed statistics needed by the frontend calculations
-          // This keeps the JSON file small (~300KB) and lightning fast to load
           const intervals = data?.payload?.statistics_closed?.["48hours"] || [];
           const minimalIntervals = intervals.map((item) => ({
             mod_rank: item.mod_rank,
@@ -99,19 +99,22 @@ async function main() {
           };
           successCount++;
         } catch (err) {
-          console.error(`Failed to fetch ${id}: ${err.message}`);
+          console.error(`\nFailed to fetch fresh data for ${id}: ${err.message}`);
           failCount++;
         }
       })
     );
 
     const progress = Math.min(i + BATCH_SIZE, uniqueIds.length);
-    process.stdout.write(`\rProgress: ${progress}/${uniqueIds.length} (${successCount} succeeded, ${failCount} failed)`);
-    await delay(120);
+    process.stdout.write(
+      `\rProgress: ${progress}/${uniqueIds.length} (${successCount} fresh, ${failCount} failed)`
+    );
+    await delay(350);
   }
 
   console.log("\nFinished fetching market data.");
 
+  // Strict data integrity check: if any arcane fails, abort without committing partial/stale data
   if (failCount > 0) {
     throw new Error(
       `Market data update aborted: ${failCount} arcane(s) failed to fetch. Existing data snapshot preserved.`
@@ -125,7 +128,9 @@ async function main() {
   };
 
   await fs.writeFile(outputFile, JSON.stringify(payload, null, 2), "utf-8");
-  console.log(`Saved market data to ${outputFile} (${(Buffer.byteLength(JSON.stringify(payload)) / 1024).toFixed(1)} KB)`);
+  console.log(
+    `Saved complete fresh market data to ${outputFile} (${(Buffer.byteLength(JSON.stringify(payload)) / 1024).toFixed(1)} KB) - 100% (${successCount}/${uniqueIds.length}) updated.`
+  );
 }
 
 main().catch((err) => {
