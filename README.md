@@ -29,11 +29,9 @@ Because each pack contains different Arcanes with varied drop weights and volati
 ## ✨ Features
 
 - 📈 **Real-Time & Scheduled Market Sync**:
-  - **Precision Cron Scheduling**: A dedicated **Cloudflare Worker** acts as a high-precision scheduler triggering the GitHub Actions workflow every 2 hours (`0 */2 * * *`) via `repository_dispatch`, bypassing GitHub's delayed or skipped cron queues.
-  - **Gentle & Resilient Ingestion**: Crawls [warframe.market](https://warframe.market) with controlled concurrency ($2$ concurrent requests with $350\text{ ms}$ pauses, $\approx 2.5\text{ req/s}$) and multi-stage exponential backoff to respect community API limits.
-  - **Atomic Snapshot Integrity**: Validates every Arcane before committing; any network or API failure safely preserves the existing snapshot without committing partial or corrupted data.
-  - **Zero-Latency CDN Distribution**: Serves pre-fetched statistics via raw GitHub and jsDelivr CDN mirrors on a dedicated `data` branch, bypassing frontend rebuilds and API rate limits.
-  - **On-Demand Manual Trigger**: Synchronize market data at any time via Cloudflare Worker HTTP endpoint (`POST /trigger`) or GitHub `workflow_dispatch`.
+  - Market statistics update automatically every 2 hours using real 48-hour closed transaction data from [warframe.market](https://warframe.market).
+  - Pre-cached market snapshots distributed via CDN mirrors for instant loading without rate limits.
+  - On-demand manual sync trigger via Cloudflare Worker endpoint (`POST /trigger`) or GitHub Actions workflow dispatch.
 - ⚖️ **Dual Pricing Strategies**:
   - **Unranked (Rank 0)**: Immediate sell value for players looking to liquidate drops without fusing additional duplicate copies.
   - **Max Rank (Rank 5 / Rank 3 normalized)**: Investment potential for players who hold and fuse duplicate Arcanes prior to trading.
@@ -52,10 +50,6 @@ Because each pack contains different Arcanes with varied drop weights and volati
   - Rarity filtering (**All**, **Common**, **Uncommon**, **Rare**, **Legendary**) and real-time text search with instant clearing.
   - Global collection toolbar search across faction, location, and collection tags.
   - One-click **"Compare all collections"** to batch-fetch and evaluate all 9 packs at once.
-- ⚡ **High-Performance Architecture & Typography**:
-  - **Self-Hosted Local Fonts**: Full set of WOFF2 fonts (Cinzel, Cormorant Garamond, Rajdhani, Inter) loaded locally to eliminate external Google Fonts render-blocking network waterfalls.
-  - **Route & Component Code-Splitting**: React `lazy` and `Suspense` dynamic chunking for heavy views (`DissolutionAdvisor`, `ArcaneValuesSection`, `VosforCalculator`) and split vendor bundles (`vendor-react`, `vendor-icons`).
-  - **Inlined App Shell**: Instant first contentful paint with an embedded header and dashboard placeholder prior to bundle hydration.
 - 🔗 **Direct Market Insights & Deep Linking**:
   - Direct one-click links on every Arcane navigate straight to active listings on [warframe.market](https://warframe.market), accompanied by inline 48-hour trade volume, weighted average sales prices, and drop rates.
   - Client-side hash routing (`#/collections` and `#/dissolver`) with instant scroll restoration and URL bookmarking.
