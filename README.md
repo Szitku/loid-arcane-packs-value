@@ -5,6 +5,7 @@
 [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-Cron_Scheduler-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
 [![Update Market Data](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/update-market-data.yml/badge.svg)](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/update-market-data.yml)
 [![Deploy to GitHub Pages](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/deploy.yml/badge.svg)](https://github.com/Szitku/loid-vosfor-exchange/actions/workflows/deploy.yml)
 
@@ -28,8 +29,11 @@ Because each pack contains different Arcanes with varied drop weights and volati
 ## ✨ Features
 
 - 📈 **Real-Time & Scheduled Market Sync**:
-  - Automated GitHub Actions workflow updates market statistics every 4 hours without needing to rebuild or redeploy the frontend.
-  - Zero-rate-limit static distribution via raw GitHub and jsDelivr CDN mirrors on a dedicated `data` branch, with fallback CORS proxy chains for browser resilience.
+  - **Precision Cron Scheduling**: A dedicated **Cloudflare Worker** acts as a high-precision scheduler triggering the GitHub Actions workflow every 2 hours (`0 */2 * * *`) via `repository_dispatch`, bypassing GitHub's delayed or skipped cron queues.
+  - **Gentle & Resilient Ingestion**: Crawls [warframe.market](https://warframe.market) with controlled concurrency ($2$ concurrent requests with $350\text{ ms}$ pauses, $\approx 2.5\text{ req/s}$) and multi-stage exponential backoff to respect community API limits.
+  - **Atomic Snapshot Integrity**: Validates every Arcane before committing; any network or API failure safely preserves the existing snapshot without committing partial or corrupted data.
+  - **Zero-Latency CDN Distribution**: Serves pre-fetched statistics via raw GitHub and jsDelivr CDN mirrors on a dedicated `data` branch, bypassing frontend rebuilds and API rate limits.
+  - **On-Demand Manual Trigger**: Synchronize market data at any time via Cloudflare Worker HTTP endpoint (`POST /trigger`) or GitHub `workflow_dispatch`.
 - ⚖️ **Dual Pricing Strategies**:
   - **Unranked (Rank 0)**: Immediate sell value for players looking to liquidate drops without fusing additional duplicate copies.
   - **Max Rank (Rank 5 / Rank 3 normalized)**: Investment potential for players who hold and fuse duplicate Arcanes prior to trading.
@@ -40,13 +44,18 @@ Because each pack contains different Arcanes with varied drop weights and volati
   - Choose a target collection or compare against all scanned packs; expand a result to see every pack with a positive expected gain.
   - Independent strategy selectors for **Owned Arcane Rank** (Rank 0 vs. Max Rank) and **Target Pack Drop Strategy** (Unranked vs. Max Rank).
   - Includes source-specific Vosfor yields, max-rank copy counts (21 at rank 5, 10 at rank 3), search, and a worthwhile-only filter. Missing sales data never triggers a false recommendation.
+  - Accessible pagination (10 arcanes per page with semantic ellipsis navigation and quick jumping) to swiftly inspect and sort through dozens of candidate arcanes.
 - 🎯 **Selective Arcane Exclusion**:
   - Toggle individual Arcanes on or off. Excluded Arcanes still occur within the drop table mathematically, but contribute zero Platinum to your expected yield (ideal for items you plan to keep or low-liquidity Arcanes you do not wish to sell).
 - 🔍 **Interactive Exploration, Sorting & Filtering**:
   - Multi-column sorting in collection detail: sort by **Weighted Value**, **48h Volume**, **Average Price**, **Drop Weight**, or **Alphabetical** order with asc/desc toggles.
-  - Rarity filtering (**All**, **Common**, **Uncommon**, **Rare**, **Legendary**) and real-time text search.
+  - Rarity filtering (**All**, **Common**, **Uncommon**, **Rare**, **Legendary**) and real-time text search with instant clearing.
   - Global collection toolbar search across faction, location, and collection tags.
   - One-click **"Compare all collections"** to batch-fetch and evaluate all 9 packs at once.
+- ⚡ **High-Performance Architecture & Typography**:
+  - **Self-Hosted Local Fonts**: Full set of WOFF2 fonts (Cinzel, Cormorant Garamond, Rajdhani, Inter) loaded locally to eliminate external Google Fonts render-blocking network waterfalls.
+  - **Route & Component Code-Splitting**: React `lazy` and `Suspense` dynamic chunking for heavy views (`DissolutionAdvisor`, `ArcaneValuesSection`, `VosforCalculator`) and split vendor bundles (`vendor-react`, `vendor-icons`).
+  - **Inlined App Shell**: Instant first contentful paint with an embedded header and dashboard placeholder prior to bundle hydration.
 - 🔗 **Direct Market Insights & Deep Linking**:
   - Direct one-click links on every Arcane navigate straight to active listings on [warframe.market](https://warframe.market), accompanied by inline 48-hour trade volume, weighted average sales prices, and drop rates.
   - Client-side hash routing (`#/collections` and `#/dissolver`) with instant scroll restoration and URL bookmarking.
@@ -134,24 +143,77 @@ The Dissolver compares what an Arcane is worth on [warframe.market](https://warf
 
 ```mermaid
 flowchart LR
-    A["warframe.market API"] -->|Cron / Every 4 hrs| B["scripts/fetch-market-data.mjs"]
-    B -->|Commit & Push| C["GitHub 'data' Branch"]
-    C -->|Mirror / CDN| D["jsDelivr CDN & Raw GitHub"]
-    D -->|Client Preload| E["React Web App (GitHub Pages)"]
-    A -.->|Live Fallback / Proxies| E
+    subgraph Scheduler["1. Precision Scheduler (Cloudflare Worker)"]
+        direction TB
+        CRON["Cron Trigger (Every 2h: 0 */2 * * *)"]
+        MANUAL["HTTP Endpoint (/trigger)"]
+        DISPATCH["GitHub REST API (POST /dispatches)"]
+        CRON --> DISPATCH
+        MANUAL --> DISPATCH
+    end
+
+    subgraph CI["2. GitHub Actions Pipeline (update-market-data.yml)"]
+        direction TB
+        RUNNER["Ubuntu Runner (Node 22)"]
+        FETCHER["scripts/fetch-market-data.mjs (~2.5 req/s)"]
+        DEPLOY["peaceiris/actions-gh-pages (Push to data branch)"]
+        RUNNER --> FETCHER
+        FETCHER --> DEPLOY
+    end
+
+    subgraph WFM["Warframe Market"]
+        API["warframe.market API (/v1/items/{id}/statistics)"]
+    end
+
+    subgraph Storage["3. CDN & Edge Distribution"]
+        direction TB
+        DATA_BRANCH["GitHub 'data' Branch (market-data.json)"]
+        RAW["Raw GitHub (raw.githubusercontent.com)"]
+        JSDELIVR["jsDelivr CDN (cdn.jsdelivr.net)"]
+        DATA_BRANCH --> RAW
+        DATA_BRANCH --> JSDELIVR
+    end
+
+    subgraph Client["4. Browser Client (GitHub Pages)"]
+        direction TB
+        APP["React 19 SPA (src/util/apiClient.js)"]
+        PROXIES["Fallback Proxy Chain (Dev proxy / CORS proxies)"]
+    end
+
+    DISPATCH -->|"repository_dispatch"| RUNNER
+    FETCHER <-->|"Rate-limited requests"| API
+    DEPLOY -->|"Deploy JSON"| DATA_BRANCH
+    RAW -->|"Preload Snapshot"| APP
+    JSDELIVR -->|"Preload Snapshot"| APP
+    API -.->|"Live Fallback"| PROXIES
+    PROXIES -.->|"Fallback Data"| APP
 ```
 
-1. **Automated Fetcher (`scripts/fetch-market-data.mjs`)**:
-   - Queries `https://api.warframe.market/v1/items/{id}/statistics` for every Arcane.
-   - Filters down to 48-hour closed trade volume and volume-weighted average price (`wa_price`).
-   - Implements exponential backoff, retry loops, and rate limiting (concurrency of 3).
-2. **Decoupled Data Branch (`data`)**:
-   - The workflow pushes updated JSON directly to the `data` branch.
-   - The production website serves data dynamically without triggering a full rebuild.
-3. **Resilient Client (`src/util/apiClient.js`)**:
-   - Queries jsDelivr CDN and raw GitHub from the `data` branch during initial load.
-   - Falls back to the Vite local development proxy (`/api/wf/`) when developing locally.
-   - Falls back to public CORS proxy chains (`corsproxy.io`, `api.allorigins.win`) and direct fetch in case of network obstacles.
+1. **Precision Scheduler (`worker/src/index.ts`)**:
+   - Deployed as a serverless Cloudflare Worker with a Cron Trigger firing every 2 hours (`0 */2 * * *`).
+   - Executes with exact second-level precision, completely circumventing GitHub Actions native cron queueing delays or dropped runs during high-traffic GitHub periods.
+   - Dispatches a `repository_dispatch` event (`event_type: "update-market-data"`) to the GitHub REST API (`POST /repos/Szitku/loid-vosfor-exchange/dispatches`) in a single subrequest (~200ms runtime).
+   - Exposes an authorized HTTP `/trigger` endpoint (with optional `TRIGGER_SECRET`) allowing manual on-demand market updates from a browser, terminal, or webhook.
+2. **Automated Ingestion Pipeline (`.github/workflows/update-market-data.yml`)**:
+   - Listens for `repository_dispatch` (`types: [update-market-data]`) and manual `workflow_dispatch`.
+   - Boots an Ubuntu environment with Node.js 22 and executes `node scripts/fetch-market-data.mjs --force`.
+   - Uses `peaceiris/actions-gh-pages@v4` to publish updated market statistics directly to the isolated `data` branch without triggering a redeployment or rebuild of the main application.
+3. **Hardened Crawler (`scripts/fetch-market-data.mjs`)**:
+   - Iterates through all unique Arcanes across the 9 dissolution collections (~130 items).
+   - Implements polite rate-limiting with controlled concurrency (batch size of 2 with a 350ms pause, yielding $\approx 2.5\text{ requests/sec}$) to avoid API rate limits.
+   - Robust error handling: exponential backoff on HTTP 429 rate limit responses (up to 4 attempts with progressive backoff delays).
+   - Trims raw payloads down to essential 48-hour closed trade statistics (`mod_rank`, `volume`, `wa_price`), producing a compact static JSON file (~300 KB).
+   - **Strict Data Integrity**: If any single Arcane fails after all retry attempts, the script aborts immediately with an error, preventing partial or corrupted data from overwriting the last known good snapshot on the `data` branch.
+4. **Decoupled Data Branch (`data`)**:
+   - Stores only `market-data.json` at the root of the `data` branch.
+   - Decoupling data from code eliminates unnecessary production frontend rebuilds and keeps git history clean.
+5. **Resilient Client (`src/util/apiClient.js`)**:
+   - Upon initial load, the browser preloads `market-data.json` from the `data` branch via raw GitHub and jsDelivr CDN mirrors.
+   - In-flight request deduplication prevents duplicate calls for the same Arcane statistics.
+   - Multi-tier fallback hierarchy if CDN mirrors are unreachable:
+     - Local development Vite proxy (`/api/wf/`) when developing locally.
+     - Public CORS proxy chain (`corsproxy.io`, `api.allorigins.win`) for live on-demand fetching in production.
+     - Direct API fetch as the final fallback.
 
 ---
 
@@ -159,7 +221,7 @@ flowchart LR
 
 ### Prerequisites
 
-- **Node.js**: `v20.x` or higher
+- **Node.js**: `v20.x` or `v22.x` (CI runs on Node 22)
 - **npm**: `v10.x` or higher
 
 ### Installation
@@ -191,6 +253,8 @@ Run the mathematical validation and unit test suite via Node's native test runne
 
 ```bash
 npm test
+# Or directly via Node:
+node --test scripts/*.test.mjs
 ```
 
 Validates rank-normalization calculations, copy divisors (10 vs 21), unknown market handling, and profit gain parity.
@@ -202,6 +266,36 @@ To refresh the static market statistics file (`public/data/market-data.json`) di
 ```bash
 npm run fetch-data
 ```
+
+### Precision Scheduler (Cloudflare Worker)
+
+The market update scheduler is powered by Cloudflare Workers in `worker/`:
+
+1. Run the worker locally with Wrangler:
+   ```bash
+   npm run worker:dev
+   ```
+
+2. Deploy the worker to Cloudflare:
+   ```bash
+   npm run worker:deploy
+   ```
+
+3. **Required Secrets**: Configure `GITHUB_TOKEN` (a GitHub Personal Access Token with `repo` dispatch permissions) in your Cloudflare Worker environment:
+   ```bash
+   cd worker
+   npx wrangler secret put GITHUB_TOKEN
+   npx wrangler secret put TRIGGER_SECRET # optional: secret token for HTTP trigger
+   ```
+
+4. **Trigger Manual Market Update via HTTP**:
+   ```bash
+   # Using curl:
+   curl -X POST https://loid-market-updater.szitku.workers.dev/trigger
+
+   # Using PowerShell:
+   Invoke-RestMethod -Uri "https://loid-market-updater.szitku.workers.dev/trigger" -Method POST
+   ```
 
 ### Production Build
 
@@ -233,15 +327,17 @@ npm run lint
 loid-vosfor-exchange/
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml                          # Automatic deployment to GitHub Pages
-│       └── update-market-data.yml              # Scheduled 4-hour market data fetcher
+│       ├── deploy.yml                          # Automatic deployment to GitHub Pages on push to main
+│       └── update-market-data.yml              # Market data fetcher triggered via repository_dispatch
 ├── public/
 │   ├── data/                                   # [Generated in CI / 'data' branch] Cached market statistics
 │   └── favicon.svg                             # Lotus emblem SVG favicon
 ├── scripts/
 │   ├── calculate-dissolution-values.test.mjs   # Unit tests for math models & normalization
-│   └── fetch-market-data.mjs                   # Headless node crawler for warframe.market
+│   └── fetch-market-data.mjs                   # Headless rate-limited node crawler for warframe.market
 ├── src/
+│   ├── assets/
+│   │   └── fonts/                              # Self-hosted WOFF2 fonts (Cinzel, Cormorant, Rajdhani, Inter)
 │   ├── components/
 │   │   ├── icons/                              # Warframe & faction SVG icons
 │   │   └── sections/                           # UI sections (Hero, Cards, Dissolver, Calculator, Toolbar)
@@ -253,11 +349,19 @@ loid-vosfor-exchange/
 │   │   └── dissolution.d.ts                    # TypeScript definitions for packs & calculations
 │   ├── util/                                   # Math models, audio engine, API client
 │   ├── App.jsx                                 # Root application shell & hash router
-│   ├── index.css                               # Tailwind CSS v4 styling & animations
+│   ├── fonts.css                               # Font-face declarations for self-hosted typography
+│   ├── index.css                               # Tailwind CSS v4 styling, custom scrollbars & theme variables
 │   └── main.jsx                                # Application entry point
+├── worker/                                     # Cloudflare Worker precision cron scheduler
+│   ├── src/
+│   │   └── index.ts                            # Cron handler (0 */2 * * *) & GitHub repository_dispatch caller
+│   ├── package.json                            # Cloudflare Worker dependencies (Wrangler)
+│   ├── tsconfig.json                           # TypeScript configuration for Worker
+│   ├── wrangler.jsonc                          # Wrangler configuration & cron triggers
+│   └── README.md                               # Worker setup, architecture, and manual trigger guide
 ├── LICENSE                                     # MIT License & trademark notice
-├── package.json
-└── vite.config.js                              # Vite configuration & dev proxy
+├── package.json                                # Project scripts & dependencies
+└── vite.config.js                              # Vite configuration, vendor chunking & dev proxy
 ```
 
 ---
